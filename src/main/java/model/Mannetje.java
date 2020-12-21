@@ -59,7 +59,9 @@ public class Mannetje {
         if (levens != 0){
             levens --;
         }
-        dood = true;
+        else{
+         dood = true;   
+        }
     }
     
     public void reset(){
@@ -68,10 +70,8 @@ public class Mannetje {
     }
     
     public void links(){
-        while(x!=0){
-        x = x - 20;
-        dx = -1;
-        }
+            x = x - 20;
+            dx = -1;          
     }
     public void rechts(){
         x = x + 20;
