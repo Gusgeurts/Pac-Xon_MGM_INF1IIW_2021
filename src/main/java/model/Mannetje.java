@@ -24,7 +24,6 @@ public class Mannetje {
         dx = 0;
         dy = 0;
         dood = false;
-        levens = 5;
     }
 
     /**

@@ -9,7 +9,12 @@ import javafx.scene.control.Label;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import model.Mannetje;
+import model.Speelveld;
+import model.Spook;
+import model.Vak;
 import view.MannetjeView;
+import view.SpeelveldView;
+import view.SpookView;
 
 public class SpeelveldController {
 
@@ -32,25 +37,42 @@ public class SpeelveldController {
     private Label labelY;
     
     private Mannetje mannetje;
-    private MannetjeView view;
+    private MannetjeView mannetjeView;
+    private Spook spook;
+    private SpookView spookView;
+    private Speelveld vakkenSpeelveld;
+    private SpeelveldView vakkenSpeelveldView;
 
     @FXML
     void initialize() {
         mannetje = new Mannetje(0,0);
-        view = new MannetjeView(mannetje);
-        speelveld.getChildren().add(view);
+        spook = new Spook(200 ,200);
+        vakkenSpeelveld = new Speelveld(40, 40);
+        
+        mannetjeView = new MannetjeView(mannetje);
+        spookView = new SpookView(spook);
+        vakkenSpeelveldView = new SpeelveldView(vakkenSpeelveld);
+        
+        speelveld.getChildren().add(mannetjeView);
+        speelveld.getChildren().add(spookView);
+        speelveld.getChildren().add(vakkenSpeelveldView);
+        
         update();
         
         speelveld.setOnKeyPressed(this::loopRond);
         resetButton.setOnAction(this::reset);
         
-        view.setFocusTraversable(true);
+        mannetjeView.setFocusTraversable(true);
         resetButton.setFocusTraversable(false);
     }
     private void update(){
-        view.update();
+        mannetjeView.update();
+        spookView.update();
+        vakkenSpeelveldView.update();
+        
         labelX.setText(mannetje.getX() + "");
         labelY.setText(mannetje.getY() + "");
+        
     }
     
     private void loopRond(KeyEvent t){
@@ -70,6 +92,22 @@ public class SpeelveldController {
             case DOWN:
                 mannetje.onder();
                 mannetje.setMaxYBorder();
+                break;
+            case Z:
+                spook.omhoog();
+                spook.setMinY();
+                break;
+            case S:
+                spook.omlaag();
+                spook.setMaxY();
+                break;
+            case D:
+                spook.rechts();
+                spook.setMaxX();
+                break;
+            case Q:
+                spook.links();
+                spook.setMinX();
                 break;
             
         }
