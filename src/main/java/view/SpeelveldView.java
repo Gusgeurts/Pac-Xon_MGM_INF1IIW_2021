@@ -14,32 +14,36 @@ import model.Vak;
  * @author Gus Geurts
  */
 public class SpeelveldView extends Region {
-    
+
     private Speelveld speelveld;
     private Vak vak;
-    
-    public SpeelveldView(Speelveld speelveld){
+
+    public SpeelveldView(Speelveld speelveld) {
         this.speelveld = speelveld;
         update();
     }
-    
-    public void update(){
-        
+
+    public void update() {
+
         int n = 0;
+        int m = 0;
         getChildren().clear();
         Vak vakken[][] = speelveld.getVakken();
-        for(int i=1; i<= speelveld.getRijen(); i++){
-            for(int j=1; i<= speelveld.getKolommen(); j++){
+        for (int i = 0; i < speelveld.getRijen(); i++) {
+            for (int j = 0; j < speelveld.getKolommen(); j++) {
                 VakView vv = new VakView(vakken[i][j]);
-                vv.setTranslateX(vak.getZijde() * n);
+                vv.setTranslateX(10 * n);
+                vv.setTranslateY(10 * m);
                 n++;
+                if(n == speelveld.getKolommen()){
+                    n=0;
+                }
                 getChildren().add(vv);
             }
-                
+            m++;
 
-                
         }
-        
+
     }
-    
+
 }

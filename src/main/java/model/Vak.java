@@ -10,7 +10,8 @@ package model;
  * @author Gus Geurts
  */
 public class Vak {
-     private int zijde;
+
+    private int zijde;
 
     public Vak() {
         zijde = 10;
@@ -22,6 +23,5 @@ public class Vak {
     public int getZijde() {
         return zijde;
     }
-    
-     
+
 }

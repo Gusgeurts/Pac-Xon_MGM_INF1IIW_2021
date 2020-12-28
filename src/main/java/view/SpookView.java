@@ -40,7 +40,7 @@ public class SpookView extends Region {
     public void createSpook() {
 
         paneel = new AnchorPane();
-        Circle bal = new Circle(spook.getStraal(), Color.BLUE);
+        Circle bal = new Circle(spook.getStraal(), Color.PINK);
         paneel.getChildren().addAll(bal);
     }
 }

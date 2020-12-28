@@ -10,24 +10,23 @@ package model;
  * @author Gus Geurts
  */
 public class Spook {
-    
+
     private int x;
     private int y;
-    
+
     private int vx;
     private int vy;
-    
+
     private int straal;
 
     public Spook(int x, int y) {
         this.x = x;
         this.y = y;
-        
+
         vx = 30;
         vy = 30;
         straal = 8;
-        
-        
+
     }
 
     /**
@@ -43,12 +42,14 @@ public class Spook {
     public int getY() {
         return y;
     }
+
     /**
      * @return the straal
      */
     public int getStraal() {
         return straal;
     }
+
     public int omhoog() {
         y = y - vy;
         return y;
@@ -68,6 +69,7 @@ public class Spook {
         x = x + vx;
         return x;
     }
+
     public int setMaxX() {
         if (x > 600 - getStraal()) {
             x = 600 - getStraal();
@@ -99,5 +101,5 @@ public class Spook {
         }
         return y;
     }
-    
+
 }

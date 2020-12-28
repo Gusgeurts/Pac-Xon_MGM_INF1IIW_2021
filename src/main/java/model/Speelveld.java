@@ -21,8 +21,8 @@ public class Speelveld {
         this.kolommen = kolommen;
         vakken = new Vak[rijen][kolommen];
         
-        for (int i = 1; i<=rijen; i++){
-            for(int j = 1; j<=kolommen; j++){
+        for (int i = 0; i<rijen; i++){
+            for(int j = 0; j<kolommen; j++){
                 vakken[i][j] = new Vak();
             }
         }
