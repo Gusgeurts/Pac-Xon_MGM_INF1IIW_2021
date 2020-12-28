@@ -11,7 +11,6 @@ import javafx.scene.layout.AnchorPane;
 import model.Mannetje;
 import model.Speelveld;
 import model.Spook;
-import model.Vak;
 import view.MannetjeView;
 import view.SpeelveldView;
 import view.SpookView;
@@ -35,7 +34,7 @@ public class SpeelveldController {
 
     @FXML
     private Label labelY;
-    
+
     private Mannetje mannetje;
     private MannetjeView mannetjeView;
     private Spook spook;
@@ -45,38 +44,41 @@ public class SpeelveldController {
 
     @FXML
     void initialize() {
-        mannetje = new Mannetje(0,0);
-        spook = new Spook(200 ,200);
+
+        mannetje = new Mannetje(0, 0);
+        spook = new Spook(200, 200);
         vakkenSpeelveld = new Speelveld(50, 60);
-        
+
         mannetjeView = new MannetjeView(mannetje);
         spookView = new SpookView(spook);
         vakkenSpeelveldView = new SpeelveldView(vakkenSpeelveld);
+
         speelveld.getChildren().add(vakkenSpeelveldView);
         speelveld.getChildren().add(mannetjeView);
         speelveld.getChildren().add(spookView);
-        
-        
+
         update();
-        
+
         speelveld.setOnKeyPressed(this::loopRond);
         resetButton.setOnAction(this::reset);
-        
+
         mannetjeView.setFocusTraversable(true);
         resetButton.setFocusTraversable(false);
     }
-    private void update(){
+
+    private void update() {
+
         mannetjeView.update();
         spookView.update();
         vakkenSpeelveldView.update();
-        
+
         labelX.setText(mannetje.getX() + "");
         labelY.setText(mannetje.getY() + "");
-        
+
     }
-    
-    private void loopRond(KeyEvent t){
-        switch(t.getCode()){
+
+    private void loopRond(KeyEvent t) {
+        switch (t.getCode()) {
             case RIGHT:
                 mannetje.rechts();
                 mannetje.setMaxXBorder();
@@ -84,7 +86,7 @@ public class SpeelveldController {
             case LEFT:
                 mannetje.links();
                 mannetje.setMinXBorder();
-                break;        
+                break;
             case UP:
                 mannetje.boven();
                 mannetje.setMinYBorder();
@@ -109,11 +111,11 @@ public class SpeelveldController {
                 spook.links();
                 spook.setMinX();
                 break;
-            
         }
         update();
     }
-    private void reset(ActionEvent e){
+
+    private void reset(ActionEvent e) {
         mannetje.reset();
         update();
     }
