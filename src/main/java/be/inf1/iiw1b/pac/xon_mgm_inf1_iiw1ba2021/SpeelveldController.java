@@ -58,8 +58,9 @@ public class SpeelveldController {
     @FXML
     void initialize() {
 
-        mannetje = new Mannetje(0, 0);
+        mannetje = new Mannetje(10, 10);
         spook = new Spook(200, 200);
+        spook = new Spook(200, 200); 
         vakkenSpeelveld = new Speelveld(23, 34);
 
         mannetjeView = new MannetjeView(mannetje);
@@ -110,25 +111,29 @@ public class SpeelveldController {
             case RIGHT:
                 mannetje.rechts();
                 mannetje.setMaxXBorder();
+                mannetjeView.getVormMannetje().setRotate(0);
                 break;
             case LEFT:
                 mannetje.links();
                 mannetje.setMinXBorder();
+                mannetjeView.getVormMannetje().setRotate(180);
                 break;
             case UP:
                 mannetje.boven();
                 mannetje.setMinYBorder();
+                mannetjeView.getVormMannetje().setRotate(270);                
                 break;
             case DOWN:
                 mannetje.onder();
                 mannetje.setMaxYBorder();
+                mannetjeView.getVormMannetje().setRotate(90);               
                 break;
         }
         update();
     }
 
     private void reset(ActionEvent e) {
-        mannetje.reset();
+        mannetje.resetGame();
         update();
     }
     private void geraakt(){

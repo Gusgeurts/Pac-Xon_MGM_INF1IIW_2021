@@ -17,12 +17,12 @@ public class Mannetje {
     private int dy;
     private boolean dood;
     private int levens;
-    private int zijde;
+    private int straal;
 
     public Mannetje(int x, int y) {
         this.x = x;
         this.y = y;
-        zijde = 20;
+        straal = 10;
         dx = 0;
         dy = 0;
         levens = 5;
@@ -75,9 +75,10 @@ public class Mannetje {
         return dood;
     }
 
-    public void reset() {
-        x = 0;
-        y = 0;
+    public void resetGame() {
+        x = 10;
+        y = 10;
+        levens = 5;
         dood = false;
     }
 
@@ -101,44 +102,44 @@ public class Mannetje {
         dy = -1;
     }
 
-    public void stil() {
-        dx = 0;
-        dy = 0;
+    public void reset() {
+        x = 10;
+        y = 10;
 
     }
 
     public int setMaxXBorder() {
-        if (x > 680 - zijde) {
-            x = 680 - zijde;
+        if (x > 680 - getStraal()) {
+            x = 680 - getStraal();
             return x;
         }
         return x;
     }
 
     public int setMinXBorder() {
-        if (x < 0) {
-            x = 0;
+        if (x < 10) {
+            x = 10;
             return x;
         }
         return x;
     }
 
     public int setMaxYBorder() {
-        if (y > 460 - zijde) {
-            y = 460 - zijde;
+        if (y > 460 - getStraal()) {
+            y = 460 - getStraal();
             return y;
         }
         return y;
     }
 
     public int setMinYBorder() {
-        if (y < 0) {
-            y = 0;
+        if (y < 10) {
+            y = 10;
             return y;
         }
         return y;
     }
-    public int getZijde(){
-        return zijde;
+    public int getStraal(){
+        return straal;
     }
 }
