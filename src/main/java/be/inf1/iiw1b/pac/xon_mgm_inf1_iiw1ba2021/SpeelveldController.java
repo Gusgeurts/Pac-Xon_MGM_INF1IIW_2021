@@ -80,9 +80,9 @@ public class SpeelveldController {
         mannetjeView.setFocusTraversable(true);
         resetButton.setFocusTraversable(false);
 
-        BeweegSpook task = new BeweegSpook(spook, this);
+        BeweegSpook taskSpook = new BeweegSpook(spook, this);
         Timer t = new Timer(true);
-        t.scheduleAtFixedRate(task, 0, 10);
+        t.scheduleAtFixedRate(taskSpook, 0, 10);
 
     }
 
@@ -102,6 +102,8 @@ public class SpeelveldController {
         geraakt();
 
         ogenSpook();
+
+        gameOver();
 
     }
 
@@ -133,6 +135,7 @@ public class SpeelveldController {
 
     private void reset(ActionEvent e) {
         mannetje.resetGame();
+        vakkenSpeelveldView.reset(vakkenSpeelveld);
         update();
     }
 
@@ -147,6 +150,13 @@ public class SpeelveldController {
             spookView.getVormSpook().setScaleX(-1);
         } else {
             spookView.getVormSpook().setScaleX(1);
+        }
+    }
+
+    private void gameOver() {
+        if (mannetje.getDood()) {
+            vakkenSpeelveldView.reset(vakkenSpeelveld);
+            mannetje.resetGame();
         }
     }
 }

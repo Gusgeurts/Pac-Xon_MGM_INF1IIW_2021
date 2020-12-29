@@ -76,4 +76,24 @@ public class SpeelveldView extends Region {
         }
     }
 
+    public void reset(Speelveld speelveld) {
+        Vak vakken[][] = speelveld.getVakken();
+        for (int i = 0; i < speelveld.getRijen(); i++) {
+            for (int j = 0; j < speelveld.getKolommen(); j++) {
+                if (i != 0) {
+                    vakken[i][j].setStatus(status.LEEG);
+                }
+                if (i != 22) {
+                    vakken[i][j].setStatus(status.LEEG);
+                }
+                if (j != 0) {
+                    vakken[i][j].setStatus(status.LEEG);
+                }
+                if (j != 33) {
+                    vakken[i][j].setStatus(status.LEEG);
+                }
+            }
+        }
+    }
+
 }
