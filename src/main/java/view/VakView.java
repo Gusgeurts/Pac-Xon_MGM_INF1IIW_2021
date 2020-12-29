@@ -17,6 +17,7 @@ import model.Vak;
 public class VakView extends Region {
     
     private Vak vak;
+    private Rectangle v;
 
     public VakView(Vak vak) {
         this.vak = vak;
@@ -24,11 +25,15 @@ public class VakView extends Region {
     }
     
     public void update(){
-        Rectangle v = new Rectangle(vak.getZijde(), vak.getZijde());
+        v = new Rectangle(vak.getZijde(), vak.getZijde());
         v.setFill(Color.BLUE);
         v.setStroke(Color.BLACK);
         v.setStrokeWidth(1);
         
         getChildren().add(v); 
     }
+        public Rectangle getVormVak() {
+        return v;
+    }
+ 
 }

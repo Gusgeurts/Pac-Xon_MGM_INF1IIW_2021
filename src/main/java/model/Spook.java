@@ -36,14 +36,14 @@ public class Spook {
      * @return the x
      */
     public double getX() {
-        return x;
+        return Math.round(x);
     }
 
     /**
      * @return the y
      */
     public double getY() {
-        return y;
+        return Math.round(y);
     }
 
     /**

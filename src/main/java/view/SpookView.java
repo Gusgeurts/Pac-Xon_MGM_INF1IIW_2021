@@ -5,6 +5,7 @@
  */
 package view;
 
+import javafx.geometry.Bounds;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
@@ -19,6 +20,7 @@ public class SpookView extends Region {
 
     private Spook spook;
     private AnchorPane paneel;
+    private Circle bal;
 
     public SpookView(Spook spook) {
         this.spook = spook;
@@ -40,7 +42,12 @@ public class SpookView extends Region {
     public void createSpook() {
 
         paneel = new AnchorPane();
-        Circle bal = new Circle(spook.getStraal(), Color.PINK);
+        bal = new Circle(spook.getStraal(), Color.PINK);
+        
         paneel.getChildren().addAll(bal);
+    }
+
+    public Circle getVormSpook() {
+        return bal;
     }
 }

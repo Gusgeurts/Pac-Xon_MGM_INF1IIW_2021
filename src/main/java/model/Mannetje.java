@@ -60,14 +60,25 @@ public class Mannetje {
     public void isDood() {
         if (levens != 0) {
             levens--;
-        } else {
-            dood = true;
+            reset();
+            if(levens == 0){
+                   dood = true;  
+            }
         }
+    }
+    
+    public int getLevens(){
+        return levens;
+    }
+    
+    public boolean getDood(){
+        return dood;
     }
 
     public void reset() {
         x = 0;
         y = 0;
+        dood = false;
     }
 
     public void links() {

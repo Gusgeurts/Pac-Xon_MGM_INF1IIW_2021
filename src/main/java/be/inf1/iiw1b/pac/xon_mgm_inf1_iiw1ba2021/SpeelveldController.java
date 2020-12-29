@@ -31,11 +31,23 @@ public class SpeelveldController {
     private Button resetButton;
 
     @FXML
-    private Label labelX;
+    private Label labelMannetjeX;
 
     @FXML
-    private Label labelY;
+    private Label labelMannetjeY;
+    
+    @FXML
+    private Label labelLevens;
 
+    @FXML
+    private Label labelSpookX;
+    
+    @FXML
+    private Label labelSpookY;
+    
+    @FXML
+    private Label labelDood;
+    
     private Mannetje mannetje;
     private MannetjeView mannetjeView;
     private Spook spook;
@@ -69,6 +81,10 @@ public class SpeelveldController {
         BeweegSpook task = new BeweegSpook(spook, this);
         Timer t = new Timer(true);
         t.scheduleAtFixedRate(task, 0, 10);
+        
+        
+        
+
     }
 
     public void update() {
@@ -77,8 +93,15 @@ public class SpeelveldController {
         spookView.update();
         vakkenSpeelveldView.update();
 
-        labelX.setText(mannetje.getX() + "");
-        labelY.setText(mannetje.getY() + "");
+        labelMannetjeX.setText(mannetje.getX() + "");
+        labelMannetjeY.setText(mannetje.getY() + "");
+        labelSpookX.setText(spook.getX() + "");
+        labelSpookY.setText(spook.getY() + "");
+        labelLevens.setText(mannetje.getLevens() + "");
+        labelDood.setText(mannetje.getDood() + "");
+        
+        geraakt();
+        
 
     }
 
@@ -107,5 +130,10 @@ public class SpeelveldController {
     private void reset(ActionEvent e) {
         mannetje.reset();
         update();
+    }
+    private void geraakt(){
+        if(spookView.getVormSpook().intersects(spookView.getVormSpook().sceneToLocal(mannetjeView.getVormMannetje().localToScene(mannetjeView.getVormMannetje().getBoundsInLocal())))){
+            mannetje.isDood();
+        }
     }
 }
