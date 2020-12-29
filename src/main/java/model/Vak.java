@@ -12,9 +12,10 @@ package model;
 public class Vak {
 
     private double zijde;
-
+    private StatusVak status;
     public Vak() {
         zijde = 20;
+        status = status.LEEG;
     }
 
     /**
@@ -22,6 +23,20 @@ public class Vak {
      */
     public double getZijde() {
         return zijde;
+    }
+
+    /**
+     * @return the status
+     */
+    public StatusVak getStatus() {
+        return status;
+    }
+
+    /**
+     * @param status the status to set
+     */
+    public void setStatus(StatusVak status) {
+        this.status = status;
     }
 
 }

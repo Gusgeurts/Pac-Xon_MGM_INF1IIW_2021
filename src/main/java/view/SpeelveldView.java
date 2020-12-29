@@ -7,6 +7,7 @@ package view;
 
 import javafx.scene.layout.Region;
 import model.Speelveld;
+import model.StatusVak;
 import model.Vak;
 
 /**
@@ -17,6 +18,7 @@ public class SpeelveldView extends Region {
 
     private Speelveld speelveld;
     private Vak vak;
+    private StatusVak status;
 
     public SpeelveldView(Speelveld speelveld) {
         this.speelveld = speelveld;
@@ -32,11 +34,23 @@ public class SpeelveldView extends Region {
         for (int i = 0; i < speelveld.getRijen(); i++) {
             for (int j = 0; j < speelveld.getKolommen(); j++) {
                 VakView vv = new VakView(vakken[i][j]);
+                if(i==0){
+                    vakken[i][j].setStatus(status.GEVULD);
+                }
+                if(i==22){
+                    vakken[i][j].setStatus(status.GEVULD);
+                }
+                if(j==0){
+                    vakken[i][j].setStatus(status.GEVULD);
+                }
+                if(j==33){
+                    vakken[i][j].setStatus(status.GEVULD);
+                }                
                 vv.setTranslateX(20 * n);
                 vv.setTranslateY(20 * m);
                 n++;
-                if(n == speelveld.getKolommen()){
-                    n=0;
+                if (n == speelveld.getKolommen()) {
+                    n = 0;
                 }
                 getChildren().add(vv);
             }

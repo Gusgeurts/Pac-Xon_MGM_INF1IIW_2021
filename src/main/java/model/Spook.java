@@ -26,8 +26,8 @@ public class Spook {
         this.y = y;
         Random rndx = new Random();
         Random rndy = new Random();
-        vx = rndx.nextDouble() *(1 - (-1)) + -1;
-        vy = rndy.nextDouble() *(1 - (-1)) + -1;
+        vx = rndx.nextDouble() * (1 - (-1)) + -1;
+        vy = rndy.nextDouble() * (1 - (-1)) + -1;
         straal = 10;
 
     }
@@ -54,45 +54,59 @@ public class Spook {
     }
 
     public double verticaal() {
-        y =  y - vy;
+        y = y - getVy();
         return y;
     }
 
     public double horizontaal() {
-        x = x - vx;
+        x = x - getVx();
         return x;
     }
 
     public void setMaxX() {
         if (x > 680 - getStraal()) {
-            vx = vx*-1;
+            vx = getVx() * -1;
         }
     }
 
     public void setMinX() {
         if (x < getStraal()) {
-            vx = vx*-1;
+            vx = getVx() * -1;
         }
     }
 
     public void setMaxY() {
         if (y > 460 - getStraal()) {
-            vy = vy*-1;
+            vy = getVy() * -1;
         }
     }
 
     public void setMinY() {
         if (y < getStraal()) {
-            vy = vy*-1;            
+            vy = getVy() * -1;
         }
     }
-    
-    public void Tick(){
+
+    public void Tick() {
         verticaal();
         horizontaal();
         setMaxX();
         setMaxY();
         setMinX();
         setMinY();
+    }
+
+    /**
+     * @return the vx
+     */
+    public double getVx() {
+        return vx;
+    }
+
+    /**
+     * @return the vy
+     */
+    public double getVy() {
+        return vy;
     }
 }

@@ -35,19 +35,19 @@ public class SpeelveldController {
 
     @FXML
     private Label labelMannetjeY;
-    
+
     @FXML
     private Label labelLevens;
 
     @FXML
     private Label labelSpookX;
-    
+
     @FXML
     private Label labelSpookY;
-    
+
     @FXML
     private Label labelDood;
-    
+
     private Mannetje mannetje;
     private MannetjeView mannetjeView;
     private Spook spook;
@@ -60,7 +60,7 @@ public class SpeelveldController {
 
         mannetje = new Mannetje(10, 10);
         spook = new Spook(200, 200);
-        spook = new Spook(200, 200); 
+        spook = new Spook(200, 200);
         vakkenSpeelveld = new Speelveld(23, 34);
 
         mannetjeView = new MannetjeView(mannetje);
@@ -78,13 +78,10 @@ public class SpeelveldController {
 
         mannetjeView.setFocusTraversable(true);
         resetButton.setFocusTraversable(false);
-        
+
         BeweegSpook task = new BeweegSpook(spook, this);
         Timer t = new Timer(true);
         t.scheduleAtFixedRate(task, 0, 10);
-        
-        
-        
 
     }
 
@@ -100,9 +97,10 @@ public class SpeelveldController {
         labelSpookY.setText(spook.getY() + "");
         labelLevens.setText(mannetje.getLevens() + "");
         labelDood.setText(mannetje.getDood() + "");
-        
+
         geraakt();
-        
+
+        ogenSpook();
 
     }
 
@@ -121,12 +119,12 @@ public class SpeelveldController {
             case UP:
                 mannetje.boven();
                 mannetje.setMinYBorder();
-                mannetjeView.getVormMannetje().setRotate(270);                
+                mannetjeView.getVormMannetje().setRotate(270);
                 break;
             case DOWN:
                 mannetje.onder();
                 mannetje.setMaxYBorder();
-                mannetjeView.getVormMannetje().setRotate(90);               
+                mannetjeView.getVormMannetje().setRotate(90);
                 break;
         }
         update();
@@ -136,9 +134,18 @@ public class SpeelveldController {
         mannetje.resetGame();
         update();
     }
-    private void geraakt(){
-        if(spookView.getVormSpook().intersects(spookView.getVormSpook().sceneToLocal(mannetjeView.getVormMannetje().localToScene(mannetjeView.getVormMannetje().getBoundsInLocal())))){
+
+    private void geraakt() {
+        if (spookView.getVormSpook().intersects(spookView.getVormSpook().sceneToLocal(mannetjeView.getVormMannetje().localToScene(mannetjeView.getVormMannetje().getBoundsInLocal())))) {
             mannetje.isDood();
+        }
+    }
+
+    private void ogenSpook() {
+        if (spook.getVx() < 0) {
+            spookView.getVormSpook().setScaleX(-1);
+        } else {
+            spookView.getVormSpook().setScaleX(1);
         }
     }
 }

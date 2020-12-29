@@ -20,38 +20,39 @@ import model.Mannetje;
  *
  * @author Gus Geurts
  */
-public class MannetjeView extends Region{
-    
+public class MannetjeView extends Region {
+
     private Mannetje mannetje;
     private AnchorPane paneel;
     private Circle cirkel;
-    
-    public MannetjeView(Mannetje mannetje){
+
+    public MannetjeView(Mannetje mannetje) {
         this.mannetje = mannetje;
         createMannetje();
         update();
     }
-    
-    public void update(){
+
+    public void update() {
         getChildren().clear();
-        
+
         paneel.setTranslateX(mannetje.getX());
         paneel.setTranslateY(mannetje.getY());
-        
+
         getChildren().addAll(paneel);
     }
-    
-    public void createMannetje(){
+
+    public void createMannetje() {
         paneel = new AnchorPane();
-        
+
         cirkel = new Circle(mannetje.getStraal());
         Image img = new Image("https://1.bp.blogspot.com/-XXAXYwSHQb0/WSQ66A2JiuI/AAAAAAAAAi0/TOWOBq9p1-wcUETDp2tzE_OeqhhoseWuwCLcB/s1600/pacman-eating.gif");
         cirkel.setFill(new ImagePattern(img));
-        
+
         paneel.getChildren().addAll(cirkel);
-  
+
     }
-    public Circle getVormMannetje(){
+
+    public Circle getVormMannetje() {
         return cirkel;
     }
 }

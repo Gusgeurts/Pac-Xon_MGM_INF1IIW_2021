@@ -13,7 +13,8 @@ import model.Spook;
  *
  * @author Gus Geurts
  */
-public class BeweegSpook extends TimerTask{
+public class BeweegSpook extends TimerTask {
+
     private Spook spook;
     private SpeelveldController controller;
 
@@ -21,12 +22,12 @@ public class BeweegSpook extends TimerTask{
         this.spook = spook;
         this.controller = controller;
     }
-    
+
     @Override
     public void run() {
         spook.Tick();
         Platform.runLater(controller::update);
-        
+
     }
-    
+
 }

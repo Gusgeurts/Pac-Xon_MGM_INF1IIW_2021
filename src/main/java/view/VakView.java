@@ -8,6 +8,7 @@ package view;
 import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import model.StatusVak;
 import model.Vak;
 
 /**
@@ -15,25 +16,39 @@ import model.Vak;
  * @author Gus Geurts
  */
 public class VakView extends Region {
-    
+
     private Vak vak;
     private Rectangle v;
+    private StatusVak status;
 
     public VakView(Vak vak) {
         this.vak = vak;
         update();
     }
-    
-    public void update(){
+
+    public void update() {
         v = new Rectangle(vak.getZijde(), vak.getZijde());
-        v.setFill(Color.BLUE);
-        v.setStroke(Color.BLACK);
-        v.setStrokeWidth(1);
         
-        getChildren().add(v); 
+        if(vak.getStatus() == status.LEEG){
+            v.setFill(Color.BLACK);
+            v.setStroke(Color.GREY);
+            v.setStrokeWidth(1);        
+        }
+        else if(vak.getStatus() == status.IN_DE_MAAK){
+            v.setFill(Color.BLACK);
+            v.setStroke(Color.GREY);
+            v.setStrokeWidth(1);        
+        }
+        else{
+            v.setFill(Color.BLUE);
+            v.setStroke(Color.GREY);
+            v.setStrokeWidth(1);        
+        }
+        getChildren().add(v);
     }
-        public Rectangle getVormVak() {
+
+    public Rectangle getVormVak() {
         return v;
     }
- 
+
 }

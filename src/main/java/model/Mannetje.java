@@ -61,17 +61,17 @@ public class Mannetje {
         if (levens != 0) {
             levens--;
             reset();
-            if(levens == 0){
-                   dood = true;  
+            if (levens == 0) {
+                dood = true;
             }
         }
     }
-    
-    public int getLevens(){
+
+    public int getLevens() {
         return levens;
     }
-    
-    public boolean getDood(){
+
+    public boolean getDood() {
         return dood;
     }
 
@@ -139,7 +139,8 @@ public class Mannetje {
         }
         return y;
     }
-    public int getStraal(){
+
+    public int getStraal() {
         return straal;
     }
 }
