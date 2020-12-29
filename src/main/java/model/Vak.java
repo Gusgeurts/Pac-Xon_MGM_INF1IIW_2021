@@ -13,6 +13,7 @@ public class Vak {
 
     private double zijde;
     private StatusVak status;
+
     public Vak() {
         zijde = 20;
         status = status.LEEG;

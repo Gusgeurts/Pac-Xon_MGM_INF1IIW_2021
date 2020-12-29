@@ -11,5 +11,5 @@ package model;
  */
 public enum StatusVak {
     GEVULD, IN_DE_MAAK, LEEG
-    
+
 }

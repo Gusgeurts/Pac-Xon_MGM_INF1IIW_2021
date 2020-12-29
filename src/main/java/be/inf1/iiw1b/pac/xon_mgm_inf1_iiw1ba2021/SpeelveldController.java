@@ -12,6 +12,7 @@ import javafx.scene.layout.AnchorPane;
 import model.Mannetje;
 import model.Speelveld;
 import model.Spook;
+import model.StatusVak;
 import view.MannetjeView;
 import view.SpeelveldView;
 import view.SpookView;
@@ -54,18 +55,18 @@ public class SpeelveldController {
     private SpookView spookView;
     private Speelveld vakkenSpeelveld;
     private SpeelveldView vakkenSpeelveldView;
+    private StatusVak status;
 
     @FXML
     void initialize() {
 
         mannetje = new Mannetje(10, 10);
         spook = new Spook(200, 200);
-        spook = new Spook(200, 200);
         vakkenSpeelveld = new Speelveld(23, 34);
 
         mannetjeView = new MannetjeView(mannetje);
         spookView = new SpookView(spook);
-        vakkenSpeelveldView = new SpeelveldView(vakkenSpeelveld);
+        vakkenSpeelveldView = new SpeelveldView(vakkenSpeelveld, mannetje);
 
         speelveld.getChildren().add(vakkenSpeelveldView);
         speelveld.getChildren().add(mannetjeView);
