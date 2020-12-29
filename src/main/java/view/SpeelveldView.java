@@ -32,8 +32,8 @@ public class SpeelveldView extends Region {
         for (int i = 0; i < speelveld.getRijen(); i++) {
             for (int j = 0; j < speelveld.getKolommen(); j++) {
                 VakView vv = new VakView(vakken[i][j]);
-                vv.setTranslateX(10 * n);
-                vv.setTranslateY(10 * m);
+                vv.setTranslateX(20 * n);
+                vv.setTranslateY(20 * m);
                 n++;
                 if(n == speelveld.getKolommen()){
                     n=0;

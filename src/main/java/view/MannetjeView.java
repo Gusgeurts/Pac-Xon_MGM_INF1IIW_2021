@@ -37,7 +37,7 @@ public class MannetjeView extends Region{
     
     public void createMannetje(){
         paneel = new AnchorPane();
-        Rectangle vierkant = new Rectangle(30,30, Color.BLACK);
+        Rectangle vierkant = new Rectangle(mannetje.getZijde(),mannetje.getZijde(), Color.BLACK);
         
         paneel.getChildren().addAll(vierkant);
             

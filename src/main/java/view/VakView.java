@@ -26,6 +26,8 @@ public class VakView extends Region {
     public void update(){
         Rectangle v = new Rectangle(vak.getZijde(), vak.getZijde());
         v.setFill(Color.BLUE);
+        v.setStroke(Color.BLACK);
+        v.setStrokeWidth(1);
         
         getChildren().add(v); 
     }

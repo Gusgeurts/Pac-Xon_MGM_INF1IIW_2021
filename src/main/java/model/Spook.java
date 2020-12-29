@@ -5,41 +5,44 @@
  */
 package model;
 
+import java.util.Random;
+
 /**
  *
  * @author Gus Geurts
  */
 public class Spook {
 
-    private int x;
-    private int y;
+    private double x;
+    private double y;
 
-    private int vx;
-    private int vy;
+    private double vx;
+    private double vy;
 
     private int straal;
 
     public Spook(int x, int y) {
         this.x = x;
         this.y = y;
-
-        vx = 30;
-        vy = 30;
-        straal = 8;
+        Random rndx = new Random();
+        Random rndy = new Random();
+        vx = rndx.nextDouble() *(1 - (-1)) + -1;
+        vy = rndy.nextDouble() *(1 - (-1)) + -1;
+        straal = 10;
 
     }
 
     /**
      * @return the x
      */
-    public int getX() {
+    public double getX() {
         return x;
     }
 
     /**
      * @return the y
      */
-    public int getY() {
+    public double getY() {
         return y;
     }
 
@@ -50,56 +53,46 @@ public class Spook {
         return straal;
     }
 
-    public int omhoog() {
-        y = y - vy;
+    public double verticaal() {
+        y =  y - vy;
         return y;
     }
 
-    public int omlaag() {
-        y = y + vy;
-        return y;
-    }
-
-    public int links() {
+    public double horizontaal() {
         x = x - vx;
         return x;
     }
 
-    public int rechts() {
-        x = x + vx;
-        return x;
-    }
-
-    public int setMaxX() {
-        if (x > 600 - getStraal()) {
-            x = 600 - getStraal();
-            return x;
+    public void setMaxX() {
+        if (x > 680 - getStraal()) {
+            vx = vx*-1;
         }
-        return x;
     }
 
-    public int setMinX() {
+    public void setMinX() {
         if (x < getStraal()) {
-            x = getStraal();
-            return x;
+            vx = vx*-1;
         }
-        return x;
     }
 
-    public int setMaxY() {
-        if (y > 500 - getStraal()) {
-            y = 500 - getStraal();
-            return y;
+    public void setMaxY() {
+        if (y > 460 - getStraal()) {
+            vy = vy*-1;
         }
-        return y;
     }
 
-    public int setMinY() {
+    public void setMinY() {
         if (y < getStraal()) {
-            y = getStraal();
-            return y;
+            vy = vy*-1;            
         }
-        return y;
     }
-
+    
+    public void Tick(){
+        verticaal();
+        horizontaal();
+        setMaxX();
+        setMaxY();
+        setMinX();
+        setMinY();
+    }
 }

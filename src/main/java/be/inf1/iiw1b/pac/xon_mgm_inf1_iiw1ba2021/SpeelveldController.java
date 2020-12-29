@@ -2,6 +2,7 @@ package be.inf1.iiw1b.pac.xon_mgm_inf1_iiw1ba2021;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.Timer;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -47,7 +48,7 @@ public class SpeelveldController {
 
         mannetje = new Mannetje(0, 0);
         spook = new Spook(200, 200);
-        vakkenSpeelveld = new Speelveld(50, 60);
+        vakkenSpeelveld = new Speelveld(23, 34);
 
         mannetjeView = new MannetjeView(mannetje);
         spookView = new SpookView(spook);
@@ -64,9 +65,13 @@ public class SpeelveldController {
 
         mannetjeView.setFocusTraversable(true);
         resetButton.setFocusTraversable(false);
+        
+        BeweegSpook task = new BeweegSpook(spook, this);
+        Timer t = new Timer(true);
+        t.scheduleAtFixedRate(task, 0, 10);
     }
 
-    private void update() {
+    public void update() {
 
         mannetjeView.update();
         spookView.update();
@@ -94,22 +99,6 @@ public class SpeelveldController {
             case DOWN:
                 mannetje.onder();
                 mannetje.setMaxYBorder();
-                break;
-            case Z:
-                spook.omhoog();
-                spook.setMinY();
-                break;
-            case S:
-                spook.omlaag();
-                spook.setMaxY();
-                break;
-            case D:
-                spook.rechts();
-                spook.setMaxX();
-                break;
-            case Q:
-                spook.links();
-                spook.setMinX();
                 break;
         }
         update();

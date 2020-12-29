@@ -17,12 +17,15 @@ public class Mannetje {
     private int dy;
     private boolean dood;
     private int levens;
+    private int zijde;
 
     public Mannetje(int x, int y) {
         this.x = x;
         this.y = y;
+        zijde = 20;
         dx = 0;
         dy = 0;
+        levens = 5;
         dood = false;
     }
 
@@ -94,8 +97,8 @@ public class Mannetje {
     }
 
     public int setMaxXBorder() {
-        if (x > 600) {
-            x = 600;
+        if (x > 680 - zijde) {
+            x = 680 - zijde;
             return x;
         }
         return x;
@@ -110,8 +113,8 @@ public class Mannetje {
     }
 
     public int setMaxYBorder() {
-        if (y > 500) {
-            y = 500;
+        if (y > 460 - zijde) {
+            y = 460 - zijde;
             return y;
         }
         return y;
@@ -123,5 +126,8 @@ public class Mannetje {
             return y;
         }
         return y;
+    }
+    public int getZijde(){
+        return zijde;
     }
 }
