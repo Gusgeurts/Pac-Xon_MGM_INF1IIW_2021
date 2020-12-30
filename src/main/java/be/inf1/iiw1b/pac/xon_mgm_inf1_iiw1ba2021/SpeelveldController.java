@@ -49,6 +49,9 @@ public class SpeelveldController {
     @FXML
     private Label labelDood;
 
+    @FXML
+    private Label labelInvulProcent;
+
     private Mannetje mannetje;
     private MannetjeView mannetjeView;
     private Spook spook;
@@ -98,6 +101,7 @@ public class SpeelveldController {
         labelSpookY.setText(spook.getY() + "");
         labelLevens.setText(mannetje.getLevens() + "");
         labelDood.setText(mannetje.getDood() + "");
+        labelInvulProcent.setText(vakkenSpeelveldView.getProcentGevuld() + "");
 
         geraakt();
 
@@ -141,6 +145,7 @@ public class SpeelveldController {
 
     private void geraakt() {
         if (spookView.getVormSpook().intersects(spookView.getVormSpook().sceneToLocal(mannetjeView.getVormMannetje().localToScene(mannetjeView.getVormMannetje().getBoundsInLocal())))) {
+            vakkenSpeelveldView.geraaktOpMannetje();
             mannetje.isDood();
         }
     }
