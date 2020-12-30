@@ -11,7 +11,7 @@ package model;
  */
 public class Vak {
 
-    private double zijde;
+    private int zijde;
     private StatusVak status;
 
     public Vak() {
@@ -22,7 +22,7 @@ public class Vak {
     /**
      * @return the zijde
      */
-    public double getZijde() {
+    public int getZijde() {
         return zijde;
     }
 
