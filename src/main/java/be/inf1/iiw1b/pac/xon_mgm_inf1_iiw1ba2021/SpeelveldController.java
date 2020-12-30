@@ -58,7 +58,6 @@ public class SpeelveldController {
     private SpookView spookView;
     private Speelveld vakkenSpeelveld;
     private SpeelveldView vakkenSpeelveldView;
-    private StatusVak status;
 
     @FXML
     void initialize() {
@@ -68,7 +67,7 @@ public class SpeelveldController {
         vakkenSpeelveld = new Speelveld(23, 34);
 
         mannetjeView = new MannetjeView(mannetje);
-        spookView = new SpookView(spook);
+        spookView = new SpookView(spook);     
         vakkenSpeelveldView = new SpeelveldView(vakkenSpeelveld, mannetje, spook);
 
         speelveld.getChildren().add(vakkenSpeelveldView);

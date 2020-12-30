@@ -19,7 +19,6 @@ import model.Vak;
 public class SpeelveldView extends Region {
 
     private Speelveld speelveld;
-    private Vak vak;
     private StatusVak status;
     private Mannetje mannetje;
     private Spook spook;
@@ -39,12 +38,41 @@ public class SpeelveldView extends Region {
 
     public void update() {
 
-        int n = 0;
-        int m = 0;
         getChildren().clear();
+
+        maakSpeelveld();
 
         geraaktInPad();
 
+        maakInDeMaakLijn();
+
+        maakGevuldeLijn();
+
+        //        for (int i = 1; i < speelveld.getRijen() - 1; i++) {
+        //            for (int j = 1; j < speelveld.getKolommen() - 1; j++) {
+        //                if (vakken[i][j].getStatus().equals(status.GEVULD)) {
+        //                    if (33 - j > 16) {
+        //                        for (int k = 1; k <= i; k++) {
+        //                            for (int l = 1; l <= j; l++) {
+        //                                vakken[k][l].setStatus(status.GEVULD);
+        //                            }
+        //                       }
+        //                    } else {
+        //                        for (int k = 21; k >= i; k--) {
+        //                            for (int l = 32; l >= j; l--) {
+        //                                vakken[k][l].setStatus(status.GEVULD);
+        //                            }
+        //                        }
+        //                    }
+        //
+        //                }
+        //            }
+        //        }    
+    }
+
+    public void maakSpeelveld() {
+        int n = 0;
+        int m = 0;
         Vak vakken[][] = speelveld.getVakken();
         for (int i = 0; i < speelveld.getRijen(); i++) {
             for (int j = 0; j < speelveld.getKolommen(); j++) {
@@ -73,39 +101,6 @@ public class SpeelveldView extends Region {
 
         }
 
-        if (!vakken[(mannetje.getY() - 10) / 20][(mannetje.getX() - 10) / 20].getStatus().equals(status.GEVULD)) {
-            vakken[(mannetje.getY() - 10) / 20][(mannetje.getX() - 10) / 20].setStatus(status.IN_DE_MAAK);
-        }
-
-        if (vakken[(mannetje.getY() - 10) / 20][(mannetje.getX() - 10) / 20].getStatus().equals(status.GEVULD) && (mannetje.getX() - 10 / 20) != 0 && (mannetje.getY() - 10 / 20) != 0) {
-            for (int i = 0; i < speelveld.getRijen(); i++) {
-                for (int j = 0; j < speelveld.getKolommen(); j++) {
-                    if ((vakken[i][j].getStatus().equals(status.IN_DE_MAAK))) {
-                        vakken[i][j].setStatus(status.GEVULD);
-                    }
-                }
-            }
-        }
-        //        for (int i = 1; i < speelveld.getRijen() - 1; i++) {
-        //            for (int j = 1; j < speelveld.getKolommen() - 1; j++) {
-        //                if (vakken[i][j].getStatus().equals(status.GEVULD)) {
-        //                    if (33 - j > 16) {
-        //                        for (int k = 1; k <= i; k++) {
-        //                            for (int l = 1; l <= j; l++) {
-        //                                vakken[k][l].setStatus(status.GEVULD);
-        //                            }
-        //                       }
-        //                    } else {
-        //                        for (int k = 21; k >= i; k--) {
-        //                            for (int l = 32; l >= j; l--) {
-        //                                vakken[k][l].setStatus(status.GEVULD);
-        //                            }
-        //                        }
-        //                    }
-        //
-        //                }
-        //            }
-        //        }    
     }
 
     public void reset(Speelveld speelveld) {
@@ -161,6 +156,27 @@ public class SpeelveldView extends Region {
                 }
             }
         }
+    }
+
+    public void maakGevuldeLijn() {
+        Vak vakken[][] = speelveld.getVakken();
+        if (vakken[(mannetje.getY() - 10) / 20][(mannetje.getX() - 10) / 20].getStatus().equals(status.GEVULD) && (mannetje.getX() - 10 / 20) != 0 && (mannetje.getY() - 10 / 20) != 0) {
+            for (int i = 0; i < speelveld.getRijen(); i++) {
+                for (int j = 0; j < speelveld.getKolommen(); j++) {
+                    if ((vakken[i][j].getStatus().equals(status.IN_DE_MAAK))) {
+                        vakken[i][j].setStatus(status.GEVULD);
+                    }
+                }
+            }
+        }
+    }
+
+    public void maakInDeMaakLijn() {
+        Vak vakken[][] = speelveld.getVakken();
+        if (!vakken[(mannetje.getY() - 10) / 20][(mannetje.getX() - 10) / 20].getStatus().equals(status.GEVULD)) {
+            vakken[(mannetje.getY() - 10) / 20][(mannetje.getX() - 10) / 20].setStatus(status.IN_DE_MAAK);
+        }
+
     }
 
     public int getProcentGevuld() {
