@@ -83,12 +83,12 @@ public class Mannetje {
     }
 
     public double verticaal() {
-        y = y + (20*vy);
+        y = y + (20*getVy());
         return y;
     }
 
     public double horizontaal() {
-        x = x + (20*vx);
+        x = x + (20*getVx());
         return x;
     }
     
@@ -174,5 +174,19 @@ public class Mannetje {
      */
     public void setVy(int vy) {
         this.vy = vy;
+    }
+
+    /**
+     * @return the vx
+     */
+    public int getVx() {
+        return vx;
+    }
+
+    /**
+     * @return the vy
+     */
+    public int getVy() {
+        return vy;
     }
 }

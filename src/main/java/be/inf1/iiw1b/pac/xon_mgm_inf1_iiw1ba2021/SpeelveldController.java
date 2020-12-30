@@ -110,40 +110,62 @@ public class SpeelveldController {
         ogenSpook();
 
         gameOver();
-        
-        stilstaanGevuld();
+
+        stilInGevuld();
 
     }
 
     private void loopRond(KeyEvent t) {
         switch (t.getCode()) {
-            case RIGHT: {
-                mannetje.setVx(1);
-                mannetje.setVy(0);
+            case RIGHT:
+                mannetje.rechts();
+                mannetje.setMaxXBorder();
+                if (vakkenSpeelveldView.ispositieMannetjeGevuld()) {
+                    mannetje.setVx(0);
+                    mannetje.setVy(0);
+                } else {
+                    mannetje.setVx(1);
+                    mannetje.setVy(0);
+                }
                 mannetjeView.getVormMannetje().setRotate(0);
-            }
-            break;
-            case LEFT: {
-                mannetje.setVx(-1);
-                mannetje.setVy(0);
+                break;
+            case LEFT:
+                mannetje.links();
+                mannetje.setMinXBorder();
+                if (vakkenSpeelveldView.ispositieMannetjeGevuld()) {
+                    mannetje.setVx(0);
+                    mannetje.setVy(0);
+                } else {
+                    mannetje.setVx(-1);
+                    mannetje.setVy(0);
+                }
                 mannetjeView.getVormMannetje().setRotate(180);
-            }
-
-            break;
-            case UP: {
-                mannetje.setVx(0);
-                mannetje.setVy(-1);
+                break;
+            case UP:
+                mannetje.boven();
+                mannetje.setMinYBorder();
+                if (vakkenSpeelveldView.ispositieMannetjeGevuld()) {
+                    mannetje.setVx(0);
+                    mannetje.setVy(0);
+                } else {
+                    mannetje.setVx(0);
+                    mannetje.setVy(-1);
+                }
                 mannetjeView.getVormMannetje().setRotate(270);
-            }
+                break;
 
-            break;
-            case DOWN: {
-                mannetje.setVx(0);
-                mannetje.setVy(1);
+            case DOWN:
+                mannetje.onder();
+                mannetje.setMaxYBorder();
+                if (vakkenSpeelveldView.ispositieMannetjeGevuld()) {
+                    mannetje.setVx(0);
+                    mannetje.setVy(0);
+                } else {
+                    mannetje.setVx(0);
+                    mannetje.setVy(1);
+                }
                 mannetjeView.getVormMannetje().setRotate(90);
-            }
-
-            break;
+                break;
         }
         update();
     }
@@ -176,11 +198,10 @@ public class SpeelveldController {
         }
     }
 
-    private void stilstaanGevuld() {
-        if (vakkenSpeelveldView.ispositieMannetjeGevuld()) {
+    public void stilInGevuld() {
+        if (vakkenSpeelveldView.ispositieMannetjeGevuld() && (mannetje.getVx() != 0 || mannetje.getVy() != 0)) {
             mannetje.setVx(0);
             mannetje.setVy(0);
         }
-
     }
 }
