@@ -67,7 +67,7 @@ public class SpeelveldController {
         vakkenSpeelveld = new Speelveld(23, 34);
 
         mannetjeView = new MannetjeView(mannetje);
-        spookView = new SpookView(spook);     
+        spookView = new SpookView(spook);
         vakkenSpeelveldView = new SpeelveldView(vakkenSpeelveld, mannetje, spook);
 
         speelveld.getChildren().add(vakkenSpeelveldView);
@@ -85,6 +85,9 @@ public class SpeelveldController {
         BeweegSpook taskSpook = new BeweegSpook(spook, this);
         Timer t = new Timer(true);
         t.scheduleAtFixedRate(taskSpook, 0, 10);
+
+        BeweegMannetje taskMannetje = new BeweegMannetje(mannetje, this);
+        t.scheduleAtFixedRate(taskMannetje, 0, 120);
 
     }
 
@@ -107,31 +110,40 @@ public class SpeelveldController {
         ogenSpook();
 
         gameOver();
+        
+        stilstaanGevuld();
 
     }
 
     private void loopRond(KeyEvent t) {
         switch (t.getCode()) {
-            case RIGHT:
-                mannetje.rechts();
-                mannetje.setMaxXBorder();
+            case RIGHT: {
+                mannetje.setVx(1);
+                mannetje.setVy(0);
                 mannetjeView.getVormMannetje().setRotate(0);
-                break;
-            case LEFT:
-                mannetje.links();
-                mannetje.setMinXBorder();
+            }
+            break;
+            case LEFT: {
+                mannetje.setVx(-1);
+                mannetje.setVy(0);
                 mannetjeView.getVormMannetje().setRotate(180);
-                break;
-            case UP:
-                mannetje.boven();
-                mannetje.setMinYBorder();
+            }
+
+            break;
+            case UP: {
+                mannetje.setVx(0);
+                mannetje.setVy(-1);
                 mannetjeView.getVormMannetje().setRotate(270);
-                break;
-            case DOWN:
-                mannetje.onder();
-                mannetje.setMaxYBorder();
+            }
+
+            break;
+            case DOWN: {
+                mannetje.setVx(0);
+                mannetje.setVy(1);
                 mannetjeView.getVormMannetje().setRotate(90);
-                break;
+            }
+
+            break;
         }
         update();
     }
@@ -162,5 +174,13 @@ public class SpeelveldController {
             vakkenSpeelveldView.reset(vakkenSpeelveld);
             mannetje.resetGame();
         }
+    }
+
+    private void stilstaanGevuld() {
+        if (vakkenSpeelveldView.ispositieMannetjeGevuld()) {
+            mannetje.setVx(0);
+            mannetje.setVy(0);
+        }
+
     }
 }

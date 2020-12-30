@@ -11,10 +11,10 @@ package model;
  */
 public class Mannetje {
 
-    private int x;
-    private int y;
-    private int dx;
-    private int dy;
+    private double x;
+    private double y;
+    private int vx;
+    private int vy;
     private boolean dood;
     private int levens;
     private int straal;
@@ -23,8 +23,8 @@ public class Mannetje {
         this.x = x;
         this.y = y;
         straal = 10;
-        dx = 0;
-        dy = 0;
+        vx = 0;
+        vy = 0;
         levens = 5;
         dood = false;
     }
@@ -33,14 +33,14 @@ public class Mannetje {
      * @return the x
      */
     public int getX() {
-        return x;
+        return (int) x;
     }
 
     /**
      * @return the y
      */
     public int getY() {
-        return y;
+        return (int) y;
     }
 
     /**
@@ -82,25 +82,16 @@ public class Mannetje {
         dood = false;
     }
 
-    public void links() {
-        x = x - 20;
-        dx = -1;
+    public double verticaal() {
+        y = y + (20*vy);
+        return y;
     }
 
-    public void rechts() {
-        x = x + 20;
-        dx = 1;
+    public double horizontaal() {
+        x = x + (20*vx);
+        return x;
     }
-
-    public void boven() {
-        y = y - 20;
-        dy = 1;
-    }
-
-    public void onder() {
-        y = y + 20;
-        dy = -1;
-    }
+    
 
     public void reset() {
         x = 10;
@@ -111,36 +102,77 @@ public class Mannetje {
     public int setMaxXBorder() {
         if (x > 680 - getStraal()) {
             x = 680 - getStraal();
-            return x;
+            return (int)x;
         }
-        return x;
+        return (int)x;
     }
 
     public int setMinXBorder() {
         if (x < 10) {
             x = 10;
-            return x;
+            return (int) x;
         }
-        return x;
+        return (int) x;
     }
 
     public int setMaxYBorder() {
         if (y > 460 - getStraal()) {
             y = 460 - getStraal();
-            return y;
+            return (int)y;
         }
-        return y;
+        return (int)y;
     }
 
     public int setMinYBorder() {
         if (y < 10) {
             y = 10;
-            return y;
+            return (int)y;
         }
-        return y;
+        return (int)y;
     }
 
     public int getStraal() {
         return straal;
+    }
+    public void links() {
+        x = x - 20;
+}
+
+    public void rechts() {
+        x = x + 20;
+
+    }
+
+    public void boven() {
+        y = y - 20;
+
+    }
+
+    public void onder() {
+        y = y + 20;
+
+    }
+
+    public void Tick() {
+       verticaal();
+       horizontaal();
+       setMaxXBorder();
+       setMinXBorder();
+       setMaxYBorder();
+       setMinYBorder();
+    }
+
+    /**
+     * @param vx the vx to set
+     */
+    public void setVx(int vx) {
+        this.vx = vx;
+    }
+
+    /**
+     * @param vy the vy to set
+     */
+    public void setVy(int vy) {
+        this.vy = vy;
     }
 }

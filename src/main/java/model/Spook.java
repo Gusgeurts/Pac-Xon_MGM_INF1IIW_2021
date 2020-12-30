@@ -54,12 +54,12 @@ public class Spook {
     }
 
     public double verticaal() {
-        y = y - getVy();
+        y = y - vy;
         return y;
     }
 
     public double horizontaal() {
-        x = x - getVx();
+        x = x - vx;
         return x;
     }
 

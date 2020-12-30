@@ -192,4 +192,11 @@ public class SpeelveldView extends Region {
         return (int) ((n / teVullenVakken) * 100);
 
     }
+    public boolean ispositieMannetjeGevuld(){
+        Vak vakken[][] = speelveld.getVakken();
+        if (vakken[(mannetje.getY() - 10) / 20][(mannetje.getX() - 10) / 20].getStatus().equals(status.GEVULD)){
+            return true;
+        }
+        return false;
+    }
 }
