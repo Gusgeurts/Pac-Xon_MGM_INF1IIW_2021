@@ -66,7 +66,7 @@ public class SpeelveldController {
 
         mannetjeView = new MannetjeView(mannetje);
         spookView = new SpookView(spook);
-        vakkenSpeelveldView = new SpeelveldView(vakkenSpeelveld, mannetje);
+        vakkenSpeelveldView = new SpeelveldView(vakkenSpeelveld, mannetje, spook);
 
         speelveld.getChildren().add(vakkenSpeelveldView);
         speelveld.getChildren().add(mannetjeView);

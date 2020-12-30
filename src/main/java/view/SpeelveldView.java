@@ -8,6 +8,7 @@ package view;
 import javafx.scene.layout.Region;
 import model.Mannetje;
 import model.Speelveld;
+import model.Spook;
 import model.StatusVak;
 import model.Vak;
 
@@ -21,10 +22,12 @@ public class SpeelveldView extends Region {
     private Vak vak;
     private StatusVak status;
     private Mannetje mannetje;
+    private Spook spook;
 
-    public SpeelveldView(Speelveld speelveld, Mannetje mannetje) {
+    public SpeelveldView(Speelveld speelveld, Mannetje mannetje, Spook spook) {
         this.speelveld = speelveld;
         this.mannetje = mannetje;
+        this.spook = spook;
         update();
     }
 
@@ -33,6 +36,7 @@ public class SpeelveldView extends Region {
         int n = 0;
         int m = 0;
         getChildren().clear();
+
         Vak vakken[][] = speelveld.getVakken();
         for (int i = 0; i < speelveld.getRijen(); i++) {
             for (int j = 0; j < speelveld.getKolommen(); j++) {
@@ -74,6 +78,26 @@ public class SpeelveldView extends Region {
                 }
             }
         }
+//        for (int i = 1; i < speelveld.getRijen() - 1; i++) {
+//            for (int j = 1; j < speelveld.getKolommen() - 1; j++) {
+//                if (vakken[i][j].getStatus().equals(status.GEVULD)) {
+//                    if (33 - j > 16) {
+//                        for (int k = 1; k <= i; k++) {
+//                            for (int l = 1; l <= j; l++) {
+//                                vakken[k][l].setStatus(status.GEVULD);
+//                            }
+//                       }
+//                    } else {
+//                        for (int k = 21; k >= i; k--) {
+//                            for (int l = 32; l >= j; l--) {
+//                                vakken[k][l].setStatus(status.GEVULD);
+//                            }
+//                        }
+//                    }
+//
+//                }
+//            }
+//        }
     }
 
     public void reset(Speelveld speelveld) {
