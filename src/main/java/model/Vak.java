@@ -39,5 +39,5 @@ public class Vak {
     public void setStatus(StatusVak status) {
         this.status = status;
     }
-
-}
+    
+    }

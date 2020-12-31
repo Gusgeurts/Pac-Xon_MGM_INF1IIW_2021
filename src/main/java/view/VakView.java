@@ -48,5 +48,8 @@ public class VakView extends Region {
     public Rectangle getVormVak() {
         return v;
     }
-
-}
+    public StatusVak getStatus(){
+        return status;
+    }
+    
+    }

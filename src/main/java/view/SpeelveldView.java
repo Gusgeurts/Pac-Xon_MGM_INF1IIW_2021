@@ -95,6 +95,12 @@ public class SpeelveldView extends Region {
                 if (n == speelveld.getKolommen()) {
                     n = 0;
                 }
+                if(vakken[i][j].getStatus().equals(status.GEVULD)){
+                    vv.setId("idGevuld");
+                }
+                else{
+                    vv.setId("idLeeg");
+                }
                 getChildren().add(vv);
             }
             m++;
@@ -192,11 +198,12 @@ public class SpeelveldView extends Region {
         return (int) ((n / teVullenVakken) * 100);
 
     }
-    public boolean ispositieMannetjeGevuld(){
+
+    public boolean ispositieMannetjeGevuld() {
         Vak vakken[][] = speelveld.getVakken();
-        if (vakken[(mannetje.getY() - 10) / 20][(mannetje.getX() - 10) / 20].getStatus().equals(status.GEVULD)){
+        if (vakken[(mannetje.getY() - 10) / 20][(mannetje.getX() - 10) / 20].getStatus().equals(status.GEVULD)) {
             return true;
         }
         return false;
     }
-}
+            }

@@ -3,8 +3,11 @@ package be.inf1.iiw1b.pac.xon_mgm_inf1_iiw1ba2021;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.Timer;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.geometry.Bounds;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyEvent;
@@ -13,9 +16,11 @@ import model.Mannetje;
 import model.Speelveld;
 import model.Spook;
 import model.StatusVak;
+import model.Vak;
 import view.MannetjeView;
 import view.SpeelveldView;
 import view.SpookView;
+import view.VakView;
 
 public class SpeelveldController {
 
@@ -58,6 +63,9 @@ public class SpeelveldController {
     private SpookView spookView;
     private Speelveld vakkenSpeelveld;
     private SpeelveldView vakkenSpeelveldView;
+    private StatusVak status;
+    private VakView vakView;
+    private Vak vak;
 
     @FXML
     void initialize() {
@@ -105,13 +113,15 @@ public class SpeelveldController {
         labelDood.setText(mannetje.getDood() + "");
         labelInvulProcent.setText(vakkenSpeelveldView.getProcentGevuld() + "");
 
-        geraakt();
-
+        mannetjeGeraaktDoorSpook();
+        
         ogenSpook();
 
         gameOver();
 
         stilInGevuld();
+        
+        spookRaaktGevuld();
 
     }
 
@@ -176,10 +186,41 @@ public class SpeelveldController {
         update();
     }
 
-    private void geraakt() {
-        if (spookView.getVormSpook().intersects(spookView.getVormSpook().sceneToLocal(mannetjeView.getVormMannetje().localToScene(mannetjeView.getVormMannetje().getBoundsInLocal())))) {
-            vakkenSpeelveldView.geraaktOpMannetje();
-            mannetje.isDood();
+    private void mannetjeGeraaktDoorSpook() {
+        ObservableList<Node> man = mannetjeView.getChildrenUnmodifiable();
+        ObservableList<Node> spoken = spookView.getChildrenUnmodifiable();
+
+        for (Node m : man) {
+            Bounds boundMannetje = m.localToScene(m.getBoundsInLocal());
+            for (Node s : spoken) {
+                Bounds boundSpoken = s.localToScene(s.getBoundsInLocal());
+                if (boundMannetje.intersects(boundSpoken)) {
+                    vakkenSpeelveldView.geraaktOpMannetje();
+                    mannetje.isDood();
+                }
+            }
+        }
+
+    }
+    private void spookRaaktGevuld() {
+        ObservableList<Node> vakken = vakkenSpeelveldView.getChildrenUnmodifiable();
+        ObservableList<Node> spoken = spookView.getChildrenUnmodifiable();
+
+        int i = 0;
+
+        for (Node v : vakken) {
+            Bounds boundVak = v.localToScene(v.getBoundsInLocal());
+            for (Node s : spoken) {
+                Bounds boundSpoken = s.localToScene(s.getBoundsInLocal());
+                if (boundVak.intersects(boundSpoken) && v.getId().equals("idGevuld")) {
+                    spook.setVx();
+                    spook.setVy();
+                    i = 1;
+                } else {
+                    i = 0;
+                }
+
+            }
         }
     }
 

@@ -63,37 +63,17 @@ public class Spook {
         return x;
     }
 
-    public void setMaxX() {
-        if (x > 680 - getStraal()) {
-            vx = getVx() * -1;
-        }
+    public void setVx() {
+            vx = vx * -1;
     }
 
-    public void setMinX() {
-        if (x < getStraal()) {
-            vx = getVx() * -1;
-        }
-    }
-
-    public void setMaxY() {
-        if (y > 460 - getStraal()) {
-            vy = getVy() * -1;
-        }
-    }
-
-    public void setMinY() {
-        if (y < getStraal()) {
-            vy = getVy() * -1;
-        }
+    public void setVy() {
+            vy = vy * -1;
     }
 
     public void Tick() {
         verticaal();
         horizontaal();
-        setMaxX();
-        setMaxY();
-        setMinX();
-        setMinY();
     }
 
     /**
