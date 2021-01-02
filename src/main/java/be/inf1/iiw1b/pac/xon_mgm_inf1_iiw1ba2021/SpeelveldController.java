@@ -205,47 +205,61 @@ public class SpeelveldController {
 
     private void spookRaaktGevuld() {
         ObservableList<Node> vakken = vakkenSpeelveldView.getChildrenUnmodifiable();
-        ObservableList<Node> spoken = spookView.getChildrenUnmodifiable();
-
-        int i = 0;
 
         for (Node v : vakken) {
-            Bounds boundVak = v.localToScene(v.getBoundsInLocal());
-            for (Node s : spoken) {
-                if (spook.getY() + spook.getStraal() >= boundVak.getMinY()
-                        && spook.getY() + spook.getStraal() <= boundVak.getMinY()
-                        && spook.getX() >= boundVak.getMinX()
-                        && spook.getX() <= boundVak.getMinX() + boundVak.getWidth()
-                        && v.getId().equals("idGevuld")) {
-                    spook.setVy();
+            Bounds boundVak = v.localToParent(v.getBoundsInLocal());
+            if (spook.getY() + spook.getStraal() >= boundVak.getMinY() - 3
+                    && spook.getY() + spook.getStraal() <= boundVak.getMinY() + 3
+                    && spook.getX() >= boundVak.getMinX()
+                    && spook.getX() <= boundVak.getMinX() + boundVak.getWidth()) {
+                if (v.getId().equals("idGevuld")) {
+                    spook.setVy(-0.5);
+                } else if(v.getId().equals("idInDeMaak")) {
+                    mannetje.isDood();
+                    vakkenSpeelveldView.geraaktInPad();
                 }
-                if (spook.getY() - spook.getStraal() >= boundVak.getMaxY()
-                        && spook.getY() + spook.getStraal() <= boundVak.getMaxY()
-                        && spook.getX() >= boundVak.getMinX()
-                        && spook.getX() <= boundVak.getMinX() + boundVak.getWidth()
-                        && v.getId().equals("idGevuld")) {
-                    spook.setVy();
+
+            } else if (spook.getY() - spook.getStraal() >= boundVak.getMaxY() - 3
+                    && spook.getY() - spook.getStraal() <= boundVak.getMaxY() + 3
+                    && spook.getX() >= boundVak.getMinX()
+                    && spook.getX() <= boundVak.getMinX() + boundVak.getWidth()) {
+                if (v.getId().equals("idGevuld")) {
+                    spook.setVy(0.5);
+                } else if(v.getId().equals("idInDeMaak")) {
+                    mannetje.isDood();
+                    vakkenSpeelveldView.geraaktInPad();
                 }
-                if (spook.getX() - spook.getStraal() >= boundVak.getMaxX()
-                        && spook.getX() - spook.getStraal() <= boundVak.getMaxX()
-                        && spook.getY() >= boundVak.getMinY()
-                        && spook.getY() <= boundVak.getMinY() + boundVak.getHeight()
-                        && v.getId().equals("idGevuld")) {
-                    spook.getVx();
+
+            } else if (spook.getX() - spook.getStraal() >= boundVak.getMaxX() - 3
+                    && spook.getX() - spook.getStraal() <= boundVak.getMaxX() + 3
+                    && spook.getY() >= boundVak.getMinY()
+                    && spook.getY() <= boundVak.getMinY() + boundVak.getHeight()) {
+                if (v.getId().equals("idGevuld")) {
+                    spook.setVx(0.5);
+                } else if(v.getId().equals("idInDeMaak")){
+                    mannetje.isDood();
+                    vakkenSpeelveldView.geraaktInPad();
                 }
-                if (spook.getX() + spook.getStraal() >= boundVak.getMinX()
-                        && spook.getX() - spook.getStraal() <= boundVak.getMinX()
-                        && spook.getY() >= boundVak.getMinY()
-                        && spook.getY() <= boundVak.getMinY() + boundVak.getHeight()
-                        && v.getId().equals("idGevuld")) {
-                    spook.getVx();
+
+            } else if (spook.getX() + spook.getStraal() >= boundVak.getMinX() - 3
+                    && spook.getX() + spook.getStraal() <= boundVak.getMinX() + 3
+                    && spook.getY() >= boundVak.getMinY()
+                    && spook.getY() <= boundVak.getMinY() + boundVak.getHeight()) {
+                if (v.getId().equals("idGevuld")) {
+                    spook.setVx(-0.5);
+                } else if(v.getId().equals("idInDeMaak")) {
+                    mannetje.isDood();
+                    vakkenSpeelveldView.geraaktInPad();
                 }
+
             }
+
         }
+
     }
 
     private void ogenSpook() {
-        if (spook.getVx() < 0) {
+        if (spook.getVx() > 0) {
             spookView.getVormSpook().setScaleX(-1);
         } else {
             spookView.getVormSpook().setScaleX(1);
