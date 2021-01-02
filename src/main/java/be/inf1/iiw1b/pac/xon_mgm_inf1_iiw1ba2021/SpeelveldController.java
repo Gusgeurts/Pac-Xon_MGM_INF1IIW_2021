@@ -114,13 +114,13 @@ public class SpeelveldController {
         labelInvulProcent.setText(vakkenSpeelveldView.getProcentGevuld() + "");
 
         mannetjeGeraaktDoorSpook();
-        
+
         ogenSpook();
 
         gameOver();
 
         stilInGevuld();
-        
+
         spookRaaktGevuld();
 
     }
@@ -202,6 +202,7 @@ public class SpeelveldController {
         }
 
     }
+
     private void spookRaaktGevuld() {
         ObservableList<Node> vakken = vakkenSpeelveldView.getChildrenUnmodifiable();
         ObservableList<Node> spoken = spookView.getChildrenUnmodifiable();
@@ -211,15 +212,34 @@ public class SpeelveldController {
         for (Node v : vakken) {
             Bounds boundVak = v.localToScene(v.getBoundsInLocal());
             for (Node s : spoken) {
-                Bounds boundSpoken = s.localToScene(s.getBoundsInLocal());
-                if (boundVak.intersects(boundSpoken) && v.getId().equals("idGevuld")) {
-                    spook.setVx();
+                if (spook.getY() + spook.getStraal() >= boundVak.getMinY()
+                        && spook.getY() + spook.getStraal() <= boundVak.getMinY()
+                        && spook.getX() >= boundVak.getMinX()
+                        && spook.getX() <= boundVak.getMinX() + boundVak.getWidth()
+                        && v.getId().equals("idGevuld")) {
                     spook.setVy();
-                    i = 1;
-                } else {
-                    i = 0;
                 }
-
+                if (spook.getY() - spook.getStraal() >= boundVak.getMaxY()
+                        && spook.getY() + spook.getStraal() <= boundVak.getMaxY()
+                        && spook.getX() >= boundVak.getMinX()
+                        && spook.getX() <= boundVak.getMinX() + boundVak.getWidth()
+                        && v.getId().equals("idGevuld")) {
+                    spook.setVy();
+                }
+                if (spook.getX() - spook.getStraal() >= boundVak.getMaxX()
+                        && spook.getX() - spook.getStraal() <= boundVak.getMaxX()
+                        && spook.getY() >= boundVak.getMinY()
+                        && spook.getY() <= boundVak.getMinY() + boundVak.getHeight()
+                        && v.getId().equals("idGevuld")) {
+                    spook.getVx();
+                }
+                if (spook.getX() + spook.getStraal() >= boundVak.getMinX()
+                        && spook.getX() - spook.getStraal() <= boundVak.getMinX()
+                        && spook.getY() >= boundVak.getMinY()
+                        && spook.getY() <= boundVak.getMinY() + boundVak.getHeight()
+                        && v.getId().equals("idGevuld")) {
+                    spook.getVx();
+                }
             }
         }
     }
