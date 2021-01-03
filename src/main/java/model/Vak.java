@@ -13,10 +13,12 @@ public class Vak {
 
     private int zijde;
     private StatusVak status;
+    private boolean gevaar;
 
     public Vak() {
         zijde = 20;
         status = status.LEEG;
+        gevaar = false;
     }
 
     /**
@@ -38,6 +40,12 @@ public class Vak {
      */
     public void setStatus(StatusVak status) {
         this.status = status;
+    }
+    public void setGevaar(boolean gevaar){
+        this.gevaar = gevaar;
+    }
+    public boolean getGevaar(){
+        return gevaar;
     }
     
     }

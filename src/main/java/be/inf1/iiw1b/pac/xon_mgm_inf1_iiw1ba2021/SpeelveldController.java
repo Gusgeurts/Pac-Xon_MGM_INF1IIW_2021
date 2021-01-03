@@ -7,6 +7,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Bounds;
+import javafx.geometry.Point2D;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -205,56 +206,62 @@ public class SpeelveldController {
 
     private void spookRaaktGevuld() {
         ObservableList<Node> vakken = vakkenSpeelveldView.getChildrenUnmodifiable();
+        ObservableList<Node> spoken = spookView.getChildrenUnmodifiable();
+        
+        spoken.forEach(s -> {
+            Bounds boundSpook = s.localToParent(s.getBoundsInLocal());
 
-        for (Node v : vakken) {
-            Bounds boundVak = v.localToParent(v.getBoundsInLocal());
-            if (spook.getY() + spook.getStraal() >= boundVak.getMinY() - 3
-                    && spook.getY() + spook.getStraal() <= boundVak.getMinY() + 3
-                    && spook.getX() >= boundVak.getMinX()
-                    && spook.getX() <= boundVak.getMinX() + boundVak.getWidth()) {
-                if (v.getId().equals("idGevuld")) {
-                    spook.setVy(-0.5);
-                } else if(v.getId().equals("idInDeMaak")) {
-                    mannetje.isDood();
-                    vakkenSpeelveldView.geraaktInPad();
+            vakken.forEach(v -> {
+                Bounds boundVak = v.localToParent(v.getBoundsInLocal());
+                if (s.localToParent(Point2D.ZERO).getY() + spook.getStraal() >= boundVak.getMinY() - 3
+                                                      
+                        && s.localToParent(Point2D.ZERO).getY() + spook.getStraal() <= boundVak.getMinY() + 3
+                        && s.localToParent(Point2D.ZERO).getX() >= boundVak.getMinX()
+                        && s.localToParent(Point2D.ZERO).getX() <= boundVak.getMinX() + boundVak.getWidth()) {
+                    if (v.getId().equals("idGevuld")) {
+                        spook.setVy(-0.5);
+                    } else if (v.getId().equals("idInDeMaak")) {
+                        mannetje.isDood();
+                        vakkenSpeelveldView.geraaktInPad();
+                    }
+
+                } else if (s.localToParent(Point2D.ZERO).getY() - spook.getStraal() >= boundVak.getMaxY() - 3
+                        && s.localToParent(Point2D.ZERO).getY() - spook.getStraal() <= boundVak.getMaxY() + 3
+                        && s.localToParent(Point2D.ZERO).getX() >= boundVak.getMinX()
+                        && s.localToParent(Point2D.ZERO).getX() <= boundVak.getMinX() + boundVak.getWidth()) {
+                    if (v.getId().equals("idGevuld")) {
+                        spook.setVy(0.5);
+                    } else if (v.getId().equals("idInDeMaak")) {
+                        mannetje.isDood();
+                        vakkenSpeelveldView.geraaktInPad();
+                    }
+
+                } else if (s.localToParent(Point2D.ZERO).getX() - spook.getStraal() >= boundVak.getMaxX() - 3
+                        && s.localToParent(Point2D.ZERO).getX() - spook.getStraal() <= boundVak.getMaxX() + 3
+                        && s.localToParent(Point2D.ZERO).getY() >= boundVak.getMinY()
+                        && s.localToParent(Point2D.ZERO).getY() <= boundVak.getMinY() + boundVak.getHeight()) {
+                    if (v.getId().equals("idGevuld")) {
+                        spook.setVx(0.5);
+                    } else if (v.getId().equals("idInDeMaak")) {
+                        mannetje.isDood();
+                        vakkenSpeelveldView.geraaktInPad();
+                    }
+
+                } else if (s.localToParent(Point2D.ZERO).getX() + spook.getStraal() >= boundVak.getMinX() - 3
+                        && s.localToParent(Point2D.ZERO).getX() + spook.getStraal() <= boundVak.getMinX() + 3
+                        && s.localToParent(Point2D.ZERO).getY() >= boundVak.getMinY()
+                        && s.localToParent(Point2D.ZERO).getY() <= boundVak.getMinY() + boundVak.getHeight()) {
+                    if (v.getId().equals("idGevuld")) {
+                        spook.setVx(-0.5);
+                    } else if (v.getId().equals("idInDeMaak")) {
+                        mannetje.isDood();
+                        vakkenSpeelveldView.geraaktInPad();
+                    }
+
                 }
 
-            } else if (spook.getY() - spook.getStraal() >= boundVak.getMaxY() - 3
-                    && spook.getY() - spook.getStraal() <= boundVak.getMaxY() + 3
-                    && spook.getX() >= boundVak.getMinX()
-                    && spook.getX() <= boundVak.getMinX() + boundVak.getWidth()) {
-                if (v.getId().equals("idGevuld")) {
-                    spook.setVy(0.5);
-                } else if(v.getId().equals("idInDeMaak")) {
-                    mannetje.isDood();
-                    vakkenSpeelveldView.geraaktInPad();
-                }
-
-            } else if (spook.getX() - spook.getStraal() >= boundVak.getMaxX() - 3
-                    && spook.getX() - spook.getStraal() <= boundVak.getMaxX() + 3
-                    && spook.getY() >= boundVak.getMinY()
-                    && spook.getY() <= boundVak.getMinY() + boundVak.getHeight()) {
-                if (v.getId().equals("idGevuld")) {
-                    spook.setVx(0.5);
-                } else if(v.getId().equals("idInDeMaak")){
-                    mannetje.isDood();
-                    vakkenSpeelveldView.geraaktInPad();
-                }
-
-            } else if (spook.getX() + spook.getStraal() >= boundVak.getMinX() - 3
-                    && spook.getX() + spook.getStraal() <= boundVak.getMinX() + 3
-                    && spook.getY() >= boundVak.getMinY()
-                    && spook.getY() <= boundVak.getMinY() + boundVak.getHeight()) {
-                if (v.getId().equals("idGevuld")) {
-                    spook.setVx(-0.5);
-                } else if(v.getId().equals("idInDeMaak")) {
-                    mannetje.isDood();
-                    vakkenSpeelveldView.geraaktInPad();
-                }
-
-            }
-
-        }
+            });
+        });
 
     }
 

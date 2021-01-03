@@ -22,8 +22,6 @@ public class SpeelveldView extends Region {
     private StatusVak status;
     private Mannetje mannetje;
     private Spook spook;
-    private int vorigeY;
-    private int vorigeX;
     private int teVullenVakken;
 
     public SpeelveldView(Speelveld speelveld, Mannetje mannetje, Spook spook) {
@@ -46,6 +44,8 @@ public class SpeelveldView extends Region {
         maakInDeMaakLijn();
 
         maakGevuldeLijn();
+
+        raakInDeMaak();
 
         //        for (int i = 1; i < speelveld.getRijen() - 1; i++) {
         //            for (int j = 1; j < speelveld.getKolommen() - 1; j++) {
@@ -103,6 +103,7 @@ public class SpeelveldView extends Region {
                 }
                 getChildren().add(vv);
             }
+
             m++;
 
         }
@@ -155,11 +156,14 @@ public class SpeelveldView extends Region {
 
     public void maakGevuldeLijn() {
         Vak vakken[][] = speelveld.getVakken();
-        if (vakken[(mannetje.getY() - 10) / 20][(mannetje.getX() - 10) / 20].getStatus().equals(status.GEVULD) && (mannetje.getX() - 10 / 20) != 0 && (mannetje.getY() - 10 / 20) != 0) {
+        if (vakken[(mannetje.getY() - 10) / 20][(mannetje.getX() - 10) / 20].getStatus().equals(status.GEVULD)
+                && (mannetje.getX() - 10 / 20) != 0 && (mannetje.getY() - 10 / 20) != 0) {
+            resetGevaar();
             for (int i = 0; i < speelveld.getRijen(); i++) {
                 for (int j = 0; j < speelveld.getKolommen(); j++) {
                     if ((vakken[i][j].getStatus().equals(status.IN_DE_MAAK))) {
                         vakken[i][j].setStatus(status.GEVULD);
+
                     }
                 }
             }
@@ -168,10 +172,44 @@ public class SpeelveldView extends Region {
 
     public void maakInDeMaakLijn() {
         Vak vakken[][] = speelveld.getVakken();
-        if (!vakken[(mannetje.getY() - 10) / 20][(mannetje.getX() - 10) / 20].getStatus().equals(status.GEVULD)) {
+        if (vakken[(mannetje.getY() - 10) / 20][(mannetje.getX() - 10) / 20].getStatus().equals(status.LEEG)) {
             vakken[(mannetje.getY() - 10) / 20][(mannetje.getX() - 10) / 20].setStatus(status.IN_DE_MAAK);
         }
 
+    }
+
+    public void raakInDeMaak() {
+        Vak vakken[][] = speelveld.getVakken();
+        if (((mannetje.getX() - 10) / 20) + 1 < speelveld.getKolommen()
+                && ((mannetje.getX() - 10) / 20) - 1 >= 0
+                && ((mannetje.getY() - 10) / 20) + 1 < speelveld.getRijen()
+                && ((mannetje.getY() - 10) / 20) - 1 >= 0) {
+            if (vakken[(mannetje.getY() - 10) / 20][((mannetje.getX() - 10) / 20) + 1].getStatus().equals(status.IN_DE_MAAK)) {// rechts van mannetje 
+                vakken[(mannetje.getY() - 10) / 20][((mannetje.getX() - 10) / 20) + 1].setGevaar(true);
+            }
+            if (vakken[(mannetje.getY() - 10) / 20][((mannetje.getX() - 10) / 20) - 1].getStatus().equals(status.IN_DE_MAAK)) { // links van mannetje
+                vakken[(mannetje.getY() - 10) / 20][((mannetje.getX() - 10) / 20) - 1].setGevaar(true);
+            }
+            if (vakken[((mannetje.getY() - 10) / 20) + 1][((mannetje.getX() - 10) / 20)].getStatus().equals(status.IN_DE_MAAK)) { // onder mannetje
+                vakken[((mannetje.getY() - 10) / 20) + 1][((mannetje.getX() - 10) / 20)].setGevaar(true);
+            }
+            if (vakken[((mannetje.getY() - 10) / 20) - 1][((mannetje.getX() - 10) / 20)].getStatus().equals(status.IN_DE_MAAK)) { // boven mannetje
+                vakken[((mannetje.getY() - 10) / 20) - 1][((mannetje.getX() - 10) / 20)].setGevaar(true);
+            }
+        }
+        if (vakken[(mannetje.getY() - 10) / 20][((mannetje.getX() - 10) / 20)].getGevaar()) {
+            mannetje.isDood();
+            geraaktInPad();
+        }
+    }
+
+    public void resetGevaar() {
+        Vak vakken[][] = speelveld.getVakken();
+        for (int i = 0; i < speelveld.getRijen(); i++) {
+            for (int j = 0; j < speelveld.getKolommen(); j++) {
+                vakken[i][j].setGevaar(false);
+            }
+        }
     }
 
     public int getProcentGevuld() {
