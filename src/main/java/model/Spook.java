@@ -24,10 +24,8 @@ public class Spook {
     public Spook(int x, int y) {
         this.x = x;
         this.y = y;
-        Random rndx = new Random();
-        Random rndy = new Random();
-        vx = rndx.nextDouble() * (1 - (-1)) + -1;
-        vy = rndy.nextDouble() * (1 - (-1)) + -1;
+        vx = 0.5;
+        vy = 0.5;
         straal = 10;
 
     }
@@ -54,21 +52,21 @@ public class Spook {
     }
 
     public double verticaal() {
-        y = y - vy;
+        y = y + vy;
         return y;
     }
 
     public double horizontaal() {
-        x = x - vx;
+        x = x + vx;
         return x;
     }
 
-    public void setVx() {
-            vx = vx * -1;
+    public void setVx(double vx) {
+            this.vx = vx;
     }
 
-    public void setVy() {
-            vy = vy * -1;
+    public void setVy(double vy) {
+            this.vy = vy;
     }
 
     public void Tick() {

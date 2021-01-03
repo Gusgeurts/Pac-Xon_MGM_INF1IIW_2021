@@ -42,8 +42,7 @@ public class SpeelveldView extends Region {
 
         maakSpeelveld();
 
-        geraaktInPad();
-
+        //      geraaktInPad();
         maakInDeMaakLijn();
 
         maakGevuldeLijn();
@@ -95,10 +94,11 @@ public class SpeelveldView extends Region {
                 if (n == speelveld.getKolommen()) {
                     n = 0;
                 }
-                if(vakken[i][j].getStatus().equals(status.GEVULD)){
+                if (vakken[i][j].getStatus().equals(status.GEVULD)) {
                     vv.setId("idGevuld");
-                }
-                else{
+                } else if (vakken[i][j].getStatus().equals(status.IN_DE_MAAK)) {
+                    vv.setId("idInDeMaak");
+                } else {
                     vv.setId("idLeeg");
                 }
                 getChildren().add(vv);
@@ -133,24 +133,13 @@ public class SpeelveldView extends Region {
         Vak vakken[][] = speelveld.getVakken();
         for (int i = 0; i < speelveld.getRijen(); i++) {
             for (int j = 0; j < speelveld.getKolommen(); j++) {
-                if (vakken[(spook.getY() - 10) / 20][(spook.getX() - 10) / 20].getStatus().equals(status.IN_DE_MAAK) && (spook.getX() - 10) / 20 != vorigeX && (spook.getY() - 10) / 20 != vorigeY) {
-                    mannetje.isDood();
-
-                    vorigeY = (spook.getY() - 10) / 20;
-                    vorigeX = (spook.getX() - 10) / 20;
-
-                    for (int k = 0; k < speelveld.getRijen(); k++) {
-                        for (int l = 0; l < speelveld.getKolommen(); l++) {
-                            if (vakken[k][l].getStatus().equals(status.IN_DE_MAAK)) {
-                                vakken[k][l].setStatus(status.LEEG);
-                            }
-
-                        }
-                    }
-
+                if (vakken[i][j].getStatus().equals(status.IN_DE_MAAK)) {
+                    vakken[i][j].setStatus(status.LEEG);
                 }
+
             }
         }
+
     }
 
     public void geraaktOpMannetje() {
@@ -206,4 +195,4 @@ public class SpeelveldView extends Region {
         }
         return false;
     }
-            }
+}
