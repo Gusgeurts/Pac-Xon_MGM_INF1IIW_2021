@@ -40,33 +40,12 @@ public class SpeelveldView extends Region {
 
         maakSpeelveld();
 
-        //      geraaktInPad();
         maakInDeMaakLijn();
 
         maakGevuldeLijn();
 
         raakInDeMaak();
 
-        //        for (int i = 1; i < speelveld.getRijen() - 1; i++) {
-        //            for (int j = 1; j < speelveld.getKolommen() - 1; j++) {
-        //                if (vakken[i][j].getStatus().equals(status.GEVULD)) {
-        //                    if (33 - j > 16) {
-        //                        for (int k = 1; k <= i; k++) {
-        //                            for (int l = 1; l <= j; l++) {
-        //                                vakken[k][l].setStatus(status.GEVULD);
-        //                            }
-        //                       }
-        //                    } else {
-        //                        for (int k = 21; k >= i; k--) {
-        //                            for (int l = 32; l >= j; l--) {
-        //                                vakken[k][l].setStatus(status.GEVULD);
-        //                            }
-        //                        }
-        //                    }
-        //
-        //                }
-        //            }
-        //        }    
     }
 
     public void maakSpeelveld() {
@@ -103,11 +82,8 @@ public class SpeelveldView extends Region {
                 }
                 getChildren().add(vv);
             }
-
             m++;
-
         }
-
     }
 
     public void reset(Speelveld speelveld) {
@@ -140,7 +116,6 @@ public class SpeelveldView extends Region {
 
             }
         }
-
     }
 
     public void geraaktOpMannetje() {
@@ -175,7 +150,6 @@ public class SpeelveldView extends Region {
         if (vakken[(mannetje.getY() - 10) / 20][(mannetje.getX() - 10) / 20].getStatus().equals(status.LEEG)) {
             vakken[(mannetje.getY() - 10) / 20][(mannetje.getX() - 10) / 20].setStatus(status.IN_DE_MAAK);
         }
-
     }
 
     public void raakInDeMaak() {
@@ -223,7 +197,6 @@ public class SpeelveldView extends Region {
             }
         }
         return (int) ((n / teVullenVakken) * 100);
-
     }
 
     public boolean ispositieMannetjeGevuld() {
