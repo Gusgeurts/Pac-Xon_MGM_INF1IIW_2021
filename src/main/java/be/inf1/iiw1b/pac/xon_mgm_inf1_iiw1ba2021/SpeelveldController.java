@@ -84,7 +84,7 @@ public class SpeelveldController {
         speelveld.getChildren().add(spookView);
 
         update();
-        
+
         speelveld.setOnKeyPressed(this::loopRond);
         resetButton.setOnAction(this::reset);
 
@@ -97,7 +97,7 @@ public class SpeelveldController {
 
         BeweegMannetje taskMannetje = new BeweegMannetje(mannetje, this);
         t.scheduleAtFixedRate(taskMannetje, 0, 120);
-        
+
     }
 
     public void update() {
@@ -123,7 +123,7 @@ public class SpeelveldController {
         stilInGevuld();
 
         spookRaaktGevuld();
-        
+
     }
 
     private void loopRond(KeyEvent t) {
@@ -136,7 +136,7 @@ public class SpeelveldController {
                     mannetje.setVy(0);
                 } else {
                     mannetje.setVx(1);
-                    mannetje.setVy(0);
+                      mannetje.setVy(0);
                 }
                 mannetjeView.getVormMannetje().setRotate(0);
                 break;
@@ -178,10 +178,10 @@ public class SpeelveldController {
                 mannetjeView.getVormMannetje().setRotate(90);
                 break;
         }
-        update();
-    }
+    update();
+}
 
-    private void reset(ActionEvent e) {
+private void reset(ActionEvent e) {
         mannetje.resetGame();
         vakkenSpeelveldView.reset(vakkenSpeelveld);
         update();
