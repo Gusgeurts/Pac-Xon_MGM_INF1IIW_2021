@@ -45,7 +45,7 @@ public class SpookView extends Region {
     public void createSpook() {
         paneel = new AnchorPane();
 
-        bal = new Circle(spook.getStraal(), Color.PINK);
+        bal = new Circle(spook.getStraal());
         Image img = new Image("https://i.gifer.com/origin/d5/d5b9ae79f5254caaf0fdcf2affcec5b0_w200.gif");
         bal.setFill(new ImagePattern(img));
 

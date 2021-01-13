@@ -58,13 +58,13 @@ public class SpeelveldView extends Region {
                 if (i == 0) {
                     vakken[i][j].setStatus(status.GEVULD);
                 }
-                if (i == 22) {
+                if (i == speelveld.getRijen() - 1) {
                     vakken[i][j].setStatus(status.GEVULD);
                 }
                 if (j == 0) {
                     vakken[i][j].setStatus(status.GEVULD);
                 }
-                if (j == 33) {
+                if (j == speelveld.getKolommen() - 1) {
                     vakken[i][j].setStatus(status.GEVULD);
                 }
                 vv.setTranslateX(20 * n);
