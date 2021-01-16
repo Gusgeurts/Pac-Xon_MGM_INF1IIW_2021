@@ -1,4 +1,4 @@
-    package be.inf1.iiw1b.pac.xon_mgm_inf1_iiw1ba2021;
+package be.inf1.iiw1b.pac.xon_mgm_inf1_iiw1ba2021;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -9,6 +9,7 @@ import javafx.fxml.FXML;
 import javafx.geometry.Bounds;
 import javafx.geometry.Point2D;
 import javafx.scene.Node;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyEvent;
@@ -70,10 +71,10 @@ public class SpeelveldController {
 
     @FXML
     void initialize() {
-        
+
+        vakkenSpeelveld = new Speelveld(23, 34);
         mannetje = new Mannetje(10, 10, vakkenSpeelveld);
         spook = new Spook(200, 200);
-        vakkenSpeelveld = new Speelveld(23, 34);
 
         mannetjeView = new MannetjeView(mannetje);
         spookView = new SpookView(spook);
@@ -136,7 +137,7 @@ public class SpeelveldController {
                     mannetje.setVy(0);
                 } else {
                     mannetje.setVx(1);
-                      mannetje.setVy(0);
+                    mannetje.setVy(0);
                 }
                 mannetjeView.getVormMannetje().setRotate(0);
                 break;
@@ -178,8 +179,8 @@ public class SpeelveldController {
                 mannetjeView.getVormMannetje().setRotate(90);
                 break;
         }
-    update();
-}
+        update();
+    }
 
     private void reset(ActionEvent e) {
         mannetje.resetGame();
@@ -207,14 +208,13 @@ public class SpeelveldController {
     private void spookRaaktGevuld() {
         ObservableList<Node> vakken = vakkenSpeelveldView.getChildrenUnmodifiable();
         ObservableList<Node> spoken = spookView.getChildrenUnmodifiable();
-        
+
         spoken.forEach(s -> {
             Bounds boundSpook = s.localToParent(s.getBoundsInLocal());
 
             vakken.forEach(v -> {
                 Bounds boundVak = v.localToParent(v.getBoundsInLocal());
                 if (s.localToParent(Point2D.ZERO).getY() + spook.getStraal() >= boundVak.getMinY() - 3
-                                                      
                         && s.localToParent(Point2D.ZERO).getY() + spook.getStraal() <= boundVak.getMinY() + 3
                         && s.localToParent(Point2D.ZERO).getX() >= boundVak.getMinX()
                         && s.localToParent(Point2D.ZERO).getX() <= boundVak.getMinX() + boundVak.getWidth()) {
@@ -275,6 +275,7 @@ public class SpeelveldController {
 
     private void gameOver() {
         if (mannetje.getDood()) {
+            doodNotificatie();
             vakkenSpeelveldView.reset(vakkenSpeelveld);
             mannetje.resetGame();
         }
@@ -285,5 +286,13 @@ public class SpeelveldController {
             mannetje.setVx(0);
             mannetje.setVy(0);
         }
+    }
+
+    private void doodNotificatie() {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("PacXon");
+        alert.setContentText("du bist dood");
+        alert.setContentText("je vulde " + vakkenSpeelveldView.getProcentGevuld() + " %");
+        alert.show();
     }
 }
