@@ -1,4 +1,4 @@
-package be.inf1.iiw1b.pac.xon_mgm_inf1_iiw1ba2021;
+    package be.inf1.iiw1b.pac.xon_mgm_inf1_iiw1ba2021;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -70,8 +70,8 @@ public class SpeelveldController {
 
     @FXML
     void initialize() {
-
-        mannetje = new Mannetje(10, 10);
+        
+        mannetje = new Mannetje(10, 10, vakkenSpeelveld);
         spook = new Spook(200, 200);
         vakkenSpeelveld = new Speelveld(23, 34);
 
@@ -181,7 +181,7 @@ public class SpeelveldController {
     update();
 }
 
-private void reset(ActionEvent e) {
+    private void reset(ActionEvent e) {
         mannetje.resetGame();
         vakkenSpeelveldView.reset(vakkenSpeelveld);
         update();

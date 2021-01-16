@@ -51,5 +51,5 @@ public class VakView extends Region {
     public StatusVak getStatus(){
         return status;
     }
-    
-    }
+
+}

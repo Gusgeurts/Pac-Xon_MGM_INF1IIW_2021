@@ -33,6 +33,20 @@ public class Spook {
     /**
      * @return the x
      */
+    public int getVakX() {
+        return (int) (x-10)/20;
+    }
+
+    /**
+     * @return the y
+     */
+    public int getVakY() {
+        return (int) (y-10)/20;
+    }
+    
+    /**
+     * @return the x
+     */
     public int getX() {
         return (int) x;
     }

@@ -14,14 +14,11 @@ public class Vak {
     private int zijde;
     private StatusVak status;
     private boolean gevaar;
-    private boolean scan;
-    private boolean vul;
 
     public Vak() {
         zijde = 20;
         status = status.LEEG;
         gevaar = false;
-        scan = false;
     }
 
     /**
@@ -50,16 +47,4 @@ public class Vak {
     public boolean getGevaar(){
         return gevaar;
     }
-    public void setScan(boolean scan){
-        this.scan = scan;
-    }
-    public boolean getScan(){
-        return scan;
-    }
-     public void setVul(boolean vul){
-        this.vul = this.vul;
-    }
-    public boolean getVul(){
-        return vul;
-    }
-    }
+}

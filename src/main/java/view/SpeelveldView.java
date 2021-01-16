@@ -46,8 +46,7 @@ public class SpeelveldView extends Region {
 
         raakInDeMaak();
 
-        setScan();
-
+       
     }
 
     public void maakSpeelveld() {
@@ -115,7 +114,6 @@ public class SpeelveldView extends Region {
                 if (vakken[i][j].getStatus().equals(status.IN_DE_MAAK)) {
                     vakken[i][j].setStatus(status.LEEG);
                 }
-
             }
         }
     }
@@ -133,8 +131,8 @@ public class SpeelveldView extends Region {
 
     public void maakGevuldeLijn() {
         Vak vakken[][] = speelveld.getVakken();
-        if (vakken[(mannetje.getY() - 10) / 20][(mannetje.getX() - 10) / 20].getStatus().equals(status.GEVULD)
-                && (mannetje.getX() - 10 / 20) != 0 && (mannetje.getY() - 10 / 20) != 0) {
+        if (vakken[mannetje.getVakY()][mannetje.getVakX()].getStatus().equals(status.GEVULD)
+                && mannetje.getX() != 0 && mannetje.getY() != 0) {
             resetGevaar();
             for (int i = 0; i < speelveld.getRijen(); i++) {
                 for (int j = 0; j < speelveld.getKolommen(); j++) {
@@ -149,72 +147,33 @@ public class SpeelveldView extends Region {
 
     public void maakInDeMaakLijn() {
         Vak vakken[][] = speelveld.getVakken();
-        if (vakken[(mannetje.getY() - 10) / 20][(mannetje.getX() - 10) / 20].getStatus().equals(status.LEEG)) {
-            vakken[(mannetje.getY() - 10) / 20][(mannetje.getX() - 10) / 20].setStatus(status.IN_DE_MAAK);
+        if (vakken[mannetje.getVakY()][mannetje.getVakX()].getStatus().equals(status.LEEG)) {
+            vakken[mannetje.getVakY()][mannetje.getVakX()].setStatus(status.IN_DE_MAAK);
         }
     }
 
     public void raakInDeMaak() {
         Vak vakken[][] = speelveld.getVakken();
-        if (((mannetje.getX() - 10) / 20) + 1 < speelveld.getKolommen()
-                && ((mannetje.getX() - 10) / 20) - 1 >= 0
-                && ((mannetje.getY() - 10) / 20) + 1 < speelveld.getRijen()
-                && ((mannetje.getY() - 10) / 20) - 1 >= 0) {
-            if (vakken[(mannetje.getY() - 10) / 20][((mannetje.getX() - 10) / 20) + 1].getStatus().equals(status.IN_DE_MAAK)) {// rechts van mannetje 
-                vakken[(mannetje.getY() - 10) / 20][((mannetje.getX() - 10) / 20) + 1].setGevaar(true);
+        if (mannetje.getVakX() + 1 < speelveld.getKolommen()
+                && mannetje.getVakX() - 1 >= 0
+                && mannetje.getVakY() + 1 < speelveld.getRijen()
+                && mannetje.getVakY() - 1 >= 0) {
+            if (vakken[mannetje.getVakY()][mannetje.getVakX() + 1].getStatus().equals(status.IN_DE_MAAK)) {// rechts van mannetje 
+                vakken[mannetje.getVakY()][mannetje.getVakX() + 1].setGevaar(true);
             }
-            if (vakken[(mannetje.getY() - 10) / 20][((mannetje.getX() - 10) / 20) - 1].getStatus().equals(status.IN_DE_MAAK)) { // links van mannetje
-                vakken[(mannetje.getY() - 10) / 20][((mannetje.getX() - 10) / 20) - 1].setGevaar(true);
+            if (vakken[mannetje.getVakY()][mannetje.getVakX() - 1].getStatus().equals(status.IN_DE_MAAK)) { // links van mannetje
+                vakken[mannetje.getVakY()][mannetje.getVakX() - 1].setGevaar(true);
             }
-            if (vakken[((mannetje.getY() - 10) / 20) + 1][((mannetje.getX() - 10) / 20)].getStatus().equals(status.IN_DE_MAAK)) { // onder mannetje
-                vakken[((mannetje.getY() - 10) / 20) + 1][((mannetje.getX() - 10) / 20)].setGevaar(true);
+            if (vakken[mannetje.getVakY() + 1][mannetje.getVakX()].getStatus().equals(status.IN_DE_MAAK)) { // onder mannetje
+                vakken[mannetje.getVakY() + 1][mannetje.getVakX()].setGevaar(true);
             }
-            if (vakken[((mannetje.getY() - 10) / 20) - 1][((mannetje.getX() - 10) / 20)].getStatus().equals(status.IN_DE_MAAK)) { // boven mannetje
-                vakken[((mannetje.getY() - 10) / 20) - 1][((mannetje.getX() - 10) / 20)].setGevaar(true);
+            if (vakken[mannetje.getVakY() - 1][mannetje.getVakX()].getStatus().equals(status.IN_DE_MAAK)) { // boven mannetje
+                vakken[mannetje.getVakY() - 1][mannetje.getVakX()].setGevaar(true);
             }
         }
-        if (vakken[(mannetje.getY() - 10) / 20][((mannetje.getX() - 10) / 20)].getGevaar()) {
+        if (vakken[mannetje.getVakY()][mannetje.getVakX()].getGevaar()) {
             mannetje.isDood();
             geraaktInPad();
-        }
-    }
-
-    public void setScan() {
-        Vak vakken[][] = speelveld.getVakken();
-        if ((vakken[(mannetje.getY() - 10) / 20][((mannetje.getX() - 10) / 20)].getStatus().equals(status.IN_DE_MAAK))
-                && (vakken[(mannetje.getY() - 10) / 20][((mannetje.getX() - 10) / 20) + 1].getStatus().equals(status.LEEG)
-                || vakken[(mannetje.getY() - 10) / 20][((mannetje.getX() - 10) / 20) - 1].getStatus().equals(status.LEEG)
-                || vakken[((mannetje.getY() - 10) / 20) + 1][((mannetje.getX() - 10) / 20)].getStatus().equals(status.LEEG)
-                || vakken[((mannetje.getY() - 10) / 20) - 1][((mannetje.getX() - 10) / 20)].getStatus().equals(status.LEEG))
-                && (vakken[(mannetje.getY() - 10) / 20][((mannetje.getX() - 10) / 20) + 1].getStatus().equals(status.GEVULD)
-                || vakken[(mannetje.getY() - 10) / 20][((mannetje.getX() - 10) / 20) - 1].getStatus().equals(status.GEVULD)
-                || vakken[((mannetje.getY() - 10) / 20) + 1][((mannetje.getX() - 10) / 20)].getStatus().equals(status.GEVULD)
-                || vakken[((mannetje.getY() - 10) / 20) - 1][((mannetje.getX() - 10) / 20)].getStatus().equals(status.GEVULD))) {
-            if (((mannetje.getX() - 10) / 20) + 1 < speelveld.getKolommen()
-                    && ((mannetje.getX() - 10) / 20) - 1 >= 0
-                    && ((mannetje.getY() - 10) / 20) + 1 < speelveld.getRijen()
-                    && ((mannetje.getY() - 10) / 20) - 1 >= 0) {
-                if (vakken[(mannetje.getY() - 10) / 20][((mannetje.getX() - 10) / 20) + 1].getStatus().equals(status.LEEG)) {// rechts van mannetje 
-                    vakken[(mannetje.getY() - 10) / 20][((mannetje.getX() - 10) / 20) + 1].setScan(true);
-                    
-                    System.out.println("aap");
-                }
-                if (vakken[(mannetje.getY() - 10) / 20][((mannetje.getX() - 10) / 20) - 1].getStatus().equals(status.LEEG)) { // links van mannetje
-                    vakken[(mannetje.getY() - 10) / 20][((mannetje.getX() - 10) / 20) - 1].setScan(true);
-                    
-                    System.out.println("rups");
-                }
-                if (vakken[((mannetje.getY() - 10) / 20) + 1][((mannetje.getX() - 10) / 20)].getStatus().equals(status.LEEG)) { // onder mannetje
-                    vakken[((mannetje.getY() - 10) / 20) + 1][((mannetje.getX() - 10) / 20)].setScan(true);
-                    
-                    System.out.println("koe");
-                }
-                if (vakken[((mannetje.getY() - 10) / 20) - 1][((mannetje.getX() - 10) / 20)].getStatus().equals(status.LEEG)) { // boven mannetje
-                    vakken[((mannetje.getY() - 10) / 20) - 1][((mannetje.getX() - 10) / 20)].setScan(true);
-                    
-                    System.out.println("schaap");
-                }
-            }
         }
     }
 
@@ -223,7 +182,6 @@ public class SpeelveldView extends Region {
         for (int i = 0; i < speelveld.getRijen(); i++) {
             for (int j = 0; j < speelveld.getKolommen(); j++) {
                 vakken[i][j].setGevaar(false);
-                vakken[i][j].setScan(false);
             }
         }
     }
@@ -243,7 +201,7 @@ public class SpeelveldView extends Region {
 
     public boolean ispositieMannetjeGevuld() {
         Vak vakken[][] = speelveld.getVakken();
-        if (vakken[(mannetje.getY() - 10) / 20][(mannetje.getX() - 10) / 20].getStatus().equals(status.GEVULD)) {
+        if (vakken[mannetje.getVakY()][mannetje.getVakX()].getStatus().equals(status.GEVULD)) {
             return true;
         }
         return false;
