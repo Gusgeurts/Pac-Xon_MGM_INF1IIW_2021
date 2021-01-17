@@ -39,6 +39,9 @@ public class SpeelveldController {
     private Button resetButton;
 
     @FXML
+    private Button startButton;
+
+    @FXML
     private Label labelMannetjeX;
 
     @FXML
@@ -68,6 +71,8 @@ public class SpeelveldController {
     private StatusVak status;
     private VakView vakView;
     private Vak vak;
+    private boolean start = true;
+
 
     @FXML
     void initialize() {
@@ -86,18 +91,12 @@ public class SpeelveldController {
 
         update();
 
-        speelveld.setOnKeyPressed(this::loopRond);
         resetButton.setOnAction(this::reset);
+        startButton.setOnAction(this::start);
 
         mannetjeView.setFocusTraversable(true);
         resetButton.setFocusTraversable(false);
-
-        BeweegSpook taskSpook = new BeweegSpook(spook, this);
-        Timer t = new Timer(true);
-        t.scheduleAtFixedRate(taskSpook, 0, 10);
-
-        BeweegMannetje taskMannetje = new BeweegMannetje(mannetje, this);
-        t.scheduleAtFixedRate(taskMannetje, 0, 120);
+        startButton.setFocusTraversable(false);
 
     }
 
@@ -186,6 +185,25 @@ public class SpeelveldController {
         mannetje.resetGame();
         vakkenSpeelveldView.reset(vakkenSpeelveld);
         update();
+        
+        start = true;
+
+    }
+
+    private void start(ActionEvent e) {
+
+        if (start) {
+            BeweegSpook taskSpook = new BeweegSpook(spook, this);
+            
+            Timer t = new Timer(true);
+            t.scheduleAtFixedRate(taskSpook, 0, 16);
+            BeweegMannetje taskMannetje = new BeweegMannetje(mannetje, this);
+            t.scheduleAtFixedRate(taskMannetje, 0, 120);
+
+            speelveld.setOnKeyPressed(this::loopRond);
+            start = false;
+        }
+
     }
 
     private void mannetjeGeraaktDoorSpook() {

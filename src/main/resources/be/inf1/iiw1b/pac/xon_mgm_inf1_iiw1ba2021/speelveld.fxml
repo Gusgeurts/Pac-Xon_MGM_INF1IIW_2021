@@ -7,7 +7,7 @@
 <AnchorPane id="AnchorPane" prefHeight="646.0" prefWidth="989.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="be.inf1.iiw1b.pac.xon_mgm_inf1_iiw1ba2021.SpeelveldController">
    <children>
       <AnchorPane fx:id="speelveld" layoutX="120.0" layoutY="82.0" prefHeight="460.0" prefWidth="680.0" />
-      <Button fx:id="resetButton" layoutX="39.0" layoutY="18.0" mnemonicParsing="false" text="Button" />
+      <Button fx:id="resetButton" layoutX="39.0" layoutY="18.0" mnemonicParsing="false" text="reset" />
       <Label fx:id="labelMannetjeX" layoutX="160.0" layoutY="22.0" prefHeight="25.0" prefWidth="63.0" text="Label" />
       <Label fx:id="labelMannetjeY" layoutX="245.0" layoutY="20.0" prefHeight="25.0" prefWidth="97.0" text="Label" />
       <Label fx:id="labelLevens" layoutX="317.0" layoutY="22.0" prefHeight="25.0" prefWidth="63.0" text="Label" />
@@ -15,5 +15,6 @@
       <Label fx:id="labelSpookX" layoutX="389.0" layoutY="22.0" prefHeight="25.0" prefWidth="63.0" text="Label" />
       <Label fx:id="labelDood" layoutX="530.0" layoutY="20.0" prefHeight="25.0" prefWidth="63.0" text="Label" />
       <Label fx:id="labelInvulProcent" layoutX="599.0" layoutY="20.0" prefHeight="25.0" prefWidth="63.0" text="Label" />
+      <Button fx:id="startButton" layoutX="662.0" layoutY="22.0" mnemonicParsing="false" text="start" />
    </children>
 </AnchorPane>
