@@ -11,13 +11,13 @@ package model;
  */
 public class Vak {
 
-    private int zijde;
+    private final int zijde;
     private StatusVak status;
     private boolean gevaar;
 
     public Vak() {
         zijde = 20;
-        status = status.LEEG;
+        status = StatusVak.LEEG;
         gevaar = false;
     }
 

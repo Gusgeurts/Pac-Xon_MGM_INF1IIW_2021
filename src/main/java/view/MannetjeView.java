@@ -6,23 +6,19 @@
 package view;
 
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
-import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
-import javafx.scene.shape.Rectangle;
-import javafx.scene.transform.Rotate;
 import model.Mannetje;
 
 /**
  *
  * @author Gus Geurts
  */
-public class MannetjeView extends Region {
+public final class MannetjeView extends Region {
 
-    private Mannetje mannetje;
+    private final Mannetje mannetje;
     private AnchorPane paneel;
     private Circle cirkel;
 

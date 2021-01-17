@@ -5,8 +5,6 @@
  */
 package model;
 
-import java.util.Random;
-
 /**
  *
  * @author Gus Geurts
@@ -19,9 +17,9 @@ public class Spook {
     private double vx;
     private double vy;
 
-    private int straal;
+    private final int straal;
 
-    public Spook(int x, int y) {
+    public Spook(double x, double y) {
         this.x = x;
         this.y = y;
         vx = 0.5;
@@ -34,16 +32,16 @@ public class Spook {
      * @return the x
      */
     public int getVakX() {
-        return (int) (x-10)/20;
+        return (int) (x - 10) / 20;
     }
 
     /**
      * @return the y
      */
     public int getVakY() {
-        return (int) (y-10)/20;
+        return (int) (y - 10) / 20;
     }
-    
+
     /**
      * @return the x
      */
@@ -76,11 +74,11 @@ public class Spook {
     }
 
     public void setVx(double vx) {
-            this.vx = vx;
+        this.vx = vx;
     }
 
     public void setVy(double vy) {
-            this.vy = vy;
+        this.vy = vy;
     }
 
     public void Tick() {

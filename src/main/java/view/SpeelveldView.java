@@ -16,13 +16,13 @@ import model.Vak;
  *
  * @author Gus Geurts
  */
-public class SpeelveldView extends Region {
+public final class SpeelveldView extends Region {
 
-    private Speelveld speelveld;
+    private final Speelveld speelveld;
     private StatusVak status;
-    private Mannetje mannetje;
-    private Spook spook;
-    private int teVullenVakken;
+    private final Mannetje mannetje;
+    private final Spook spook;
+    private final int teVullenVakken;
 
     public SpeelveldView(Speelveld speelveld, Mannetje mannetje, Spook spook) {
         this.speelveld = speelveld;
@@ -49,6 +49,7 @@ public class SpeelveldView extends Region {
     }
 
     public void maakSpeelveld() {
+        getChildren().clear();
         int n = 0;
         int m = 0;
         Vak vakken[][] = speelveld.getVakken();
@@ -56,16 +57,16 @@ public class SpeelveldView extends Region {
             for (int j = 0; j < speelveld.getKolommen(); j++) {
                 VakView vv = new VakView(vakken[i][j]);
                 if (i == 0) {
-                    vakken[i][j].setStatus(status.GEVULD);
+                    vakken[i][j].setStatus(StatusVak.GEVULD);
                 }
                 if (i == speelveld.getRijen() - 1) {
-                    vakken[i][j].setStatus(status.GEVULD);
+                    vakken[i][j].setStatus(StatusVak.GEVULD);
                 }
                 if (j == 0) {
-                    vakken[i][j].setStatus(status.GEVULD);
+                    vakken[i][j].setStatus(StatusVak.GEVULD);
                 }
                 if (j == speelveld.getKolommen() - 1) {
-                    vakken[i][j].setStatus(status.GEVULD);
+                    vakken[i][j].setStatus(StatusVak.GEVULD);
                 }
                 vv.setTranslateX(20 * n);
                 vv.setTranslateY(20 * m);
@@ -73,9 +74,9 @@ public class SpeelveldView extends Region {
                 if (n == speelveld.getKolommen()) {
                     n = 0;
                 }
-                if (vakken[i][j].getStatus().equals(status.GEVULD)) {
+                if (vakken[i][j].getStatus().equals(StatusVak.GEVULD)) {
                     vv.setId("idGevuld");
-                } else if (vakken[i][j].getStatus().equals(status.IN_DE_MAAK)) {
+                } else if (vakken[i][j].getStatus().equals(StatusVak.IN_DE_MAAK)) {
                     vv.setId("idInDeMaak");
                 } else {
                     vv.setId("idLeeg");
@@ -90,7 +91,7 @@ public class SpeelveldView extends Region {
         Vak vakken[][] = speelveld.getVakken();
         for (int i = 1; i < speelveld.getRijen() - 1; i++) {
             for (int j = 1; j < speelveld.getKolommen() - 1; j++) {
-                vakken[i][j].setStatus(status.LEEG);
+                vakken[i][j].setStatus(StatusVak.LEEG);
             }
         }
     }
@@ -99,8 +100,8 @@ public class SpeelveldView extends Region {
         Vak vakken[][] = speelveld.getVakken();
         for (int i = 0; i < speelveld.getRijen(); i++) {
             for (int j = 0; j < speelveld.getKolommen(); j++) {
-                if (vakken[i][j].getStatus().equals(status.IN_DE_MAAK)) {
-                    vakken[i][j].setStatus(status.LEEG);
+                if (vakken[i][j].getStatus().equals(StatusVak.IN_DE_MAAK)) {
+                    vakken[i][j].setStatus(StatusVak.LEEG);
                 }
             }
         }
@@ -110,8 +111,8 @@ public class SpeelveldView extends Region {
         Vak vakken[][] = speelveld.getVakken();
         for (int i = 0; i < speelveld.getRijen(); i++) {
             for (int j = 0; j < speelveld.getKolommen(); j++) {
-                if (vakken[i][j].getStatus().equals(status.IN_DE_MAAK)) {
-                    vakken[i][j].setStatus(status.LEEG);
+                if (vakken[i][j].getStatus().equals(StatusVak.IN_DE_MAAK)) {
+                    vakken[i][j].setStatus(StatusVak.LEEG);
                 }
             }
         }
@@ -119,13 +120,13 @@ public class SpeelveldView extends Region {
 
     public void maakGevuldeLijn() {
         Vak vakken[][] = speelveld.getVakken();
-        if (vakken[mannetje.getVakY()][mannetje.getVakX()].getStatus().equals(status.GEVULD)
+        if (vakken[mannetje.getVakY()][mannetje.getVakX()].getStatus().equals(StatusVak.GEVULD)
                 && mannetje.getX() != 0 && mannetje.getY() != 0) {
             resetGevaar();
             for (int i = 0; i < speelveld.getRijen(); i++) {
                 for (int j = 0; j < speelveld.getKolommen(); j++) {
-                    if ((vakken[i][j].getStatus().equals(status.IN_DE_MAAK))) {
-                        vakken[i][j].setStatus(status.GEVULD);
+                    if ((vakken[i][j].getStatus().equals(StatusVak.IN_DE_MAAK))) {
+                        vakken[i][j].setStatus(StatusVak.GEVULD);
 
                     }
                 }
@@ -135,8 +136,8 @@ public class SpeelveldView extends Region {
 
     public void maakInDeMaakLijn() {
         Vak vakken[][] = speelveld.getVakken();
-        if (vakken[mannetje.getVakY()][mannetje.getVakX()].getStatus().equals(status.LEEG)) {
-            vakken[mannetje.getVakY()][mannetje.getVakX()].setStatus(status.IN_DE_MAAK);
+        if (vakken[mannetje.getVakY()][mannetje.getVakX()].getStatus().equals(StatusVak.LEEG)) {
+            vakken[mannetje.getVakY()][mannetje.getVakX()].setStatus(StatusVak.IN_DE_MAAK);
         }
     }
 
@@ -146,16 +147,16 @@ public class SpeelveldView extends Region {
                 && mannetje.getVakX() - 1 >= 0
                 && mannetje.getVakY() + 1 < speelveld.getRijen()
                 && mannetje.getVakY() - 1 >= 0) {
-            if (vakken[mannetje.getVakY()][mannetje.getVakX() + 1].getStatus().equals(status.IN_DE_MAAK)) {// rechts van mannetje 
+            if (vakken[mannetje.getVakY()][mannetje.getVakX() + 1].getStatus().equals(StatusVak.IN_DE_MAAK)) {// rechts van mannetje 
                 vakken[mannetje.getVakY()][mannetje.getVakX() + 1].setGevaar(true);
             }
-            if (vakken[mannetje.getVakY()][mannetje.getVakX() - 1].getStatus().equals(status.IN_DE_MAAK)) { // links van mannetje
+            if (vakken[mannetje.getVakY()][mannetje.getVakX() - 1].getStatus().equals(StatusVak.IN_DE_MAAK)) { // links van mannetje
                 vakken[mannetje.getVakY()][mannetje.getVakX() - 1].setGevaar(true);
             }
-            if (vakken[mannetje.getVakY() + 1][mannetje.getVakX()].getStatus().equals(status.IN_DE_MAAK)) { // onder mannetje
+            if (vakken[mannetje.getVakY() + 1][mannetje.getVakX()].getStatus().equals(StatusVak.IN_DE_MAAK)) { // onder mannetje
                 vakken[mannetje.getVakY() + 1][mannetje.getVakX()].setGevaar(true);
             }
-            if (vakken[mannetje.getVakY() - 1][mannetje.getVakX()].getStatus().equals(status.IN_DE_MAAK)) { // boven mannetje
+            if (vakken[mannetje.getVakY() - 1][mannetje.getVakX()].getStatus().equals(StatusVak.IN_DE_MAAK)) { // boven mannetje
                 vakken[mannetje.getVakY() - 1][mannetje.getVakX()].setGevaar(true);
             }
         }
@@ -179,7 +180,7 @@ public class SpeelveldView extends Region {
         double n = 0;
         for (int i = 1; i < speelveld.getRijen() - 1; i++) {
             for (int j = 1; j < speelveld.getKolommen() - 1; j++) {
-                if (vakken[i][j].getStatus().equals(status.GEVULD)) {
+                if (vakken[i][j].getStatus().equals(StatusVak.GEVULD)) {
                     n++;
                 }
             }
@@ -189,7 +190,7 @@ public class SpeelveldView extends Region {
 
     public boolean ispositieMannetjeGevuld() {
         Vak vakken[][] = speelveld.getVakken();
-        if (vakken[mannetje.getVakY()][mannetje.getVakX()].getStatus().equals(status.GEVULD)) {
+        if (vakken[mannetje.getVakY()][mannetje.getVakX()].getStatus().equals(StatusVak.GEVULD)) {
             return true;
         }
         return false;

@@ -11,8 +11,6 @@
       <Label fx:id="labelMannetjeX" layoutX="160.0" layoutY="22.0" prefHeight="25.0" prefWidth="63.0" text="Label" />
       <Label fx:id="labelMannetjeY" layoutX="245.0" layoutY="20.0" prefHeight="25.0" prefWidth="97.0" text="Label" />
       <Label fx:id="labelLevens" layoutX="317.0" layoutY="22.0" prefHeight="25.0" prefWidth="63.0" text="Label" />
-      <Label fx:id="labelSpookY" layoutX="452.0" layoutY="22.0" prefHeight="25.0" prefWidth="63.0" text="Label" />
-      <Label fx:id="labelSpookX" layoutX="389.0" layoutY="22.0" prefHeight="25.0" prefWidth="63.0" text="Label" />
       <Label fx:id="labelDood" layoutX="530.0" layoutY="20.0" prefHeight="25.0" prefWidth="63.0" text="Label" />
       <Label fx:id="labelInvulProcent" layoutX="599.0" layoutY="20.0" prefHeight="25.0" prefWidth="63.0" text="Label" />
       <Button fx:id="startButton" layoutX="662.0" layoutY="22.0" mnemonicParsing="false" text="start" />

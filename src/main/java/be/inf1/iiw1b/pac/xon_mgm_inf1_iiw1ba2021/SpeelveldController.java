@@ -1,14 +1,14 @@
 package be.inf1.iiw1b.pac.xon_mgm_inf1_iiw1ba2021;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.Timer;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.geometry.Bounds;
+import javafx.geometry.NodeOrientation;
 import javafx.geometry.Point2D;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
@@ -18,13 +18,11 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import model.Mannetje;
 import model.Speelveld;
+import model.Spoken;
 import model.Spook;
-import model.StatusVak;
-import model.Vak;
 import view.MannetjeView;
 import view.SpeelveldView;
-import view.SpookView;
-import view.VakView;
+import view.SpokenView;
 
 public class SpeelveldController {
 
@@ -53,12 +51,6 @@ public class SpeelveldController {
     private Label labelLevens;
 
     @FXML
-    private Label labelSpookX;
-
-    @FXML
-    private Label labelSpookY;
-
-    @FXML
     private Label labelDood;
 
     @FXML
@@ -67,12 +59,10 @@ public class SpeelveldController {
     private Mannetje mannetje;
     private MannetjeView mannetjeView;
     private Spook spook;
-    private SpookView spookView;
+    private Spoken spoken;
     private Speelveld vakkenSpeelveld;
     private SpeelveldView vakkenSpeelveldView;
-    private StatusVak status;
-    private VakView vakView;
-    private Vak vak;
+    private SpokenView spokenView;
     private boolean start = false;
     private Timer timer;
 
@@ -82,12 +72,13 @@ public class SpeelveldController {
         vakkenSpeelveld = new Speelveld(23, 34);
         mannetje = new Mannetje(10, 10, vakkenSpeelveld);
         spook = new Spook(200, 200);
+        spoken = new Spoken(2, vakkenSpeelveld);
 
         mannetjeView = new MannetjeView(mannetje);
-        spookView = new SpookView(spook);
         vakkenSpeelveldView = new SpeelveldView(vakkenSpeelveld, mannetje, spook);
+        spokenView = new SpokenView(spoken);
 
-        speelveld.getChildren().addAll(vakkenSpeelveldView, mannetjeView, spookView);
+        speelveld.getChildren().addAll(vakkenSpeelveldView, mannetjeView, spokenView);
 
         update();
 
@@ -102,14 +93,16 @@ public class SpeelveldController {
 
     public void update() {
 
+        //ogenSpook();
+        mannetjeView.update();
+        spokenView.update();
+
         if (start) {
-            mannetjeView.update();
-            spookView.update();
 
             speelveld.setOnKeyPressed(this::loopRond);
-            
+
             mannetjeGeraaktDoorSpook();
-            ogenSpook();
+
             gameOver();
             stilInGevuld();
             spookRaaktGevuld();
@@ -118,8 +111,6 @@ public class SpeelveldController {
 
         labelMannetjeX.setText(mannetje.getX() + "");
         labelMannetjeY.setText(mannetje.getY() + "");
-        labelSpookX.setText(spook.getX() + "");
-        labelSpookY.setText(spook.getY() + "");
         labelLevens.setText(mannetje.getLevens() + "");
         labelDood.setText(mannetje.getDood() + "");
         labelInvulProcent.setText(vakkenSpeelveldView.getProcentGevuld() + "");
@@ -184,27 +175,28 @@ public class SpeelveldController {
         }
     }
 
-    private void reset(ActionEvent e) {       
+    private void reset(ActionEvent e) {
         if (start) {
             mannetje.resetGame();
-            vakkenSpeelveldView.resetVeld(); 
+            vakkenSpeelveldView.resetVeld();
             mannetjeView.getVormMannetje().setRotate(0);
             timer.cancel();
-            
+
             update();
         }
         start = false;
-        
+
     }
 
     private void start(ActionEvent e) {
 
         if (!start) {
-            BeweegSpook taskSpook = new BeweegSpook(spook, this);
-
             timer = new Timer(true);
+            for (Spook s : spoken.getSpoken()) {
+                BeweegSpook taskSpook = new BeweegSpook(s, this);
+                timer.scheduleAtFixedRate(taskSpook, 0, 14);
+            }
 
-            timer.scheduleAtFixedRate(taskSpook, 0, 16);
             BeweegMannetje taskMannetje = new BeweegMannetje(mannetje, this);
             timer.scheduleAtFixedRate(taskMannetje, 0, 120);
 
@@ -216,7 +208,7 @@ public class SpeelveldController {
 
     private void mannetjeGeraaktDoorSpook() {
         ObservableList<Node> man = mannetjeView.getChildrenUnmodifiable();
-        ObservableList<Node> spoken = spookView.getChildrenUnmodifiable();
+        ObservableList<Node> spoken = spokenView.getChildrenUnmodifiable();
 
         for (Node m : man) {
             Bounds boundMannetje = m.localToScene(m.getBoundsInLocal());
@@ -233,19 +225,22 @@ public class SpeelveldController {
 
     private void spookRaaktGevuld() {
         ObservableList<Node> vakken = vakkenSpeelveldView.getChildrenUnmodifiable();
-        ObservableList<Node> spoken = spookView.getChildrenUnmodifiable();
+        ObservableList<Node> spoken = spokenView.getChildrenUnmodifiable();
+        ArrayList<Spook> sp = this.spoken.getSpoken();
+        int i = 0;
 
-        spoken.forEach(s -> {
+        for (Node s : spoken) {
+
             Bounds boundSpook = s.localToParent(s.getBoundsInLocal());
 
-            vakken.forEach(v -> {
+            for (Node v : vakken) {
                 Bounds boundVak = v.localToParent(v.getBoundsInLocal());
                 if (s.localToParent(Point2D.ZERO).getY() + spook.getStraal() >= boundVak.getMinY() - 3
                         && s.localToParent(Point2D.ZERO).getY() + spook.getStraal() <= boundVak.getMinY() + 3
                         && s.localToParent(Point2D.ZERO).getX() >= boundVak.getMinX()
                         && s.localToParent(Point2D.ZERO).getX() <= boundVak.getMinX() + boundVak.getWidth()) {
                     if (v.getId().equals("idGevuld")) {
-                        spook.setVy(-0.5);
+                        sp.get(i).setVy(-0.5);
                     } else if (v.getId().equals("idInDeMaak")) {
                         mannetje.isDood();
                         vakkenSpeelveldView.geraaktInPad();
@@ -256,7 +251,7 @@ public class SpeelveldController {
                         && s.localToParent(Point2D.ZERO).getX() >= boundVak.getMinX()
                         && s.localToParent(Point2D.ZERO).getX() <= boundVak.getMinX() + boundVak.getWidth()) {
                     if (v.getId().equals("idGevuld")) {
-                        spook.setVy(0.5);
+                        sp.get(i).setVy(0.5);
                     } else if (v.getId().equals("idInDeMaak")) {
                         mannetje.isDood();
                         vakkenSpeelveldView.geraaktInPad();
@@ -267,7 +262,7 @@ public class SpeelveldController {
                         && s.localToParent(Point2D.ZERO).getY() >= boundVak.getMinY()
                         && s.localToParent(Point2D.ZERO).getY() <= boundVak.getMinY() + boundVak.getHeight()) {
                     if (v.getId().equals("idGevuld")) {
-                        spook.setVx(0.5);
+                        sp.get(i).setVx(0.5);
                     } else if (v.getId().equals("idInDeMaak")) {
                         mannetje.isDood();
                         vakkenSpeelveldView.geraaktInPad();
@@ -278,7 +273,7 @@ public class SpeelveldController {
                         && s.localToParent(Point2D.ZERO).getY() >= boundVak.getMinY()
                         && s.localToParent(Point2D.ZERO).getY() <= boundVak.getMinY() + boundVak.getHeight()) {
                     if (v.getId().equals("idGevuld")) {
-                        spook.setVx(-0.5);
+                        sp.get(i).setVx(-0.5);
                     } else if (v.getId().equals("idInDeMaak")) {
                         mannetje.isDood();
                         vakkenSpeelveldView.geraaktInPad();
@@ -286,17 +281,25 @@ public class SpeelveldController {
 
                 }
 
-            });
-        });
+            }
+            i++;
+        }
 
     }
 
     private void ogenSpook() {
-        if (spook.getVx() > 0) {
-            spookView.getVormSpook().setScaleX(-1);
-        } else {
-            spookView.getVormSpook().setScaleX(1);
+        ObservableList<Node> spokenLijst = spokenView.getChildrenUnmodifiable();
+
+        int i = 0;
+        for (Spook s : spoken.getSpoken()) {
+            if (s.getVx() > 0) {
+                spokenLijst.get(i).setNodeOrientation(NodeOrientation.RIGHT_TO_LEFT);
+            } else {
+                spokenLijst.get(i).setNodeOrientation(NodeOrientation.LEFT_TO_RIGHT);
+            }
+            i++;
         }
+
     }
 
     private void gameOver() {
