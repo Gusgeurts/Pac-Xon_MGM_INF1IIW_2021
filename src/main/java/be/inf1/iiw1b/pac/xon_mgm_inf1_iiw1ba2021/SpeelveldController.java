@@ -5,6 +5,8 @@ import java.util.ResourceBundle;
 import java.util.Timer;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.geometry.Bounds;
 import javafx.geometry.Point2D;
@@ -71,8 +73,8 @@ public class SpeelveldController {
     private StatusVak status;
     private VakView vakView;
     private Vak vak;
-    private boolean start = true;
-
+    private boolean start = false;
+    private Timer timer;
 
     @FXML
     void initialize() {
@@ -85,9 +87,7 @@ public class SpeelveldController {
         spookView = new SpookView(spook);
         vakkenSpeelveldView = new SpeelveldView(vakkenSpeelveld, mannetje, spook);
 
-        speelveld.getChildren().add(vakkenSpeelveldView);
-        speelveld.getChildren().add(mannetjeView);
-        speelveld.getChildren().add(spookView);
+        speelveld.getChildren().addAll(vakkenSpeelveldView, mannetjeView, spookView);
 
         update();
 
@@ -102,8 +102,18 @@ public class SpeelveldController {
 
     public void update() {
 
-        mannetjeView.update();
-        spookView.update();
+        if (start) {
+            mannetjeView.update();
+            spookView.update();
+
+            speelveld.setOnKeyPressed(this::loopRond);
+            
+            mannetjeGeraaktDoorSpook();
+            ogenSpook();
+            gameOver();
+            stilInGevuld();
+            spookRaaktGevuld();
+        }
         vakkenSpeelveldView.update();
 
         labelMannetjeX.setText(mannetje.getX() + "");
@@ -114,94 +124,92 @@ public class SpeelveldController {
         labelDood.setText(mannetje.getDood() + "");
         labelInvulProcent.setText(vakkenSpeelveldView.getProcentGevuld() + "");
 
-        mannetjeGeraaktDoorSpook();
-
-        ogenSpook();
-
-        gameOver();
-
-        stilInGevuld();
-
-        spookRaaktGevuld();
-
     }
 
     private void loopRond(KeyEvent t) {
-        switch (t.getCode()) {
-            case RIGHT:
-                mannetje.rechts();
-                mannetje.setMaxXBorder();
-                if (vakkenSpeelveldView.ispositieMannetjeGevuld()) {
-                    mannetje.setVx(0);
-                    mannetje.setVy(0);
-                } else {
-                    mannetje.setVx(1);
-                    mannetje.setVy(0);
-                }
-                mannetjeView.getVormMannetje().setRotate(0);
-                break;
-            case LEFT:
-                mannetje.links();
-                mannetje.setMinXBorder();
-                if (vakkenSpeelveldView.ispositieMannetjeGevuld()) {
-                    mannetje.setVx(0);
-                    mannetje.setVy(0);
-                } else {
-                    mannetje.setVx(-1);
-                    mannetje.setVy(0);
-                }
-                mannetjeView.getVormMannetje().setRotate(180);
-                break;
-            case UP:
-                mannetje.boven();
-                mannetje.setMinYBorder();
-                if (vakkenSpeelveldView.ispositieMannetjeGevuld()) {
-                    mannetje.setVx(0);
-                    mannetje.setVy(0);
-                } else {
-                    mannetje.setVx(0);
-                    mannetje.setVy(-1);
-                }
-                mannetjeView.getVormMannetje().setRotate(270);
-                break;
+        if (start) {
 
-            case DOWN:
-                mannetje.onder();
-                mannetje.setMaxYBorder();
-                if (vakkenSpeelveldView.ispositieMannetjeGevuld()) {
-                    mannetje.setVx(0);
-                    mannetje.setVy(0);
-                } else {
-                    mannetje.setVx(0);
-                    mannetje.setVy(1);
-                }
-                mannetjeView.getVormMannetje().setRotate(90);
-                break;
+            switch (t.getCode()) {
+                case RIGHT:
+                    mannetje.rechts();
+                    mannetje.setMaxXBorder();
+                    if (vakkenSpeelveldView.ispositieMannetjeGevuld()) {
+                        mannetje.setVx(0);
+                        mannetje.setVy(0);
+                    } else {
+                        mannetje.setVx(1);
+                        mannetje.setVy(0);
+                    }
+                    mannetjeView.getVormMannetje().setRotate(0);
+                    break;
+                case LEFT:
+                    mannetje.links();
+                    mannetje.setMinXBorder();
+                    if (vakkenSpeelveldView.ispositieMannetjeGevuld()) {
+                        mannetje.setVx(0);
+                        mannetje.setVy(0);
+                    } else {
+                        mannetje.setVx(-1);
+                        mannetje.setVy(0);
+                    }
+                    mannetjeView.getVormMannetje().setRotate(180);
+                    break;
+                case UP:
+                    mannetje.boven();
+                    mannetje.setMinYBorder();
+                    if (vakkenSpeelveldView.ispositieMannetjeGevuld()) {
+                        mannetje.setVx(0);
+                        mannetje.setVy(0);
+                    } else {
+                        mannetje.setVx(0);
+                        mannetje.setVy(-1);
+                    }
+                    mannetjeView.getVormMannetje().setRotate(270);
+                    break;
+
+                case DOWN:
+                    mannetje.onder();
+                    mannetje.setMaxYBorder();
+                    if (vakkenSpeelveldView.ispositieMannetjeGevuld()) {
+                        mannetje.setVx(0);
+                        mannetje.setVy(0);
+                    } else {
+                        mannetje.setVx(0);
+                        mannetje.setVy(1);
+                    }
+                    mannetjeView.getVormMannetje().setRotate(90);
+                    break;
+            }
+            update();
         }
-        update();
     }
 
-    private void reset(ActionEvent e) {
-        mannetje.resetGame();
-        vakkenSpeelveldView.reset(vakkenSpeelveld);
-        update();
+    private void reset(ActionEvent e) {       
+        if (start) {
+            mannetje.resetGame();
+            vakkenSpeelveldView.resetVeld(); 
+            mannetjeView.getVormMannetje().setRotate(0);
+            timer.cancel();
+            
+            update();
+        }
+        start = false;
         
-        start = true;
-
     }
 
     private void start(ActionEvent e) {
 
-        if (start) {
+        if (!start) {
             BeweegSpook taskSpook = new BeweegSpook(spook, this);
-            
-            Timer t = new Timer(true);
-            t.scheduleAtFixedRate(taskSpook, 0, 16);
-            BeweegMannetje taskMannetje = new BeweegMannetje(mannetje, this);
-            t.scheduleAtFixedRate(taskMannetje, 0, 120);
 
-            speelveld.setOnKeyPressed(this::loopRond);
-            start = false;
+            timer = new Timer(true);
+
+            timer.scheduleAtFixedRate(taskSpook, 0, 16);
+            BeweegMannetje taskMannetje = new BeweegMannetje(mannetje, this);
+            timer.scheduleAtFixedRate(taskMannetje, 0, 120);
+
+            start = true;
+
         }
 
     }
@@ -294,7 +302,7 @@ public class SpeelveldController {
     private void gameOver() {
         if (mannetje.getDood()) {
             doodNotificatie();
-            vakkenSpeelveldView.reset(vakkenSpeelveld);
+            vakkenSpeelveldView.resetVeld();
             mannetje.resetGame();
         }
     }
