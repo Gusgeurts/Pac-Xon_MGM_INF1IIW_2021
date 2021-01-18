@@ -20,6 +20,7 @@ public class App extends Application {
         scene = new Scene(loadFXML("speelveld"), 1000, 600);
         stage.setScene(scene);
         stage.show();
+        stage.setTitle("PacXon");
     }
 
     static void setRoot(String fxml) throws IOException {

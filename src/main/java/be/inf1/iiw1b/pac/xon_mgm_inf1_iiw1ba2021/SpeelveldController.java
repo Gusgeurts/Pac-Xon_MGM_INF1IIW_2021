@@ -20,6 +20,7 @@ import model.Mannetje;
 import model.Speelveld;
 import model.Spoken;
 import model.Spook;
+import model.Vak;
 import view.MannetjeView;
 import view.SpeelveldView;
 import view.SpokenView;
@@ -60,6 +61,7 @@ public class SpeelveldController {
     private MannetjeView mannetjeView;
     private Spook spook;
     private Spoken spoken;
+    private Vak vak;
     private Speelveld vakkenSpeelveld;
     private SpeelveldView vakkenSpeelveldView;
     private SpokenView spokenView;
@@ -71,8 +73,10 @@ public class SpeelveldController {
 
         vakkenSpeelveld = new Speelveld(23, 34);
         mannetje = new Mannetje(10, 10, vakkenSpeelveld);
-        spook = new Spook(200, 200);
-        spoken = new Spoken(2, vakkenSpeelveld);
+        spook = new Spook(0, 0);
+        vak = new Vak();
+        spoken = new Spoken(2, vak, vakkenSpeelveld);
+        
 
         mannetjeView = new MannetjeView(mannetje);
         vakkenSpeelveldView = new SpeelveldView(vakkenSpeelveld, mannetje, spook);

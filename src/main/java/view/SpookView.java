@@ -19,7 +19,6 @@ import model.Spook;
 public final class SpookView extends Region {
 
     private final Spook spook;
-    private AnchorPane paneel;
     private Circle bal;
 
     public SpookView(Spook spook) {

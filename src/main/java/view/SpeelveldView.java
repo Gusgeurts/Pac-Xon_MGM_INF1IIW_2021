@@ -19,7 +19,6 @@ import model.Vak;
 public final class SpeelveldView extends Region {
 
     private final Speelveld speelveld;
-    private StatusVak status;
     private final Mannetje mannetje;
     private final Spook spook;
     private final int teVullenVakken;
@@ -74,12 +73,16 @@ public final class SpeelveldView extends Region {
                 if (n == speelveld.getKolommen()) {
                     n = 0;
                 }
-                if (vakken[i][j].getStatus().equals(StatusVak.GEVULD)) {
-                    vv.setId("idGevuld");
-                } else if (vakken[i][j].getStatus().equals(StatusVak.IN_DE_MAAK)) {
-                    vv.setId("idInDeMaak");
-                } else {
-                    vv.setId("idLeeg");
+                switch (vakken[i][j].getStatus()) {
+                    case GEVULD:
+                        vv.setId("idGevuld");
+                        break;
+                    case IN_DE_MAAK:
+                        vv.setId("idInDeMaak");
+                        break;
+                    default:
+                        vv.setId("idLeeg");
+                        break;
                 }
                 getChildren().add(vv);
             }
