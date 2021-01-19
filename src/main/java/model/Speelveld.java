@@ -5,17 +5,15 @@
  */
 package model;
 
-import model.Vak;
-
 /**
  *
  * @author Gus Geurts
  */
 public class Speelveld {
 
-    private Vak vakken[][];
-    private int rijen;
-    private int kolommen;
+    private final Vak vakken[][];
+    private final int rijen;
+    private final int kolommen;
 
     public Speelveld(int rijen, int kolommen) {
         this.rijen = rijen;

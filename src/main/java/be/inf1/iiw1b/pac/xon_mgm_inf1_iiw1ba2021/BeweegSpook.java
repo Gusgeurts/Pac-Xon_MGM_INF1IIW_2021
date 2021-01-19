@@ -15,8 +15,8 @@ import model.Spook;
  */
 public class BeweegSpook extends TimerTask {
 
-    private Spook spook;
-    private SpeelveldController controller;
+    private final Spook spook;
+    private final SpeelveldController controller;
 
     public BeweegSpook(Spook spook, SpeelveldController controller) {
         this.spook = spook;

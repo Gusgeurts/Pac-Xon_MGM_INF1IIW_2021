@@ -17,8 +17,8 @@ public class Mannetje {
     private int vy;
     private boolean dood;
     private int levens;
-    private int straal;
-    private Speelveld vakkenSpeelveld;
+    private final int straal;
+    private final Speelveld vakkenSpeelveld;
 
     public Mannetje(int x, int y, Speelveld vakkenSpeelveld) {
         this.vakkenSpeelveld = vakkenSpeelveld;
@@ -134,8 +134,8 @@ public class Mannetje {
     }
 
     public int setMaxXBorder() {
-        if (x > (20 * vakkenSpeelveld.getKolommen()) - getStraal()) {
-            x = (20 * vakkenSpeelveld.getKolommen()) - getStraal();
+        if (x > (20 * vakkenSpeelveld.getKolommen()) - straal) {
+            x = (20 * vakkenSpeelveld.getKolommen()) - straal;
             return (int) x;
         }
         return (int) x;
@@ -150,11 +150,11 @@ public class Mannetje {
     }
 
     public int setMaxYBorder() {
-        if (y > (20 * vakkenSpeelveld.getRijen()) - getStraal()) {
-            y = (20 * vakkenSpeelveld.getRijen()) - getStraal();
-            return (int)y;
+        if (y > (20 * vakkenSpeelveld.getRijen()) - straal) {
+            y = (20 * vakkenSpeelveld.getRijen()) - straal;
+            return (int) y;
         }
-        return (int)y;
+        return (int) y;
     }
 
     public int setMinYBorder() {

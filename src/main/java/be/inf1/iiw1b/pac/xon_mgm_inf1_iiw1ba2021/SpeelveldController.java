@@ -2,6 +2,7 @@ package be.inf1.iiw1b.pac.xon_mgm_inf1_iiw1ba2021;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.Timer;
 import javafx.collections.ObservableList;
@@ -21,13 +22,12 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import model.Mannetje;
 import model.Speelveld;
+import model.Spoken;
 import model.Spook;
-import model.StatusVak;
 import model.Vak;
 import view.MannetjeView;
 import view.SpeelveldView;
-import view.SpookView;
-import view.VakView;
+import view.SpokenView;
 
 public class SpeelveldController {
 
@@ -56,31 +56,31 @@ public class SpeelveldController {
     private Mannetje mannetje;
     private MannetjeView mannetjeView;
     private Spook spook;
-    private SpookView spookView;
+    private Spoken spoken;
+    private Vak vak;
     private Speelveld vakkenSpeelveld;
     private SpeelveldView vakkenSpeelveldView;
-    private StatusVak status;
-    private VakView vakView;
-    private Vak vak;
+    private SpokenView spokenView;
+    private boolean start = false;
+    private Timer timer;
 
     @FXML
     void initialize() {
 
         vakkenSpeelveld = new Speelveld(23, 34);
         mannetje = new Mannetje(10, 10, vakkenSpeelveld);
-        spook = new Spook(200, 200);
+        spook = new Spook(0, 0);
+        vak = new Vak();
+        spoken = new Spoken(2, vak, vakkenSpeelveld);
 
         mannetjeView = new MannetjeView(mannetje);
-        spookView = new SpookView(spook);
-        vakkenSpeelveldView = new SpeelveldView(vakkenSpeelveld, mannetje, spook);
+        vakkenSpeelveldView = new SpeelveldView(vakkenSpeelveld, mannetje);
+        spokenView = new SpokenView(spoken);
 
-        speelveld.getChildren().add(vakkenSpeelveldView);
-        speelveld.getChildren().add(mannetjeView);
-        speelveld.getChildren().add(spookView);
+        speelveld.getChildren().addAll(vakkenSpeelveldView, mannetjeView, spokenView);
 
         update();
 
-        speelveld.setOnKeyPressed(this::loopRond);
         resetButton.setOnAction(this::reset);
         
         StartMenuKnop.setOnAction(this::veranderSchermStartMenu);
@@ -97,96 +97,130 @@ public class SpeelveldController {
 
         BeweegMannetje taskMannetje = new BeweegMannetje(mannetje, this);
         t.scheduleAtFixedRate(taskMannetje, 0, 120);
+        startButton.setOnAction(this::start);
+
+        mannetjeView.setFocusTraversable(true);
+        resetButton.setFocusTraversable(false);
+        startButton.setFocusTraversable(false);
 
     }
 
     public void update() {
 
         mannetjeView.update();
-        spookView.update();
+        spokenView.update();
+
+        if (start) {
+
+            speelveld.setOnKeyPressed(this::loopRond);
+
+            mannetjeGeraaktDoorSpook();
+
+            vakkenSpeelveldView.gameOver();
+            vakkenSpeelveldView.stilInGevuld();
+            spookRaaktGevuld();
+        }
         vakkenSpeelveldView.update();
 
         labelLevens.setText(mannetje.getLevens() + "");
         labelInvulProcent.setText(vakkenSpeelveldView.getProcentGevuld() + " %");
 
-        mannetjeGeraaktDoorSpook();
-
-        ogenSpook();
+    }
 
         gameOver();
         
         gameGewonnen();
-
-        stilInGevuld();
-
-        spookRaaktGevuld();
-
-    }
-
     private void loopRond(KeyEvent t) {
-        switch (t.getCode()) {
-            case RIGHT:
-                mannetje.rechts();
-                mannetje.setMaxXBorder();
-                if (vakkenSpeelveldView.ispositieMannetjeGevuld()) {
-                    mannetje.setVx(0);
-                    mannetje.setVy(0);
-                } else {
-                    mannetje.setVx(1);
-                    mannetje.setVy(0);
-                }
-                mannetjeView.getVormMannetje().setRotate(0);
-                break;
-            case LEFT:
-                mannetje.links();
-                mannetje.setMinXBorder();
-                if (vakkenSpeelveldView.ispositieMannetjeGevuld()) {
-                    mannetje.setVx(0);
-                    mannetje.setVy(0);
-                } else {
-                    mannetje.setVx(-1);
-                    mannetje.setVy(0);
-                }
-                mannetjeView.getVormMannetje().setRotate(180);
-                break;
-            case UP:
-                mannetje.boven();
-                mannetje.setMinYBorder();
-                if (vakkenSpeelveldView.ispositieMannetjeGevuld()) {
-                    mannetje.setVx(0);
-                    mannetje.setVy(0);
-                } else {
-                    mannetje.setVx(0);
-                    mannetje.setVy(-1);
-                }
-                mannetjeView.getVormMannetje().setRotate(270);
-                break;
+        if (start) {
+            switch (t.getCode()) {
+                case RIGHT:
+                    mannetje.rechts();
+                    mannetje.setMaxXBorder();
+                    if (vakkenSpeelveldView.ispositieMannetjeGevuld()) {
+                        mannetje.setVx(0);
+                        mannetje.setVy(0);
+                    } else {
+                        mannetje.setVx(1);
+                        mannetje.setVy(0);
+                    }
+                    mannetjeView.getVormMannetje().setRotate(0);
+                    break;
+                case LEFT:
+                    mannetje.links();
+                    mannetje.setMinXBorder();
+                    if (vakkenSpeelveldView.ispositieMannetjeGevuld()) {
+                        mannetje.setVx(0);
+                        mannetje.setVy(0);
+                    } else {
+                        mannetje.setVx(-1);
+                        mannetje.setVy(0);
+                    }
+                    mannetjeView.getVormMannetje().setRotate(180);
+                    break;
+                case UP:
+                    mannetje.boven();
+                    mannetje.setMinYBorder();
+                    if (vakkenSpeelveldView.ispositieMannetjeGevuld()) {
+                        mannetje.setVx(0);
+                        mannetje.setVy(0);
+                    } else {
+                        mannetje.setVx(0);
+                        mannetje.setVy(-1);
+                    }
+                    mannetjeView.getVormMannetje().setRotate(270);
+                    break;
 
-            case DOWN:
-                mannetje.onder();
-                mannetje.setMaxYBorder();
-                if (vakkenSpeelveldView.ispositieMannetjeGevuld()) {
-                    mannetje.setVx(0);
-                    mannetje.setVy(0);
-                } else {
-                    mannetje.setVx(0);
-                    mannetje.setVy(1);
-                }
-                mannetjeView.getVormMannetje().setRotate(90);
-                break;
+                case DOWN:
+                    mannetje.onder();
+                    mannetje.setMaxYBorder();
+                    if (vakkenSpeelveldView.ispositieMannetjeGevuld()) {
+                        mannetje.setVx(0);
+                        mannetje.setVy(0);
+                    } else {
+                        mannetje.setVx(0);
+                        mannetje.setVy(1);
+                    }
+                    mannetjeView.getVormMannetje().setRotate(90);
+                    break;
+            }
+            update();
         }
-        update();
     }
 
     private void reset(ActionEvent e) {
-        mannetje.resetGame();
-        vakkenSpeelveldView.reset(vakkenSpeelveld);
-        update();
+        if (start) {
+            mannetje.resetGame();
+            vakkenSpeelveldView.resetVeld();
+            mannetjeView.getVormMannetje().setRotate(0);
+            timer.cancel();
+
+            update();
+        }
+        start = false;
+
+    }
+
+    private void start(ActionEvent e) {
+
+        if (!start) {
+            timer = new Timer(true);
+            for (Spook s : spoken.getSpoken()) {
+                BeweegSpook taskSpook = new BeweegSpook(s, this);
+                timer.scheduleAtFixedRate(taskSpook, 0, 14);
+            }
+
+            BeweegMannetje taskMannetje = new BeweegMannetje(mannetje, this);
+            timer.scheduleAtFixedRate(taskMannetje, 0, 120);
+
+            start = true;
+
+        }
+
     }
 
     private void mannetjeGeraaktDoorSpook() {
         ObservableList<Node> man = mannetjeView.getChildrenUnmodifiable();
-        ObservableList<Node> spoken = spookView.getChildrenUnmodifiable();
+        ObservableList<Node> spoken = spokenView.getChildrenUnmodifiable();
 
         for (Node m : man) {
             Bounds boundMannetje = m.localToScene(m.getBoundsInLocal());
@@ -203,19 +237,22 @@ public class SpeelveldController {
 
     private void spookRaaktGevuld() {
         ObservableList<Node> vakken = vakkenSpeelveldView.getChildrenUnmodifiable();
-        ObservableList<Node> spoken = spookView.getChildrenUnmodifiable();
+        ObservableList<Node> spoken = spokenView.getChildrenUnmodifiable();
+        ArrayList<Spook> sp = this.spoken.getSpoken();
+        int i = 0;
 
-        spoken.forEach(s -> {
+        for (Node s : spoken) {
+
             Bounds boundSpook = s.localToParent(s.getBoundsInLocal());
 
-            vakken.forEach(v -> {
+            for (Node v : vakken) {
                 Bounds boundVak = v.localToParent(v.getBoundsInLocal());
                 if (s.localToParent(Point2D.ZERO).getY() + spook.getStraal() >= boundVak.getMinY() - 3
                         && s.localToParent(Point2D.ZERO).getY() + spook.getStraal() <= boundVak.getMinY() + 3
                         && s.localToParent(Point2D.ZERO).getX() >= boundVak.getMinX()
                         && s.localToParent(Point2D.ZERO).getX() <= boundVak.getMinX() + boundVak.getWidth()) {
                     if (v.getId().equals("idGevuld")) {
-                        spook.setVy(-0.5);
+                        sp.get(i).setVy(-0.5);
                     } else if (v.getId().equals("idInDeMaak")) {
                         mannetje.isDood();
                         vakkenSpeelveldView.geraaktInPad();
@@ -226,7 +263,7 @@ public class SpeelveldController {
                         && s.localToParent(Point2D.ZERO).getX() >= boundVak.getMinX()
                         && s.localToParent(Point2D.ZERO).getX() <= boundVak.getMinX() + boundVak.getWidth()) {
                     if (v.getId().equals("idGevuld")) {
-                        spook.setVy(0.5);
+                        sp.get(i).setVy(0.5);
                     } else if (v.getId().equals("idInDeMaak")) {
                         mannetje.isDood();
                         vakkenSpeelveldView.geraaktInPad();
@@ -237,7 +274,7 @@ public class SpeelveldController {
                         && s.localToParent(Point2D.ZERO).getY() >= boundVak.getMinY()
                         && s.localToParent(Point2D.ZERO).getY() <= boundVak.getMinY() + boundVak.getHeight()) {
                     if (v.getId().equals("idGevuld")) {
-                        spook.setVx(0.5);
+                        sp.get(i).setVx(0.5);
                     } else if (v.getId().equals("idInDeMaak")) {
                         mannetje.isDood();
                         vakkenSpeelveldView.geraaktInPad();
@@ -248,7 +285,7 @@ public class SpeelveldController {
                         && s.localToParent(Point2D.ZERO).getY() >= boundVak.getMinY()
                         && s.localToParent(Point2D.ZERO).getY() <= boundVak.getMinY() + boundVak.getHeight()) {
                     if (v.getId().equals("idGevuld")) {
-                        spook.setVx(-0.5);
+                        sp.get(i).setVx(-0.5);
                     } else if (v.getId().equals("idInDeMaak")) {
                         mannetje.isDood();
                         vakkenSpeelveldView.geraaktInPad();
@@ -256,32 +293,10 @@ public class SpeelveldController {
 
                 }
 
-            });
-        });
-
-    }
-
-    private void ogenSpook() {
-        if (spook.getVx() > 0) {
-            spookView.getVormSpook().setScaleX(-1);
-        } else {
-            spookView.getVormSpook().setScaleX(1);
+            }
+            i++;
         }
-    }
 
-    private void gameOver() {
-        if (mannetje.getDood()) {
-            doodNotificatie();
-            vakkenSpeelveldView.reset(vakkenSpeelveld);
-            mannetje.resetGame();
-        }
-    }
-
-    public void stilInGevuld() {
-        if (vakkenSpeelveldView.ispositieMannetjeGevuld() && (mannetje.getVx() != 0 || mannetje.getVy() != 0)) {
-            mannetje.setVx(0);
-            mannetje.setVy(0);
-        }
     }
 
     private void doodNotificatie() {
