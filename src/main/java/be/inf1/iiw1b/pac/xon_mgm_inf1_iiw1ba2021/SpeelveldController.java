@@ -1,19 +1,24 @@
 package be.inf1.iiw1b.pac.xon_mgm_inf1_iiw1ba2021;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.Timer;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Bounds;
 import javafx.geometry.Point2D;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 import model.Mannetje;
 import model.Speelveld;
 import model.Spook;
@@ -39,25 +44,14 @@ public class SpeelveldController {
     private Button resetButton;
 
     @FXML
-    private Label labelMannetjeX;
-
-    @FXML
-    private Label labelMannetjeY;
-
-    @FXML
     private Label labelLevens;
 
     @FXML
-    private Label labelSpookX;
-
-    @FXML
-    private Label labelSpookY;
-
-    @FXML
-    private Label labelDood;
-
-    @FXML
     private Label labelInvulProcent;
+
+    @FXML
+    private Button StartMenuKnop;
+    
 
     private Mannetje mannetje;
     private MannetjeView mannetjeView;
@@ -88,9 +82,14 @@ public class SpeelveldController {
 
         speelveld.setOnKeyPressed(this::loopRond);
         resetButton.setOnAction(this::reset);
-
+        
+        StartMenuKnop.setOnAction(this::veranderSchermStartMenu);
+        
+        
         mannetjeView.setFocusTraversable(true);
         resetButton.setFocusTraversable(false);
+        StartMenuKnop.setFocusTraversable(false);
+        
 
         BeweegSpook taskSpook = new BeweegSpook(spook, this);
         Timer t = new Timer(true);
@@ -107,19 +106,16 @@ public class SpeelveldController {
         spookView.update();
         vakkenSpeelveldView.update();
 
-        labelMannetjeX.setText(mannetje.getX() + "");
-        labelMannetjeY.setText(mannetje.getY() + "");
-        labelSpookX.setText(spook.getX() + "");
-        labelSpookY.setText(spook.getY() + "");
         labelLevens.setText(mannetje.getLevens() + "");
-        labelDood.setText(mannetje.getDood() + "");
-        labelInvulProcent.setText(vakkenSpeelveldView.getProcentGevuld() + "");
+        labelInvulProcent.setText(vakkenSpeelveldView.getProcentGevuld() + " %");
 
         mannetjeGeraaktDoorSpook();
 
         ogenSpook();
 
         gameOver();
+        
+        gameGewonnen();
 
         stilInGevuld();
 
@@ -290,9 +286,38 @@ public class SpeelveldController {
 
     private void doodNotificatie() {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("PacXon");
+        alert.setTitle("Pac-Xon");
         alert.setContentText("du bist dood");
         alert.setContentText("je vulde " + vakkenSpeelveldView.getProcentGevuld() + " %");
         alert.show();
     }
+    private void gameGewonnen(){
+        if (vakkenSpeelveldView.getProcentGevuld() >= 80){
+            winNotificatie();
+            vakkenSpeelveldView.reset(vakkenSpeelveld);
+        }
+        
+    }
+    private void winNotificatie(){
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Pac-Xon");
+        alert.setContentText("Je hebt gewonnen!!!\n je vulde " + vakkenSpeelveldView.getProcentGevuld() + " % met nog " + mannetje.getLevens() + " levens over");
+        alert.show();                                        
+    }
+
+    public void veranderSchermStartMenu(ActionEvent e)  {
+        try {
+            Parent startMenuParent = null;
+            startMenuParent = FXMLLoader.load(getClass().getResource("startMenu.fxml"));
+            Scene startMenuScene = new Scene(startMenuParent);
+            Stage startMenuScherm = (Stage) ((Node) e.getSource()).getScene().getWindow();
+            startMenuScherm.hide();
+            startMenuScherm.setScene(startMenuScene);
+            startMenuScherm.show();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+
+    }
+    
 }

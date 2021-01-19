@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.1" fx:controller="be.inf1.iiw1b.pac.xon_mgm_inf1_iiw1ba2021.ExtraInfoFXMLController">
+   <children>
+      <AnchorPane id="AnchorPane" layoutX="30.0" layoutY="30.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="526.0" prefWidth="979.0">
+         <children>
+            <Button fx:id="StartMenuKnop" layoutX="429.0" layoutY="475.0" mnemonicParsing="false" text="StartMenu" />
+            <Text layoutX="71.0" layoutY="142.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Spelregels:">
+               <font>
+                  <Font size="45.0" />
+               </font>
+            </Text>
+            <Text layoutX="75.0" layoutY="191.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Je begint linksboven in het vak met je mannetje en hebt 5 levens. Het vak is gevuld met spoken(vijand). Het doel is om de lege ruimte te vullen en de spoken te vangen door een muur te bouwen. Het spel is klaar als je 80% van de ruimte hebt gevuld. Als de geest jou of je pad raakt ga je dood." wrappingWidth="419.13671875">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Text>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>
