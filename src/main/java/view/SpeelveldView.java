@@ -212,6 +212,7 @@ public final class SpeelveldView extends Region {
         if (getProcentGevuld() >= 80) {
             winNotificatie();
             resetVeld();
+            mannetje.resetGame();
         }
     }
 

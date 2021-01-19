@@ -206,7 +206,7 @@ public class SpeelveldController {
             }
 
             BeweegMannetje taskMannetje = new BeweegMannetje(mannetje, this);
-            timer.scheduleAtFixedRate(taskMannetje, 0, 120);
+            timer.scheduleAtFixedRate(taskMannetje, 0, 50);
 
             start = true;
 
