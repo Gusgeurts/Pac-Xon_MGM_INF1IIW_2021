@@ -6,7 +6,6 @@
 package view;
 
 import javafx.scene.image.Image;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
@@ -38,5 +37,13 @@ public final class SpookView extends Region {
 
     public Circle getVormSpook() {
         return bal;
+    }
+
+    public void setOgen() {
+        if (spook.getVx() > 0) {
+            bal.setScaleX(-1);
+        } else {
+            bal.setScaleX(1);
+        }
     }
 }

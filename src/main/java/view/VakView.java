@@ -15,9 +15,9 @@ import model.Vak;
  *
  * @author Gus Geurts
  */
-public class VakView extends Region {
+public final class VakView extends Region {
 
-    private Vak vak;
+    private final Vak vak;
     private Rectangle v;
     private StatusVak status;
 

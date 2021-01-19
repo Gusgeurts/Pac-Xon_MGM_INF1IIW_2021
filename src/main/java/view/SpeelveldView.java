@@ -8,7 +8,6 @@ package view;
 import javafx.scene.layout.Region;
 import model.Mannetje;
 import model.Speelveld;
-import model.Spook;
 import model.StatusVak;
 import model.Vak;
 
@@ -20,13 +19,11 @@ public final class SpeelveldView extends Region {
 
     private final Speelveld speelveld;
     private final Mannetje mannetje;
-    private final Spook spook;
     private final int teVullenVakken;
 
-    public SpeelveldView(Speelveld speelveld, Mannetje mannetje, Spook spook) {
+    public SpeelveldView(Speelveld speelveld, Mannetje mannetje) {
         this.speelveld = speelveld;
         this.mannetje = mannetje;
-        this.spook = spook;
 
         teVullenVakken = speelveld.getRijen() * speelveld.getKolommen() - (2 * speelveld.getRijen() + 2 * (speelveld.getKolommen() - 2));
 
@@ -48,7 +45,6 @@ public final class SpeelveldView extends Region {
     }
 
     public void maakSpeelveld() {
-        getChildren().clear();
         int n = 0;
         int m = 0;
         Vak vakken[][] = speelveld.getVakken();
@@ -193,9 +189,13 @@ public final class SpeelveldView extends Region {
 
     public boolean ispositieMannetjeGevuld() {
         Vak vakken[][] = speelveld.getVakken();
-        if (vakken[mannetje.getVakY()][mannetje.getVakX()].getStatus().equals(StatusVak.GEVULD)) {
-            return true;
+        return vakken[mannetje.getVakY()][mannetje.getVakX()].getStatus().equals(StatusVak.GEVULD);
+    }
+
+    public void stilInGevuld() {
+        if (ispositieMannetjeGevuld() && (mannetje.getVx() != 0 || mannetje.getVy() != 0)) {
+            mannetje.setVx(0);
+            mannetje.setVy(0);
         }
-        return false;
     }
 }

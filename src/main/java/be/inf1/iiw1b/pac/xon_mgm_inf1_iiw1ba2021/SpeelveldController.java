@@ -8,7 +8,6 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Bounds;
-import javafx.geometry.NodeOrientation;
 import javafx.geometry.Point2D;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
@@ -76,10 +75,9 @@ public class SpeelveldController {
         spook = new Spook(0, 0);
         vak = new Vak();
         spoken = new Spoken(2, vak, vakkenSpeelveld);
-        
 
         mannetjeView = new MannetjeView(mannetje);
-        vakkenSpeelveldView = new SpeelveldView(vakkenSpeelveld, mannetje, spook);
+        vakkenSpeelveldView = new SpeelveldView(vakkenSpeelveld, mannetje);
         spokenView = new SpokenView(spoken);
 
         speelveld.getChildren().addAll(vakkenSpeelveldView, mannetjeView, spokenView);
@@ -97,7 +95,6 @@ public class SpeelveldController {
 
     public void update() {
 
-        //ogenSpook();
         mannetjeView.update();
         spokenView.update();
 
@@ -108,7 +105,7 @@ public class SpeelveldController {
             mannetjeGeraaktDoorSpook();
 
             gameOver();
-            stilInGevuld();
+            vakkenSpeelveldView.stilInGevuld();
             spookRaaktGevuld();
         }
         vakkenSpeelveldView.update();
@@ -123,7 +120,6 @@ public class SpeelveldController {
 
     private void loopRond(KeyEvent t) {
         if (start) {
-
             switch (t.getCode()) {
                 case RIGHT:
                     mannetje.rechts();
@@ -291,33 +287,11 @@ public class SpeelveldController {
 
     }
 
-    private void ogenSpook() {
-        ObservableList<Node> spokenLijst = spokenView.getChildrenUnmodifiable();
-
-        int i = 0;
-        for (Spook s : spoken.getSpoken()) {
-            if (s.getVx() > 0) {
-                spokenLijst.get(i).setNodeOrientation(NodeOrientation.RIGHT_TO_LEFT);
-            } else {
-                spokenLijst.get(i).setNodeOrientation(NodeOrientation.LEFT_TO_RIGHT);
-            }
-            i++;
-        }
-
-    }
-
     private void gameOver() {
         if (mannetje.getDood()) {
             doodNotificatie();
             vakkenSpeelveldView.resetVeld();
             mannetje.resetGame();
-        }
-    }
-
-    public void stilInGevuld() {
-        if (vakkenSpeelveldView.ispositieMannetjeGevuld() && (mannetje.getVx() != 0 || mannetje.getVy() != 0)) {
-            mannetje.setVx(0);
-            mannetje.setVy(0);
         }
     }
 

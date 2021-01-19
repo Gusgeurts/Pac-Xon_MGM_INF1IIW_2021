@@ -7,7 +7,6 @@ package view;
 
 import java.util.ArrayList;
 import javafx.scene.Node;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
 import model.Spoken;
 import model.Spook;
@@ -19,23 +18,24 @@ import model.Spook;
 public final class SpokenView extends Region {
 
     private final Spoken spoken;
-    private AnchorPane paneel;
+
+    private final ArrayList<SpookView> spokenView;
 
     public SpokenView(Spoken spoken) {
         this.spoken = spoken;
-        this.paneel = paneel;
+        spokenView = new ArrayList<>();
         maakSpoken();
         update();
     }
 
     public void maakSpoken() {
-        getChildren().clear();
         ArrayList<Spook> s = spoken.getSpoken();
         for (int i = 0; i < spoken.getAantalSpoken(); i++) {
             SpookView sv = new SpookView(s.get(i));
             sv.setTranslateX(s.get(i).getX());
             sv.setTranslateY(s.get(i).getY());
             getChildren().add(sv);
+            spokenView.add(sv);
         }
     }
 
@@ -47,6 +47,9 @@ public final class SpokenView extends Region {
 
             spookNode.setTranslateX((spook.getX()));
             spookNode.setTranslateY(spook.getY());
+
+            spokenView.get(i).setOgen();
+
         }
 
     }
