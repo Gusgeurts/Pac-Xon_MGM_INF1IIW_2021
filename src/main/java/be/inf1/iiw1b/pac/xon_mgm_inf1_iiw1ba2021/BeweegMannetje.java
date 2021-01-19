@@ -15,8 +15,8 @@ import model.Mannetje;
  */
 public class BeweegMannetje extends TimerTask   {
     
-    private Mannetje mannetje;
-    private SpeelveldController controller;
+    private final Mannetje mannetje;
+    private final SpeelveldController controller;
 
     public BeweegMannetje(Mannetje mannetje, SpeelveldController controller) {
         this.mannetje = mannetje;

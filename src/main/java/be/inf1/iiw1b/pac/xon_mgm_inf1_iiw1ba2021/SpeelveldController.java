@@ -14,7 +14,6 @@ import javafx.geometry.Point2D;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyEvent;
@@ -51,11 +50,9 @@ public class SpeelveldController {
 
     @FXML
     private Button StartMenuKnop;
-    
+
     @FXML
     private Button startKnop;
-
-    
 
     private Mannetje mannetje;
     private MannetjeView mannetjeView;
@@ -67,6 +64,7 @@ public class SpeelveldController {
     private SpokenView spokenView;
     private boolean start = false;
     private Timer timer;
+    private int aantalSpoken = 3;
 
     @FXML
     void initialize() {
@@ -75,7 +73,7 @@ public class SpeelveldController {
         mannetje = new Mannetje(10, 10, vakkenSpeelveld);
         spook = new Spook(0, 0);
         vak = new Vak();
-        spoken = new Spoken(3, vak, vakkenSpeelveld);
+        spoken = new Spoken(aantalSpoken, vak, vakkenSpeelveld);
 
         mannetjeView = new MannetjeView(mannetje);
         vakkenSpeelveldView = new SpeelveldView(vakkenSpeelveld, mannetje);
@@ -88,8 +86,7 @@ public class SpeelveldController {
         resetButton.setOnAction(this::reset);
         startKnop.setOnAction(this::start);
         StartMenuKnop.setOnAction(this::veranderSchermStartMenu);
-        
-        
+
         mannetjeView.setFocusTraversable(true);
         resetButton.setFocusTraversable(false);
         StartMenuKnop.setFocusTraversable(false);
@@ -97,6 +94,8 @@ public class SpeelveldController {
         mannetjeView.setFocusTraversable(true);
         resetButton.setFocusTraversable(false);
         startKnop.setFocusTraversable(false);
+
+        System.out.println("init");
 
     }
 
@@ -110,7 +109,7 @@ public class SpeelveldController {
             speelveld.setOnKeyPressed(this::loopRond);
 
             mannetjeGeraaktDoorSpook();
-            
+
             vakkenSpeelveldView.gameGewonnen();
             vakkenSpeelveldView.gameOver();
             vakkenSpeelveldView.stilInGevuld();
@@ -123,9 +122,6 @@ public class SpeelveldController {
 
     }
 
-        
-        
-       
     private void loopRond(KeyEvent t) {
         if (start) {
             switch (t.getCode()) {
@@ -202,7 +198,7 @@ public class SpeelveldController {
             timer = new Timer(true);
             for (Spook s : spoken.getSpoken()) {
                 BeweegSpook taskSpook = new BeweegSpook(s, this);
-                timer.scheduleAtFixedRate(taskSpook, 0, 14);
+                timer.scheduleAtFixedRate(taskSpook, 0, 16);
             }
 
             BeweegMannetje taskMannetje = new BeweegMannetje(mannetje, this);
@@ -295,19 +291,7 @@ public class SpeelveldController {
 
     }
 
-    private void doodNotificatie() {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Pac-Xon");
-        alert.setContentText("du bist dood");
-        alert.setContentText("je vulde " + vakkenSpeelveldView.getProcentGevuld() + " %");
-        alert.show();
-    }
-    
-        
-    
-    
-
-    public void veranderSchermStartMenu(ActionEvent e)  {
+    public void veranderSchermStartMenu(ActionEvent e) {
         try {
             Parent startMenuParent = null;
             startMenuParent = FXMLLoader.load(getClass().getResource("startMenu.fxml"));
@@ -316,10 +300,12 @@ public class SpeelveldController {
             startMenuScherm.hide();
             startMenuScherm.setScene(startMenuScene);
             startMenuScherm.show();
+            timer.cancel();
         } catch (IOException ex) {
             ex.printStackTrace();
+        } catch (NullPointerException exe) {
         }
 
     }
-    
+
 }
