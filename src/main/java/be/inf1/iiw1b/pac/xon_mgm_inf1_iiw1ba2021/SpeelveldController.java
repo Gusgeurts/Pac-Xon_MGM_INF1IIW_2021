@@ -75,7 +75,7 @@ public class SpeelveldController {
         mannetje = new Mannetje(10, 10, vakkenSpeelveld);
         spook = new Spook(0, 0);
         vak = new Vak();
-        spoken = new Spoken(2, vak, vakkenSpeelveld);
+        spoken = new Spoken(3, vak, vakkenSpeelveld);
 
         mannetjeView = new MannetjeView(mannetje);
         vakkenSpeelveldView = new SpeelveldView(vakkenSpeelveld, mannetje);
@@ -86,22 +86,13 @@ public class SpeelveldController {
         update();
 
         resetButton.setOnAction(this::reset);
-        
+        startKnop.setOnAction(this::start);
         StartMenuKnop.setOnAction(this::veranderSchermStartMenu);
         
         
         mannetjeView.setFocusTraversable(true);
         resetButton.setFocusTraversable(false);
         StartMenuKnop.setFocusTraversable(false);
-        
-
-        BeweegSpook taskSpook = new BeweegSpook(spook, this);
-        Timer t = new Timer(true);
-        t.scheduleAtFixedRate(taskSpook, 0, 10);
-
-        BeweegMannetje taskMannetje = new BeweegMannetje(mannetje, this);
-        t.scheduleAtFixedRate(taskMannetje, 0, 120);
-        startKnop.setOnAction(this::start);
 
         mannetjeView.setFocusTraversable(true);
         resetButton.setFocusTraversable(false);
