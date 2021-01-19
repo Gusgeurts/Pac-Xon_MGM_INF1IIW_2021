@@ -43,6 +43,12 @@ public class SpeelveldController {
     private Button resetButton;
 
     @FXML
+    private Button saveKnop;
+
+    @FXML
+    private Button loadKnop;
+
+    @FXML
     private Label labelLevens;
 
     @FXML
@@ -76,8 +82,8 @@ public class SpeelveldController {
         spoken = new Spoken(aantalSpoken, vak, vakkenSpeelveld);
 
         mannetjeView = new MannetjeView(mannetje);
-        vakkenSpeelveldView = new SpeelveldView(vakkenSpeelveld, mannetje);
         spokenView = new SpokenView(spoken);
+        vakkenSpeelveldView = new SpeelveldView(vakkenSpeelveld, mannetje, spook, spoken, spokenView, mannetjeView);
 
         speelveld.getChildren().addAll(vakkenSpeelveldView, mannetjeView, spokenView);
 
@@ -94,6 +100,8 @@ public class SpeelveldController {
         mannetjeView.setFocusTraversable(true);
         resetButton.setFocusTraversable(false);
         startKnop.setFocusTraversable(false);
+        saveKnop.setFocusTraversable(false);
+        loadKnop.setFocusTraversable(false);
 
         System.out.println("init");
 
@@ -108,12 +116,11 @@ public class SpeelveldController {
 
             speelveld.setOnKeyPressed(this::loopRond);
 
-            mannetjeGeraaktDoorSpook();
-
+            vakkenSpeelveldView.mannetjeGeraaktDoorSpook();
             vakkenSpeelveldView.gameGewonnen();
             vakkenSpeelveldView.gameOver();
             vakkenSpeelveldView.stilInGevuld();
-            spookRaaktGevuld();
+            vakkenSpeelveldView.spookRaaktGevuld();
         }
         vakkenSpeelveldView.update();
 
@@ -210,88 +217,7 @@ public class SpeelveldController {
 
     }
 
-    private void mannetjeGeraaktDoorSpook() {
-        ObservableList<Node> man = mannetjeView.getChildrenUnmodifiable();
-        ObservableList<Node> spoken = spokenView.getChildrenUnmodifiable();
-
-        for (Node m : man) {
-            Bounds boundMannetje = m.localToScene(m.getBoundsInLocal());
-            for (Node s : spoken) {
-                Bounds boundSpoken = s.localToScene(s.getBoundsInLocal());
-                if (boundMannetje.intersects(boundSpoken)) {
-                    vakkenSpeelveldView.geraaktOpMannetje();
-                    mannetje.isDood();
-                }
-            }
-        }
-
-    }
-
-    private void spookRaaktGevuld() {
-        ObservableList<Node> vakken = vakkenSpeelveldView.getChildrenUnmodifiable();
-        ObservableList<Node> spoken = spokenView.getChildrenUnmodifiable();
-        ArrayList<Spook> sp = this.spoken.getSpoken();
-        int i = 0;
-
-        for (Node s : spoken) {
-
-            Bounds boundSpook = s.localToParent(s.getBoundsInLocal());
-
-            for (Node v : vakken) {
-                Bounds boundVak = v.localToParent(v.getBoundsInLocal());
-                if (s.localToParent(Point2D.ZERO).getY() + spook.getStraal() >= boundVak.getMinY() - 3
-                        && s.localToParent(Point2D.ZERO).getY() + spook.getStraal() <= boundVak.getMinY() + 3
-                        && s.localToParent(Point2D.ZERO).getX() >= boundVak.getMinX()
-                        && s.localToParent(Point2D.ZERO).getX() <= boundVak.getMinX() + boundVak.getWidth()) {
-                    if (v.getId().equals("idGevuld")) {
-                        sp.get(i).setVy(-0.5);
-                    } else if (v.getId().equals("idInDeMaak")) {
-                        mannetje.isDood();
-                        vakkenSpeelveldView.geraaktInPad();
-                    }
-
-                } else if (s.localToParent(Point2D.ZERO).getY() - spook.getStraal() >= boundVak.getMaxY() - 3
-                        && s.localToParent(Point2D.ZERO).getY() - spook.getStraal() <= boundVak.getMaxY() + 3
-                        && s.localToParent(Point2D.ZERO).getX() >= boundVak.getMinX()
-                        && s.localToParent(Point2D.ZERO).getX() <= boundVak.getMinX() + boundVak.getWidth()) {
-                    if (v.getId().equals("idGevuld")) {
-                        sp.get(i).setVy(0.5);
-                    } else if (v.getId().equals("idInDeMaak")) {
-                        mannetje.isDood();
-                        vakkenSpeelveldView.geraaktInPad();
-                    }
-
-                } else if (s.localToParent(Point2D.ZERO).getX() - spook.getStraal() >= boundVak.getMaxX() - 3
-                        && s.localToParent(Point2D.ZERO).getX() - spook.getStraal() <= boundVak.getMaxX() + 3
-                        && s.localToParent(Point2D.ZERO).getY() >= boundVak.getMinY()
-                        && s.localToParent(Point2D.ZERO).getY() <= boundVak.getMinY() + boundVak.getHeight()) {
-                    if (v.getId().equals("idGevuld")) {
-                        sp.get(i).setVx(0.5);
-                    } else if (v.getId().equals("idInDeMaak")) {
-                        mannetje.isDood();
-                        vakkenSpeelveldView.geraaktInPad();
-                    }
-
-                } else if (s.localToParent(Point2D.ZERO).getX() + spook.getStraal() >= boundVak.getMinX() - 3
-                        && s.localToParent(Point2D.ZERO).getX() + spook.getStraal() <= boundVak.getMinX() + 3
-                        && s.localToParent(Point2D.ZERO).getY() >= boundVak.getMinY()
-                        && s.localToParent(Point2D.ZERO).getY() <= boundVak.getMinY() + boundVak.getHeight()) {
-                    if (v.getId().equals("idGevuld")) {
-                        sp.get(i).setVx(-0.5);
-                    } else if (v.getId().equals("idInDeMaak")) {
-                        mannetje.isDood();
-                        vakkenSpeelveldView.geraaktInPad();
-                    }
-
-                }
-
-            }
-            i++;
-        }
-
-    }
-
-    public void veranderSchermStartMenu(ActionEvent e) {
+    private void veranderSchermStartMenu(ActionEvent e) {
         try {
             Parent startMenuParent = null;
             startMenuParent = FXMLLoader.load(getClass().getResource("startMenu.fxml"));

@@ -30,5 +30,7 @@
          </font>
       </Text>
       <Button fx:id="startKnop" layoutX="740.0" layoutY="19.0" mnemonicParsing="false" text="Start" />
+      <Button fx:id="saveKnop" layoutX="820.0" layoutY="19.0" mnemonicParsing="false" text="Save" />
+      <Button fx:id="loadKnop" layoutX="903.0" layoutY="19.0" mnemonicParsing="false" text="Load" />
    </children>
 </AnchorPane>

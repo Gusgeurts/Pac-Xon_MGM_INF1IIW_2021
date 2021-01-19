@@ -14,7 +14,7 @@
             <Button fx:id="stopKnop" layoutX="152.0" layoutY="252.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="214.0" text="Stop Game" textFill="WHITE" />
             <Label layoutX="109.0" layoutY="27.0" prefHeight="103.0" prefWidth="324.0" text="PAC-XON" textAlignment="CENTER">
                <font>
-                  <Font size="70.0" />
+                  <Font name="Comic Sans MS" size="70.0" />
                </font>
             </Label>
          </children>

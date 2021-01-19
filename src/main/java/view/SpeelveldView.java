@@ -5,10 +5,17 @@
  */
 package view;
 
+import java.util.ArrayList;
+import javafx.collections.ObservableList;
+import javafx.geometry.Bounds;
+import javafx.geometry.Point2D;
+import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.layout.Region;
 import model.Mannetje;
 import model.Speelveld;
+import model.Spoken;
+import model.Spook;
 import model.StatusVak;
 import model.Vak;
 
@@ -20,11 +27,19 @@ public final class SpeelveldView extends Region {
 
     private final Speelveld speelveld;
     private final Mannetje mannetje;
+    private final Spook spook;
     private final int teVullenVakken;
+    private final Spoken spoken;
+    private final SpokenView spokenView;
+    private final MannetjeView mannetjeView;
 
-    public SpeelveldView(Speelveld speelveld, Mannetje mannetje) {
+    public SpeelveldView(Speelveld speelveld, Mannetje mannetje, Spook spook, Spoken spoken, SpokenView spokenView, MannetjeView mannetjeView) {
         this.speelveld = speelveld;
         this.mannetje = mannetje;
+        this.spook = spook;
+        this.spoken = spoken;
+        this.spokenView = spokenView;
+        this.mannetjeView = mannetjeView;
 
         teVullenVakken = speelveld.getRijen() * speelveld.getKolommen() - (2 * speelveld.getRijen() + 2 * (speelveld.getKolommen() - 2));
 
@@ -219,7 +234,7 @@ public final class SpeelveldView extends Region {
     public void winNotificatie() {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Pac-Xon");
-        alert.setContentText("Je hebt gewonnen!!!\n je vulde " + getProcentGevuld() + " % met nog " + mannetje.getLevens() + " levens over");
+        alert.setContentText("Je hebt gewonnen!!!\nje vulde " + getProcentGevuld() + " % met nog " + mannetje.getLevens() + " levens over");
         alert.show();
     }
 
@@ -228,5 +243,86 @@ public final class SpeelveldView extends Region {
         alert.setTitle("PacXon");
         alert.setContentText("du bist dood \nje vulde " + getProcentGevuld() + "%");
         alert.show();
+    }
+
+    public void spookRaaktGevuld() {
+        ObservableList<Node> vakken = getChildren();
+        ObservableList<Node> spoken = spokenView.getChildrenUnmodifiable();
+        ArrayList<Spook> sp = this.spoken.getSpoken();
+        int i = 0;
+
+        for (Node s : spoken) {
+
+            Bounds boundSpook = s.localToParent(s.getBoundsInLocal());
+
+            for (Node v : vakken) {
+                Bounds boundVak = v.localToParent(v.getBoundsInLocal());
+                if (s.localToParent(Point2D.ZERO).getY() + spook.getStraal() >= boundVak.getMinY() - 3
+                        && s.localToParent(Point2D.ZERO).getY() + spook.getStraal() <= boundVak.getMinY() + 3
+                        && s.localToParent(Point2D.ZERO).getX() >= boundVak.getMinX()
+                        && s.localToParent(Point2D.ZERO).getX() <= boundVak.getMinX() + boundVak.getWidth()) {
+                    if (v.getId().equals("idGevuld")) {
+                        sp.get(i).setVy(-0.5);
+                    } else if (v.getId().equals("idInDeMaak")) {
+                        mannetje.isDood();
+                        geraaktInPad();
+                    }
+
+                } else if (s.localToParent(Point2D.ZERO).getY() - spook.getStraal() >= boundVak.getMaxY() - 3
+                        && s.localToParent(Point2D.ZERO).getY() - spook.getStraal() <= boundVak.getMaxY() + 3
+                        && s.localToParent(Point2D.ZERO).getX() >= boundVak.getMinX()
+                        && s.localToParent(Point2D.ZERO).getX() <= boundVak.getMinX() + boundVak.getWidth()) {
+                    if (v.getId().equals("idGevuld")) {
+                        sp.get(i).setVy(0.5);
+                    } else if (v.getId().equals("idInDeMaak")) {
+                        mannetje.isDood();
+                        geraaktInPad();
+                    }
+
+                } else if (s.localToParent(Point2D.ZERO).getX() - spook.getStraal() >= boundVak.getMaxX() - 3
+                        && s.localToParent(Point2D.ZERO).getX() - spook.getStraal() <= boundVak.getMaxX() + 3
+                        && s.localToParent(Point2D.ZERO).getY() >= boundVak.getMinY()
+                        && s.localToParent(Point2D.ZERO).getY() <= boundVak.getMinY() + boundVak.getHeight()) {
+                    if (v.getId().equals("idGevuld")) {
+                        sp.get(i).setVx(0.5);
+                    } else if (v.getId().equals("idInDeMaak")) {
+                        mannetje.isDood();
+                        geraaktInPad();
+                    }
+
+                } else if (s.localToParent(Point2D.ZERO).getX() + spook.getStraal() >= boundVak.getMinX() - 3
+                        && s.localToParent(Point2D.ZERO).getX() + spook.getStraal() <= boundVak.getMinX() + 3
+                        && s.localToParent(Point2D.ZERO).getY() >= boundVak.getMinY()
+                        && s.localToParent(Point2D.ZERO).getY() <= boundVak.getMinY() + boundVak.getHeight()) {
+                    if (v.getId().equals("idGevuld")) {
+                        sp.get(i).setVx(-0.5);
+                    } else if (v.getId().equals("idInDeMaak")) {
+                        mannetje.isDood();
+                        geraaktInPad();
+                    }
+
+                }
+
+            }
+            i++;
+        }
+
+    }
+
+    public void mannetjeGeraaktDoorSpook() {
+        ObservableList<Node> man = mannetjeView.getChildrenUnmodifiable();
+        ObservableList<Node> spoken = spokenView.getChildrenUnmodifiable();
+
+        for (Node m : man) {
+            Bounds boundMannetje = m.localToScene(m.getBoundsInLocal());
+            for (Node s : spoken) {
+                Bounds boundSpoken = s.localToScene(s.getBoundsInLocal());
+                if (boundMannetje.intersects(boundSpoken)) {
+                    geraaktOpMannetje();
+                    mannetje.isDood();
+                }
+            }
+        }
+
     }
 }
