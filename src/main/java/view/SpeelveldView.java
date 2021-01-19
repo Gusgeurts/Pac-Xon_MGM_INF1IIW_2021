@@ -208,6 +208,20 @@ public final class SpeelveldView extends Region {
         }
     }
 
+    public void gameGewonnen() {
+        if (getProcentGevuld() >= 80) {
+            winNotificatie();
+            resetVeld();
+        }
+    }
+
+    public void winNotificatie() {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Pac-Xon");
+        alert.setContentText("Je hebt gewonnen!!!\n je vulde " + getProcentGevuld() + " % met nog " + mannetje.getLevens() + " levens over");
+        alert.show();
+    }
+
     public void doodNotificatie() {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("PacXon");

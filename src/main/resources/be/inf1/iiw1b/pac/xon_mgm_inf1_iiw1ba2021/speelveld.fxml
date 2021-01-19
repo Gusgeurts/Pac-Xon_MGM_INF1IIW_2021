@@ -29,5 +29,6 @@
             <Font size="14.0" />
          </font>
       </Text>
+      <Button fx:id="startKnop" layoutX="740.0" layoutY="19.0" mnemonicParsing="false" text="Start" />
    </children>
 </AnchorPane>

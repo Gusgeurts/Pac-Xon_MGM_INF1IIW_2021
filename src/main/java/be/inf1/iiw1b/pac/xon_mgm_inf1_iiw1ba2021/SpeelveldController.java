@@ -52,6 +52,10 @@ public class SpeelveldController {
     @FXML
     private Button StartMenuKnop;
     
+    @FXML
+    private Button startKnop;
+
+    
 
     private Mannetje mannetje;
     private MannetjeView mannetjeView;
@@ -97,11 +101,11 @@ public class SpeelveldController {
 
         BeweegMannetje taskMannetje = new BeweegMannetje(mannetje, this);
         t.scheduleAtFixedRate(taskMannetje, 0, 120);
-        startButton.setOnAction(this::start);
+        startKnop.setOnAction(this::start);
 
         mannetjeView.setFocusTraversable(true);
         resetButton.setFocusTraversable(false);
-        startButton.setFocusTraversable(false);
+        startKnop.setFocusTraversable(false);
 
     }
 
@@ -115,7 +119,8 @@ public class SpeelveldController {
             speelveld.setOnKeyPressed(this::loopRond);
 
             mannetjeGeraaktDoorSpook();
-
+            
+            vakkenSpeelveldView.gameGewonnen();
             vakkenSpeelveldView.gameOver();
             vakkenSpeelveldView.stilInGevuld();
             spookRaaktGevuld();
@@ -127,9 +132,9 @@ public class SpeelveldController {
 
     }
 
-        gameOver();
         
-        gameGewonnen();
+        
+       
     private void loopRond(KeyEvent t) {
         if (start) {
             switch (t.getCode()) {
@@ -306,19 +311,10 @@ public class SpeelveldController {
         alert.setContentText("je vulde " + vakkenSpeelveldView.getProcentGevuld() + " %");
         alert.show();
     }
-    private void gameGewonnen(){
-        if (vakkenSpeelveldView.getProcentGevuld() >= 80){
-            winNotificatie();
-            vakkenSpeelveldView.reset(vakkenSpeelveld);
-        }
+    
         
-    }
-    private void winNotificatie(){
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Pac-Xon");
-        alert.setContentText("Je hebt gewonnen!!!\n je vulde " + vakkenSpeelveldView.getProcentGevuld() + " % met nog " + mannetje.getLevens() + " levens over");
-        alert.show();                                        
-    }
+    
+    
 
     public void veranderSchermStartMenu(ActionEvent e)  {
         try {
