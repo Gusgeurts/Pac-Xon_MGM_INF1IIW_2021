@@ -104,7 +104,7 @@ public class SpeelveldController {
 
             mannetjeGeraaktDoorSpook();
 
-            gameOver();
+            vakkenSpeelveldView.gameOver();
             vakkenSpeelveldView.stilInGevuld();
             spookRaaktGevuld();
         }
@@ -287,19 +287,4 @@ public class SpeelveldController {
 
     }
 
-    private void gameOver() {
-        if (mannetje.getDood()) {
-            doodNotificatie();
-            vakkenSpeelveldView.resetVeld();
-            mannetje.resetGame();
-        }
-    }
-
-    private void doodNotificatie() {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("PacXon");
-        alert.setContentText("du bist dood");
-        alert.setContentText("je vulde " + vakkenSpeelveldView.getProcentGevuld() + " %");
-        alert.show();
-    }
 }

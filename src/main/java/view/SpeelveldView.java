@@ -5,6 +5,7 @@
  */
 package view;
 
+import javafx.scene.control.Alert;
 import javafx.scene.layout.Region;
 import model.Mannetje;
 import model.Speelveld;
@@ -197,5 +198,20 @@ public final class SpeelveldView extends Region {
             mannetje.setVx(0);
             mannetje.setVy(0);
         }
+    }
+
+    public void gameOver() {
+        if (mannetje.getDood()) {
+            doodNotificatie();
+            resetVeld();
+            mannetje.resetGame();
+        }
+    }
+
+    public void doodNotificatie() {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("PacXon");
+        alert.setContentText("du bist dood \nje vulde " + getProcentGevuld() + "%");
+        alert.show();
     }
 }
