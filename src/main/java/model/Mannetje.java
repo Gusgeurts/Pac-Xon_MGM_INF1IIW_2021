@@ -6,8 +6,7 @@
 package model;
 
 /**
- *
- * @author Gus Geurts/Michiel Meurice/Michiel Vanherreweghe
+ * @author Gus Geurts/Michiel Meurice
  */
 public class Mannetje {
 
@@ -20,19 +19,25 @@ public class Mannetje {
     private final int straal;
     private final Speelveld vakkenSpeelveld;
 
+    /**
+     * 
+     * @param x is de x-coördinaat van het mannetje
+     * @param y is de y-coördinaat van het mannetje
+     * @param vakkenSpeelveld is het aangemaakt speelveld
+     * Deze methode geeft alle variabelen een begin/start waarde
+     */
     public Mannetje(int x, int y, Speelveld vakkenSpeelveld) {
-        this.vakkenSpeelveld = vakkenSpeelveld;
         this.x = x;
         this.y = y;
-        straal = 10;
         vx = 0;
         vy = 0;
-        levens = 5;
         dood = false;
+        levens = 5;
+        straal = 10;
+        this.vakkenSpeelveld = vakkenSpeelveld;
     }
 
     /**
-     * @param (int) x is de x-coördinaat van het mannetje
      * @return x-vak-coördinaat van het mannetje
      */
     public int getVakX() {
@@ -40,7 +45,6 @@ public class Mannetje {
     }
 
     /**
-     * @param (int) y is de y-coördinaat van het mannetje
      * @return y-vak-coördinaat van het mannetje
      */
     public int getVakY() {
@@ -48,7 +52,6 @@ public class Mannetje {
     }
 
     /**
-     * @param (int) x is de x-coördinaat van het mannetje
      * @return x-coördinaat van het mannetje
      */
     public int getX() {
@@ -56,7 +59,6 @@ public class Mannetje {
     }
 
     /**
-     * @param (int) y is de y-coördinaat van het mannetje
      * @return y-coördinaat van het mannetje
      */
     public int getY() {
@@ -64,21 +66,25 @@ public class Mannetje {
     }
 
     /**
-     * @param x is de x-coördinaat van het mannetje geeft x-coördinaat van het
-     * mannetje nieuwe waarde
+     * @param x is de x-coördinaat van het mannetje 
+     * deze methode geeft x-coördinaat van het mannetje een nieuwe waarde
      */
     public void setX(int x) {
         this.x = x;
     }
 
     /**
-     * @param y is de y-coördinaat van het mannetje geeft y-coördinaat van het
-     * mannetje nieuwe waarde
+     * @param y is de y-coördinaat van het mannetje 
+     * deze methode geeft y-coördinaat van het mannetje een nieuwe waarde
      */
     public void setY(int y) {
         this.y = y;
     }
 
+    /**
+     * deze methode veranderd het aantal levens van het mannetje als hij dood 
+     * gaat en als hij geen levens meer overheeft wordt dood true/is het mannetje dood
+     */
     public void isDood() {
         if (levens != 0) {
             levens--;
@@ -90,7 +96,6 @@ public class Mannetje {
     }
 
     /**
-     * @param (int)levens is het aantal levens
      * @return geeft het aantal levens terug
      */
     public int getLevens() {
@@ -98,17 +103,15 @@ public class Mannetje {
     }
 
     /**
-     * @param (boolean) dood is de status van het mannetje
-     * levend/dood(true/false)
-     * @return geeft terug of het mannetje dood/true of levend/false is
+     * @return Geeft terug of het mannetje dood/true of levend/false is
      */
     public boolean getDood() {
         return dood;
     }
 
     /**
-     * reset de game: mannetje terug op begin positie, aantal levens terug op 5
-     * en mannetje terug levend/flase
+     * Deze methode reset de game het mannetje wordt terug op begin positie
+     * gezet aantal levens terug op 5 en mannetje terug levend/ dood wordt flase
      */
     public void resetGame() {
         x = 10;
@@ -117,22 +120,40 @@ public class Mannetje {
         dood = false;
     }
 
+    /**
+     * @return Deze methode laat het mannetje 1 vak verticaal verplaatsen met
+     * een bepaalde snelheid
+     */
     public double verticaal() {
         y = y + (20 * getVy());
         return y;
     }
 
+    /**
+     *
+     * @return Deze methode laat het mannetje 1 vak horizontaal verplaatsen met
+     * een bepaalde snelheid
+     */
     public double horizontaal() {
         x = x + (20 * getVx());
         return x;
     }
 
+    /**
+     * Deze methode reset de positie van het mannetje terug naar rechtsboven/
+     * beginpositie
+     */
     public void reset() {
         x = 10;
         y = 10;
 
     }
 
+    /**
+     *
+     * @return Deze methode zorgt ervoor dat het mannetje niet buiten de border
+     * zal gaan aan de linkerkant van het speelveld in de x-richting
+     */
     public int setMaxXBorder() {
         if (x > (20 * vakkenSpeelveld.getKolommen()) - straal) {
             x = (20 * vakkenSpeelveld.getKolommen()) - straal;
@@ -141,6 +162,11 @@ public class Mannetje {
         return (int) x;
     }
 
+    /**
+     *
+     * @return Deze methode zorgt ervoor dat het mannetje niet buiten de border
+     * zal gaan aan de rechterkant van het speelveld in de x-richting
+     */
     public int setMinXBorder() {
         if (x < 10) {
             x = 10;
@@ -149,6 +175,11 @@ public class Mannetje {
         return (int) x;
     }
 
+    /**
+     *
+     * @return Deze methode zorgt ervoor dat het mannetje niet buiten de border
+     * zal gaan aan de onderkant van het speelveld in de y-richting
+     */
     public int setMaxYBorder() {
         if (y > (20 * vakkenSpeelveld.getRijen()) - straal) {
             y = (20 * vakkenSpeelveld.getRijen()) - straal;
@@ -157,6 +188,11 @@ public class Mannetje {
         return (int) y;
     }
 
+    /**
+     *
+     * @return Deze methode zorgt ervoor dat het mannetje niet buiten de border
+     * zal gaan aan de bovenkant van het speelveld in de y-richting
+     */
     public int setMinYBorder() {
         if (y < 10) {
             y = 10;
@@ -165,29 +201,46 @@ public class Mannetje {
         return (int) y;
     }
 
+    /**
+     * @return deze methode geeft de straal terug van het mannetje
+     */
     public int getStraal() {
         return straal;
     }
 
+    /**
+     * Deze methode verplaatst het mannetje 20 pixels of 1 vak naar links
+     */
     public void links() {
         x = x - 20;
     }
 
+    /**
+     * Deze methode verplaatst het mannetje 20 pixels of 1 vak naar rechts
+     */
     public void rechts() {
         x = x + 20;
-
     }
 
+    /**
+     * Deze methode verplaatst het mannetje 20 pixels of 1 vak naar boven
+     */
     public void boven() {
         y = y - 20;
 
     }
 
+    /**
+     * Deze methode verplaatst het mannetje 20 pixels of 1 vak naar onder
+     */
     public void onder() {
         y = y + 20;
 
     }
 
+    /**
+     * Deze methode gaat de volgende methodes checken en constant uitvoeren
+     */
     public void Tick() {
         verticaal();
         horizontaal();
@@ -198,28 +251,30 @@ public class Mannetje {
     }
 
     /**
-     * @param vx the vx to set
+     * @param vx is de snelheid in de x-richting van het mannetje 
+     * Deze methode geeft de snelhied in de x-richting een nieuwe waarde
      */
     public void setVx(int vx) {
         this.vx = vx;
     }
 
     /**
-     * @param vy the vy to set
+     * @param vy is de snelhied in de y-richting van het mannetje 
+     * Deze methode geeft de snelhied in de y-richting een nieuwe waarde
      */
     public void setVy(int vy) {
         this.vy = vy;
     }
 
     /**
-     * @return the vx
+     * @return geeft de waarde van de snelhied in de x-richting terug
      */
     public int getVx() {
         return vx;
     }
 
     /**
-     * @return the vy
+     * @return geeft de waarde van de snelhied in de y-richting terug
      */
     public int getVy() {
         return vy;

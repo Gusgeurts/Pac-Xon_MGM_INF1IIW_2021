@@ -1,13 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package model;
 
 /**
- *
- * @author Gus Geurts
+ * @author Gus Geurts/Michiel Meurice
  */
 public class Speelveld {
 
@@ -15,6 +9,11 @@ public class Speelveld {
     private final int rijen;
     private final int kolommen;
 
+    /**
+     * @param rijen is het aantal rijen van het speelveld
+     * @param kolommen is het aantal kolommen van het speelveld
+     * Deze methode geeft alle variabelen een begin/start waarde
+     */
     public Speelveld(int rijen, int kolommen) {
         this.rijen = rijen;
         this.kolommen = kolommen;
@@ -26,20 +25,22 @@ public class Speelveld {
             }
         }
     }
-
+    /**
+     * @return geeft het aantal vakken van het speelveld terug
+     */
     public Vak[][] getVakken() {
         return vakken;
     }
 
     /**
-     * @return the rijen
+     * @return geeft het aantal rijen van het speelveld terug
      */
     public int getRijen() {
         return rijen;
     }
 
     /**
-     * @return the kolommen
+     * @return geeft het aantal kolommen van het speelveld terug
      */
     public int getKolommen() {
         return kolommen;

@@ -78,8 +78,7 @@ public class StartMenuController {
             }
         }
         aantalSpoken=0;
-        System.out.println(aantalSpoken);
-    }
+     }
 
     private void veranderSchermExtraInfo(ActionEvent e) {
         try {
