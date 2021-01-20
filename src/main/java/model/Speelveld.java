@@ -11,8 +11,8 @@ public class Speelveld {
 
     /**
      * @param rijen is het aantal rijen van het speelveld
-     * @param kolommen is het aantal kolommen van het speelveld
-     * Deze methode geeft alle variabelen een begin/start waarde
+     * @param kolommen is het aantal kolommen van het speelveld Deze methode
+     * geeft alle variabelen een begin/start waarde
      */
     public Speelveld(int rijen, int kolommen) {
         this.rijen = rijen;
@@ -25,6 +25,7 @@ public class Speelveld {
             }
         }
     }
+
     /**
      * @return geeft het aantal vakken van het speelveld terug
      */

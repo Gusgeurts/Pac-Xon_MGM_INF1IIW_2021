@@ -11,7 +11,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.RadioButton;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import model.Spoken;
 
 public class StartMenuController {
 
@@ -52,16 +51,16 @@ public class StartMenuController {
         extraInfoKnop.setFocusTraversable(false);
         moeilijkheidsGraad1.setFocusTraversable(false);
         moeilijkheidsGraad2.setFocusTraversable(false);
-        moeilijkheidsGraad3.setFocusTraversable(false); 
+        moeilijkheidsGraad3.setFocusTraversable(false);
     }
 
-    /** 
-     * @param k is de actie/het event van de knop
-     * deze methode is de methode voor de start game knop
-     * deze methode zal eerst kijken welke moeilijkheids graad is geselecteerd en als er een moeilijkheidsgraad is geselecteerd
-     * zal de stage veranderen naar een andere scene namelijk het speelveld met het aantalspoken afhankelijk van de geselecteerde
-     * moeilijkheidsgraad
-     * 
+    /**
+     * @param k is de actie/het event van de knop deze methode is de methode
+     * voor de start game knop deze methode zal eerst kijken welke moeilijkheids
+     * graad is geselecteerd en als er een moeilijkheidsgraad is geselecteerd
+     * zal de stage veranderen naar een andere scene namelijk het speelveld met
+     * het aantalspoken afhankelijk van de geselecteerde moeilijkheidsgraad
+     *
      * gehaald van:...
      */
     public void veranderSchermSpeelVeld(ActionEvent k) {
@@ -78,7 +77,7 @@ public class StartMenuController {
         }
         if (aantalSpoken > 0) {
             try {
-                Parent speelVeldParent = null;
+                Parent speelVeldParent;
                 speelVeldParent = FXMLLoader.load(getClass().getResource("speelveld.fxml"));
                 Scene speelVeldScene = new Scene(speelVeldParent);
                 Stage gameScherm = (Stage) ((Node) k.getSource()).getScene().getWindow();
@@ -86,23 +85,22 @@ public class StartMenuController {
                 gameScherm.setScene(speelVeldScene);
                 gameScherm.show();
             } catch (IOException ex) {
-                ex.printStackTrace();
             }
         }
-        aantalSpoken=0;
-     }
+        aantalSpoken = 0;
+    }
 
     /**
-     * @param e is de actie/het event van de knop
-     * deze methode is de methode voor de extra info knop
-     * deze methode zal de stage veranderen naar een andere scene namelijk de extrainfo
-     * 
+     * @param e is de actie/het event van de knop deze methode is de methode
+     * voor de extra info knop deze methode zal de stage veranderen naar een
+     * andere scene namelijk de extrainfo
+     *
      * gehaald van:...
-     * 
+     *
      */
     private void veranderSchermExtraInfo(ActionEvent e) {
         try {
-            Parent extraInfoParent = null;
+            Parent extraInfoParent;
             extraInfoParent = FXMLLoader.load(getClass().getResource("extraInfoFXML.fxml"));
             Scene extraInfoScene = new Scene(extraInfoParent);
             Stage extraInfoScherm = (Stage) ((Node) e.getSource()).getScene().getWindow();
@@ -110,14 +108,12 @@ public class StartMenuController {
             extraInfoScherm.setScene(extraInfoScene);
             extraInfoScherm.show();
         } catch (IOException ex) {
-            ex.printStackTrace();
         }
     }
 
     /**
-     * @param e is de actie/het event van de knop
-     * deze methode is de methoden voor de stop game knop
-     * deze methode zal de game afsluiten
+     * @param e is de actie/het event van de knop deze methode is de methoden
+     * voor de stop game knop deze methode zal de game afsluiten
      */
     private void sluitGame(ActionEvent e) {
         System.exit(0);

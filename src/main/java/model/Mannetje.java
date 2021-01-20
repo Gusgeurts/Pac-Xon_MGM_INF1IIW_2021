@@ -20,11 +20,11 @@ public class Mannetje {
     private final Speelveld vakkenSpeelveld;
 
     /**
-     * 
+     *
      * @param x is de x-coördinaat van het mannetje
      * @param y is de y-coördinaat van het mannetje
-     * @param vakkenSpeelveld is het aangemaakt speelveld
-     * Deze methode geeft alle variabelen een begin/start waarde
+     * @param vakkenSpeelveld is het aangemaakt speelveld Deze methode geeft
+     * alle variabelen een begin/start waarde
      */
     public Mannetje(int x, int y, Speelveld vakkenSpeelveld) {
         this.x = x;
@@ -66,24 +66,25 @@ public class Mannetje {
     }
 
     /**
-     * @param x is de x-coördinaat van het mannetje 
-     * deze methode geeft x-coördinaat van het mannetje een nieuwe waarde
+     * @param x is de x-coördinaat van het mannetje deze methode geeft
+     * x-coördinaat van het mannetje een nieuwe waarde
      */
     public void setX(int x) {
         this.x = x;
     }
 
     /**
-     * @param y is de y-coördinaat van het mannetje 
-     * deze methode geeft y-coördinaat van het mannetje een nieuwe waarde
+     * @param y is de y-coördinaat van het mannetje deze methode geeft
+     * y-coördinaat van het mannetje een nieuwe waarde
      */
     public void setY(int y) {
         this.y = y;
     }
 
     /**
-     * deze methode veranderd het aantal levens van het mannetje als hij dood 
-     * gaat en als hij geen levens meer overheeft wordt dood true/is het mannetje dood
+     * deze methode veranderd het aantal levens van het mannetje als hij dood
+     * gaat en als hij geen levens meer overheeft wordt dood true/is het
+     * mannetje dood
      */
     public void isDood() {
         if (levens != 0) {
@@ -251,16 +252,16 @@ public class Mannetje {
     }
 
     /**
-     * @param vx is de snelheid in de x-richting van het mannetje 
-     * Deze methode geeft de snelhied in de x-richting een nieuwe waarde
+     * @param vx is de snelheid in de x-richting van het mannetje Deze methode
+     * geeft de snelhied in de x-richting een nieuwe waarde
      */
     public void setVx(int vx) {
         this.vx = vx;
     }
 
     /**
-     * @param vy is de snelhied in de y-richting van het mannetje 
-     * Deze methode geeft de snelhied in de y-richting een nieuwe waarde
+     * @param vy is de snelhied in de y-richting van het mannetje Deze methode
+     * geeft de snelhied in de y-richting een nieuwe waarde
      */
     public void setVy(int vy) {
         this.vy = vy;

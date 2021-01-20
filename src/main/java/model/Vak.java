@@ -33,25 +33,25 @@ public class Vak {
     }
 
     /**
-     * @param status is de status van het vak
-     * deze methode verandert de status van het vak
+     * @param status is de status van het vak deze methode verandert de status
+     * van het vak
      */
     public void setStatus(StatusVak status) {
         this.status = status;
     }
-    
+
     /**
-     * @param gevaar is of er gevaar heerst in een vak
-     * deze methode geeft gevaar een nieuwe status
+     * @param gevaar is of er gevaar heerst in een vak deze methode geeft gevaar
+     * een nieuwe status
      */
-    public void setGevaar(boolean gevaar){
+    public void setGevaar(boolean gevaar) {
         this.gevaar = gevaar;
     }
-    
+
     /**
      * @return geeft terug of er gevaar heerst in het vak
      */
-    public boolean getGevaar(){
+    public boolean getGevaar() {
         return gevaar;
     }
 }

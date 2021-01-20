@@ -2,15 +2,11 @@ package be.inf1.iiw1b.pac.xon_mgm_inf1_iiw1ba2021;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.Timer;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Bounds;
-import javafx.geometry.Point2D;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -136,8 +132,8 @@ public class SpeelveldController {
     }
 
     /**
-     * @param t is de actie/het event van de knop
-     * deze methode zorgt ervoor dat wanneer de pijltjes worden gebruikt het mannetje beweegt
+     * @param t is de actie/het event van de knop deze methode zorgt ervoor dat
+     * wanneer de pijltjes worden gebruikt het mannetje beweegt
      */
     private void loopRond(KeyEvent t) {
         if (start) {
@@ -197,9 +193,8 @@ public class SpeelveldController {
     }
 
     /**
-     * @param e is de actie/het event van de knop
-     * deze methode is de methode voor de reset knop
-     * de methode reset het speelveld en update de view
+     * @param e is de actie/het event van de knop deze methode is de methode
+     * voor de reset knop de methode reset het speelveld en update de view
      */
     private void reset(ActionEvent e) {
         if (start) {
@@ -215,9 +210,9 @@ public class SpeelveldController {
     }
 
     /**
-     * @param e is de actie/het event van de knop 
-     * deze methode is de methode voor de start knop
-     * de methode start het bewegen van de spoken en het mannetje
+     * @param e is de actie/het event van de knop deze methode is de methode
+     * voor de start knop de methode start het bewegen van de spoken en het
+     * mannetje
      */
     private void start(ActionEvent e) {
 
@@ -238,15 +233,15 @@ public class SpeelveldController {
     }
 
     /**
-     * @param e is de actie/het event van de knop
-     * deze methode is de methode voor de StartMenu knop
-     * deze methode zal de stage veranderen naar een andere scene....
-     * 
+     * @param e is de actie/het event van de knop deze methode is de methode
+     * voor de StartMenu knop deze methode zal de stage veranderen naar een
+     * andere scene....
+     *
      * gehaald van:...
      */
     private void veranderSchermStartMenu(ActionEvent e) {
         try {
-            Parent startMenuParent = null;
+            Parent startMenuParent;
             startMenuParent = FXMLLoader.load(getClass().getResource("startMenu.fxml"));
             Scene startMenuScene = new Scene(startMenuParent);
             Stage startMenuScherm = (Stage) ((Node) e.getSource()).getScene().getWindow();
@@ -255,7 +250,6 @@ public class SpeelveldController {
             startMenuScherm.show();
             timer.cancel();
         } catch (IOException ex) {
-            ex.printStackTrace();
         } catch (NullPointerException exe) {
         }
 

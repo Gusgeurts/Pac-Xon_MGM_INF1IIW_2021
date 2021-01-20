@@ -7,15 +7,15 @@ import model.Mannetje;
 /**
  * @author Gus Geurts/Michiel Meurice
  */
-public class BeweegMannetje extends TimerTask   {
-    
+public class BeweegMannetje extends TimerTask {
+
     private final Mannetje mannetje;
     private final SpeelveldController controller;
 
     /**
      * @param mannetje is het model van het mannetje
-     * @param controller is de controller van het speelveld
-     * Deze methode geeft alle variabelen een begin/start waarde
+     * @param controller is de controller van het speelveld Deze methode geeft
+     * alle variabelen een begin/start waarde
      */
     public BeweegMannetje(Mannetje mannetje, SpeelveldController controller) {
         this.mannetje = mannetje;
@@ -27,9 +27,8 @@ public class BeweegMannetje extends TimerTask   {
      */
     @Override
     public void run() {
-         mannetje.Tick();
-         Platform.runLater(controller::update);
+        mannetje.Tick();
+        Platform.runLater(controller::update);
     }
-    
-    
+
 }

@@ -3,7 +3,6 @@ package model;
 /**
  * @author Gus Geurts/Michiel Meurice
  */
-
 /**
  * Deze methode maakt alle statussen van het vak
  */

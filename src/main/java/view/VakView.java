@@ -29,11 +29,11 @@ public final class VakView extends Region {
     public void update() {
         v = new Rectangle(vak.getZijde(), vak.getZijde());
 
-        if (vak.getStatus() == status.LEEG) {
+        if (vak.getStatus() == StatusVak.LEEG) {
             v.setFill(Color.BLACK);
             v.setStroke(Color.GREY);
             v.setStrokeWidth(1);
-        } else if (vak.getStatus() == status.IN_DE_MAAK) {
+        } else if (vak.getStatus() == StatusVak.IN_DE_MAAK) {
             v.setFill(Color.AQUA);
             v.setStroke(Color.GREY);
             v.setStrokeWidth(1);
@@ -48,7 +48,8 @@ public final class VakView extends Region {
     public Rectangle getVormVak() {
         return v;
     }
-    public StatusVak getStatus(){
+
+    public StatusVak getStatus() {
         return status;
     }
 

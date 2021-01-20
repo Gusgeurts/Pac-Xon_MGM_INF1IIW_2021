@@ -16,8 +16,8 @@ public final class Spoken {
     /**
      * @param aantalSpoken is het aantalspoken aanwezig in het speelveld
      * @param vak is een vak van het speelveld
-     * @param speelveld is het aangemaakt speelveld 
-     * Deze methode geeft alle variabelen een begin/start waarde
+     * @param speelveld is het aangemaakt speelveld Deze methode geeft alle
+     * variabelen een begin/start waarde
      */
     public Spoken(int aantalSpoken, Vak vak, Speelveld speelveld) {
         this.aantalSpoken = StartMenuController.getAantalSpoken();
@@ -55,8 +55,9 @@ public final class Spoken {
             spoken.add(new Spook(xWaarde, yWaarde));
         }
     }
+
     /**
-     * @return geeft een arraylist van de spoken terug 
+     * @return geeft een arraylist van de spoken terug
      */
     public ArrayList<Spook> getSpoken() {
         return spoken;
