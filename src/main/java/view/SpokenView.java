@@ -10,6 +10,7 @@ import javafx.scene.Node;
 import javafx.scene.layout.Region;
 import model.Spoken;
 import model.Spook;
+import be.inf1.iiw1b.pac.xon_mgm_inf1_iiw1ba2021.StartMenuController;
 
 /**
  *
@@ -30,7 +31,7 @@ public final class SpokenView extends Region {
 
     public void maakSpoken() {
         ArrayList<Spook> s = spoken.getSpoken();
-        for (int i = 0; i < spoken.getAantalSpoken(); i++) {
+        for (int i = 0; i < StartMenuController.getAantalSpoken(); i++) {
             SpookView sv = new SpookView(s.get(i));
             sv.setTranslateX(s.get(i).getX());
             sv.setTranslateY(s.get(i).getY());

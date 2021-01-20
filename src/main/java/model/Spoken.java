@@ -6,6 +6,7 @@
 package model;
 
 import java.util.ArrayList;
+import be.inf1.iiw1b.pac.xon_mgm_inf1_iiw1ba2021.StartMenuController;
 
 /**
  *
@@ -19,7 +20,7 @@ public final class Spoken {
     private final Speelveld speelveld;
 
     public Spoken(int aantalSpoken, Vak vak, Speelveld speelveld) {
-        this.aantalSpoken = aantalSpoken;
+        this.aantalSpoken = StartMenuController.getAantalSpoken();
         this.vak = vak;
         this.speelveld = speelveld;
         maakSpoken();
@@ -53,8 +54,8 @@ public final class Spoken {
         return spoken;
     }
 
-    public int getAantalSpoken() {
-        return aantalSpoken;
-    }
+    ///public int getAantalSpoken() {
+    //  return aantalSpoken;
+   //
 
 }

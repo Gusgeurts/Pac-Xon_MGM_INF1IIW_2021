@@ -8,7 +8,10 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.RadioButton;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import model.Spoken;
 
 public class StartMenuController {
 
@@ -21,35 +24,63 @@ public class StartMenuController {
     @FXML
     private Button extraInfoKnop;
 
-    
+    @FXML
+    private RadioButton moeilijkheidsGraad1;
+
+    @FXML
+    private RadioButton moeilijkheidsGraad2;
+
+    @FXML
+    private RadioButton moeilijkheidsGraad3;
+
+    @FXML
+    private Text errorText;
+    public static int aantalSpoken;
+
     @FXML
     void initialize() {
-                               
+        errorText.setVisible(false);
         startKnop.setOnAction(this::veranderSchermSpeelVeld);
         extraInfoKnop.setOnAction(this::veranderSchermExtraInfo);
         stopKnop.setOnAction(this::sluitGame);
-        
+
         startKnop.setFocusTraversable(false);
         stopKnop.setFocusTraversable(false);
         extraInfoKnop.setFocusTraversable(false);
-              
+        moeilijkheidsGraad1.setFocusTraversable(false);
+        moeilijkheidsGraad2.setFocusTraversable(false);
+        moeilijkheidsGraad3.setFocusTraversable(false); 
     }
-   
-       
-    private void veranderSchermSpeelVeld(ActionEvent e) {
-        try {
-            Parent speelVeldParent = null;
-            speelVeldParent = FXMLLoader.load(getClass().getResource("speelveld.fxml"));
-            Scene speelVeldScene = new Scene(speelVeldParent);
-            Stage gameScherm = (Stage) ((Node) e.getSource()).getScene().getWindow();
-            gameScherm.hide();
-            gameScherm.setScene(speelVeldScene);
-            gameScherm.show();
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }    
+
+    public void veranderSchermSpeelVeld(ActionEvent k) {
+        if (moeilijkheidsGraad1.isSelected()) {
+            aantalSpoken = 1;
+
+        } else if (moeilijkheidsGraad2.isSelected()) {
+            aantalSpoken = 2;
+
+        } else if (moeilijkheidsGraad3.isSelected()) {
+            aantalSpoken = 3;
+        } else {
+            errorText.setVisible(true);
+        }
+        if (aantalSpoken > 0) {
+            try {
+                Parent speelVeldParent = null;
+                speelVeldParent = FXMLLoader.load(getClass().getResource("speelveld.fxml"));
+                Scene speelVeldScene = new Scene(speelVeldParent);
+                Stage gameScherm = (Stage) ((Node) k.getSource()).getScene().getWindow();
+                gameScherm.hide();
+                gameScherm.setScene(speelVeldScene);
+                gameScherm.show();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        }
+        aantalSpoken=0;
+        System.out.println(aantalSpoken);
     }
-    
+
     private void veranderSchermExtraInfo(ActionEvent e) {
         try {
             Parent extraInfoParent = null;
@@ -61,12 +92,14 @@ public class StartMenuController {
             extraInfoScherm.show();
         } catch (IOException ex) {
             ex.printStackTrace();
-        }       
+        }
     }
-    
-    
-    private void sluitGame(ActionEvent e){
+
+    private void sluitGame(ActionEvent e) {
         System.exit(0);
     }
-   
+
+    public static int getAantalSpoken() {
+        return aantalSpoken;
+    }
 }

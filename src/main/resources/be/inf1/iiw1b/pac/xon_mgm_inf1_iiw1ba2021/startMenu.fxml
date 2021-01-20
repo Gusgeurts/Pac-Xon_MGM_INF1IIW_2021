@@ -2,24 +2,34 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="526.0" prefWidth="979.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="be.inf1.iiw1b.pac.xon_mgm_inf1_iiw1ba2021.StartMenuController">
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="526.0" prefWidth="979.0" style="-fx-background-color: #2c387e;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="be.inf1.iiw1b.pac.xon_mgm_inf1_iiw1ba2021.StartMenuController">
    <children>
       <AnchorPane id="AnchorPane" layoutX="212.0" layoutY="40.0" prefHeight="386.0" prefWidth="581.0">
          <children>
-            <Button fx:id="startKnop" layoutX="152.0" layoutY="162.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="214.0" text="Start Game" textFill="WHITE" />
-            <Button fx:id="extraInfoKnop" layoutX="152.0" layoutY="207.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="214.0" text="Extra Info" textFill="WHITE" />
-            <Button fx:id="stopKnop" layoutX="152.0" layoutY="252.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="214.0" text="Stop Game" textFill="WHITE" />
-            <Label layoutX="109.0" layoutY="27.0" prefHeight="103.0" prefWidth="324.0" text="PAC-XON" textAlignment="CENTER">
+            <Button fx:id="startKnop" layoutX="152.0" layoutY="162.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="214.0" style="-fx-background-radius: 90; -fx-background-color: #ffeb3b;" text="Start Game" textFill="WHITE" />
+            <Button fx:id="extraInfoKnop" layoutX="152.0" layoutY="221.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="214.0" style="-fx-background-color: #ffeb3b; -fx-background-radius: 90;" styleClass="-" text="Extra Info" textFill="WHITE" />
+            <Button fx:id="stopKnop" layoutX="152.0" layoutY="265.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="214.0" style="-fx-background-color: #ffeb3b; -fx-background-radius: 90;" text="Stop Game" textFill="WHITE" />
+            <Label layoutX="109.0" layoutY="27.0" prefHeight="103.0" prefWidth="324.0" text="PAC-XON" textAlignment="CENTER" textFill="WHITE">
                <font>
                   <Font name="Comic Sans MS" size="70.0" />
                </font>
             </Label>
+            <RadioButton fx:id="moeilijkheidsGraad1" layoutX="153.0" layoutY="195.0" mnemonicParsing="false" />
+            <RadioButton fx:id="moeilijkheidsGraad2" layoutX="176.0" layoutY="195.0" mnemonicParsing="false" />
+            <RadioButton fx:id="moeilijkheidsGraad3" layoutX="198.0" layoutY="195.0" mnemonicParsing="false" />
+            <Text fx:id="errorText" fill="#f80000" layoutX="227.0" layoutY="208.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Selecteer moeilijkheidsgraad!!">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Text>
          </children>
       </AnchorPane>
-      <Label layoutX="845.0" layoutY="505.0" text="Gus Geurts/MichielMeurice">
+      <Label layoutX="845.0" layoutY="505.0" text="Gus Geurts/MichielMeurice" textFill="WHITE">
          <font>
             <Font size="10.0" />
          </font>
