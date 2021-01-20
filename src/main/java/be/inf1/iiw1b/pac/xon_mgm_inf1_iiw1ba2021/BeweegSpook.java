@@ -10,19 +10,26 @@ import javafx.application.Platform;
 import model.Spook;
 
 /**
- *
- * @author Gus Geurts
+ * @author Gus Geurts/Michiel Meurice
  */
 public class BeweegSpook extends TimerTask {
 
     private final Spook spook;
     private final SpeelveldController controller;
 
+    /**
+     * @param spook is het model van het spook
+     * @param controller is de controller van het speelveld
+     * Deze methode geeft alle variabelen een begin/start waarde
+     */
     public BeweegSpook(Spook spook, SpeelveldController controller) {
         this.spook = spook;
         this.controller = controller;
     }
 
+    /**
+     * deze methode...............
+     */
     @Override
     public void run() {
         spook.Tick();

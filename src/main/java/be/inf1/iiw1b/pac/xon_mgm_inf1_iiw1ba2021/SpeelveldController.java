@@ -72,6 +72,9 @@ public class SpeelveldController {
     private Timer timer;
     private int aantalSpoken = 3;
 
+    /**
+     * deze methode intisaliseert de scene
+     */
     @FXML
     void initialize() {
 
@@ -107,6 +110,9 @@ public class SpeelveldController {
 
     }
 
+    /**
+     * deze methode update het speelveld
+     */
     public void update() {
 
         mannetjeView.update();
@@ -129,6 +135,10 @@ public class SpeelveldController {
 
     }
 
+    /**
+     * @param t is de actie/het event van de knop
+     * deze methode zorgt ervoor dat wanneer de pijltjes worden gebruikt het mannetje beweegt
+     */
     private void loopRond(KeyEvent t) {
         if (start) {
             switch (t.getCode()) {
@@ -186,6 +196,11 @@ public class SpeelveldController {
         }
     }
 
+    /**
+     * @param e is de actie/het event van de knop
+     * deze methode is de methode voor de reset knop
+     * de methode reset het speelveld en update de view
+     */
     private void reset(ActionEvent e) {
         if (start) {
             mannetje.resetGame();
@@ -199,6 +214,11 @@ public class SpeelveldController {
 
     }
 
+    /**
+     * @param e is de actie/het event van de knop 
+     * deze methode is de methode voor de start knop
+     * de methode start het bewegen van de spoken en het mannetje
+     */
     private void start(ActionEvent e) {
 
         if (!start) {
@@ -217,6 +237,13 @@ public class SpeelveldController {
 
     }
 
+    /**
+     * @param e is de actie/het event van de knop
+     * deze methode is de methode voor de StartMenu knop
+     * deze methode zal de stage veranderen naar een andere scene....
+     * 
+     * gehaald van:...
+     */
     private void veranderSchermStartMenu(ActionEvent e) {
         try {
             Parent startMenuParent = null;

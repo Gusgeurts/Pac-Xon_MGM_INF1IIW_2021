@@ -23,15 +23,24 @@ public class ExtraInfoFXMLController {
     @FXML
     private Button StartMenuKnop;
 
+    /**
+     * deze methode intisaliseert de scene
+     */
     @FXML
     void initialize() {
-        StartMenuKnop.setOnAction(this::veranderSchermStartMenu);
-        
-        StartMenuKnop.setFocusTraversable(false);
+        StartMenuKnop.setOnAction(this::veranderSchermStartMenu);  
+        StartMenuKnop.setFocusTraversable(false);  
 
     }
-    
-    public void veranderSchermStartMenu(ActionEvent e)  {
+
+    /**
+     * @param e is de actie/het event van de knop 
+     * deze methode is de methode voor de StartMenu knop
+     * deze methode zal de stage veranderen naar een andere scene....
+     *
+     * gehaald van:https://youtube/com/watch?.......
+     */
+    public void veranderSchermStartMenu(ActionEvent e) {
         try {
             Parent startMenuParent = null;
             startMenuParent = FXMLLoader.load(getClass().getResource("startMenu.fxml"));
@@ -45,5 +54,5 @@ public class ExtraInfoFXMLController {
         }
 
     }
-    
+
 }

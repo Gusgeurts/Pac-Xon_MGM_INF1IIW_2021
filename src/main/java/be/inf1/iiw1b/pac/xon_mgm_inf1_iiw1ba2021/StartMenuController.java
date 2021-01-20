@@ -37,6 +37,9 @@ public class StartMenuController {
     private Text errorText;
     public static int aantalSpoken;
 
+    /**
+     * deze methode intisaliseert de scene
+     */
     @FXML
     void initialize() {
         errorText.setVisible(false);
@@ -52,6 +55,15 @@ public class StartMenuController {
         moeilijkheidsGraad3.setFocusTraversable(false); 
     }
 
+    /** 
+     * @param k is de actie/het event van de knop
+     * deze methode is de methode voor de start game knop
+     * deze methode zal eerst kijken welke moeilijkheids graad is geselecteerd en als er een moeilijkheidsgraad is geselecteerd
+     * zal de stage veranderen naar een andere scene namelijk het speelveld met het aantalspoken afhankelijk van de geselecteerde
+     * moeilijkheidsgraad
+     * 
+     * gehaald van:...
+     */
     public void veranderSchermSpeelVeld(ActionEvent k) {
         if (moeilijkheidsGraad1.isSelected()) {
             aantalSpoken = 1;
@@ -80,6 +92,14 @@ public class StartMenuController {
         aantalSpoken=0;
      }
 
+    /**
+     * @param e is de actie/het event van de knop
+     * deze methode is de methode voor de extra info knop
+     * deze methode zal de stage veranderen naar een andere scene namelijk de extrainfo
+     * 
+     * gehaald van:...
+     * 
+     */
     private void veranderSchermExtraInfo(ActionEvent e) {
         try {
             Parent extraInfoParent = null;
@@ -94,10 +114,18 @@ public class StartMenuController {
         }
     }
 
+    /**
+     * @param e is de actie/het event van de knop
+     * deze methode is de methoden voor de stop game knop
+     * deze methode zal de game afsluiten
+     */
     private void sluitGame(ActionEvent e) {
         System.exit(0);
     }
 
+    /**
+     * @return deze methode geeft het aantalspoken terug
+     */
     public static int getAantalSpoken() {
         return aantalSpoken;
     }
