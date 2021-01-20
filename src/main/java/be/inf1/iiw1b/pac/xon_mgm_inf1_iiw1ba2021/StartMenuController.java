@@ -34,7 +34,7 @@ public class StartMenuController {
 
     @FXML
     private Text errorText;
-    public static int aantalSpoken;
+    private static int aantalSpoken;
 
     /**
      * deze methode intisaliseert de scene
