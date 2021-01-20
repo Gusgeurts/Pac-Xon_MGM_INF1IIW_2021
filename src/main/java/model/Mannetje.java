@@ -17,7 +17,7 @@ public class Mannetje {
     private boolean dood;
     private int levens;
     private final int straal;
-    private final Speelveld vakkenSpeelveld;
+    private final Vakken vakkenVeld;
 
     /**
      *
@@ -26,7 +26,7 @@ public class Mannetje {
      * @param vakkenSpeelveld is het aangemaakt speelveld Deze methode geeft
      * alle variabelen een begin/start waarde
      */
-    public Mannetje(int x, int y, Speelveld vakkenSpeelveld) {
+    public Mannetje(int x, int y, Vakken vakkenVeld) {
         this.x = x;
         this.y = y;
         vx = 0;
@@ -34,7 +34,7 @@ public class Mannetje {
         dood = false;
         levens = 5;
         straal = 10;
-        this.vakkenSpeelveld = vakkenSpeelveld;
+        this.vakkenVeld = vakkenVeld;
     }
 
     /**
@@ -156,8 +156,8 @@ public class Mannetje {
      * zal gaan aan de linkerkant van het speelveld in de x-richting
      */
     public int setMaxXBorder() {
-        if (x > (20 * vakkenSpeelveld.getKolommen()) - straal) {
-            x = (20 * vakkenSpeelveld.getKolommen()) - straal;
+        if (x > (20 * vakkenVeld.getKolommen()) - straal) {
+            x = (20 * vakkenVeld.getKolommen()) - straal;
             return (int) x;
         }
         return (int) x;
@@ -182,8 +182,8 @@ public class Mannetje {
      * zal gaan aan de onderkant van het speelveld in de y-richting
      */
     public int setMaxYBorder() {
-        if (y > (20 * vakkenSpeelveld.getRijen()) - straal) {
-            y = (20 * vakkenSpeelveld.getRijen()) - straal;
+        if (y > (20 * vakkenVeld.getRijen()) - straal) {
+            y = (20 * vakkenVeld.getRijen()) - straal;
             return (int) y;
         }
         return (int) y;

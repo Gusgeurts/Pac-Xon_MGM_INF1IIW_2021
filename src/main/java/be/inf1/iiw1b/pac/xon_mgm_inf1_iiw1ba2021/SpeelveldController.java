@@ -20,6 +20,7 @@ import model.Speelveld;
 import model.Spoken;
 import model.Spook;
 import model.Vak;
+import model.Vakken;
 import view.MannetjeView;
 import view.SpeelveldView;
 import view.SpokenView;
@@ -61,6 +62,7 @@ public class SpeelveldController {
     private Spook spook;
     private Spoken spoken;
     private Vak vak;
+    private Vakken vakkenVeld;
     private Speelveld vakkenSpeelveld;
     private SpeelveldView vakkenSpeelveldView;
     private SpokenView spokenView;
@@ -73,16 +75,16 @@ public class SpeelveldController {
      */
     @FXML
     void initialize() {
-
-        vakkenSpeelveld = new Speelveld(23, 34);
-        mannetje = new Mannetje(10, 10, vakkenSpeelveld);
+        vakkenVeld = new Vakken(23, 34);
+        mannetje = new Mannetje(10, 10, vakkenVeld);
+        vakkenSpeelveld = new Speelveld(vakkenVeld, mannetje);
         spook = new Spook(0, 0);
         vak = new Vak();
-        spoken = new Spoken(aantalSpoken, vak, vakkenSpeelveld);
+        spoken = new Spoken(aantalSpoken, vak, vakkenVeld);
 
         mannetjeView = new MannetjeView(mannetje);
         spokenView = new SpokenView(spoken);
-        vakkenSpeelveldView = new SpeelveldView(vakkenSpeelveld, mannetje, spook, spoken, spokenView, mannetjeView);
+        vakkenSpeelveldView = new SpeelveldView(vakkenSpeelveld, mannetje, spook, spoken, spokenView, mannetjeView, vakkenVeld);
 
         speelveld.getChildren().addAll(vakkenSpeelveldView, mannetjeView, spokenView);
 
@@ -117,17 +119,16 @@ public class SpeelveldController {
         if (start) {
 
             speelveld.setOnKeyPressed(this::loopRond);
-
+            
+            vakkenSpeelveld.updateSpeelveld();
+            
             vakkenSpeelveldView.mannetjeGeraaktDoorSpook();
-            vakkenSpeelveldView.gameGewonnen();
-            vakkenSpeelveldView.gameOver();
-            vakkenSpeelveldView.stilInGevuld();
             vakkenSpeelveldView.spookRaaktGevuld();
         }
         vakkenSpeelveldView.update();
 
         labelLevens.setText(mannetje.getLevens() + "");
-        labelInvulProcent.setText(vakkenSpeelveldView.getProcentGevuld() + " %");
+        labelInvulProcent.setText(vakkenSpeelveld.getProcentGevuld() + " %");
 
     }
 
@@ -141,7 +142,7 @@ public class SpeelveldController {
                 case RIGHT:
                     mannetje.rechts();
                     mannetje.setMaxXBorder();
-                    if (vakkenSpeelveldView.ispositieMannetjeGevuld()) {
+                    if (vakkenSpeelveld.ispositieMannetjeGevuld()) {
                         mannetje.setVx(0);
                         mannetje.setVy(0);
                     } else {
@@ -153,7 +154,7 @@ public class SpeelveldController {
                 case LEFT:
                     mannetje.links();
                     mannetje.setMinXBorder();
-                    if (vakkenSpeelveldView.ispositieMannetjeGevuld()) {
+                    if (vakkenSpeelveld.ispositieMannetjeGevuld()) {
                         mannetje.setVx(0);
                         mannetje.setVy(0);
                     } else {
@@ -165,7 +166,7 @@ public class SpeelveldController {
                 case UP:
                     mannetje.boven();
                     mannetje.setMinYBorder();
-                    if (vakkenSpeelveldView.ispositieMannetjeGevuld()) {
+                    if (vakkenSpeelveld.ispositieMannetjeGevuld()) {
                         mannetje.setVx(0);
                         mannetje.setVy(0);
                     } else {
@@ -178,7 +179,7 @@ public class SpeelveldController {
                 case DOWN:
                     mannetje.onder();
                     mannetje.setMaxYBorder();
-                    if (vakkenSpeelveldView.ispositieMannetjeGevuld()) {
+                    if (vakkenSpeelveld.ispositieMannetjeGevuld()) {
                         mannetje.setVx(0);
                         mannetje.setVy(0);
                     } else {
@@ -199,7 +200,7 @@ public class SpeelveldController {
     private void reset(ActionEvent e) {
         if (start) {
             mannetje.resetGame();
-            vakkenSpeelveldView.resetVeld();
+            vakkenSpeelveld.resetVeld();
             mannetjeView.getVormMannetje().setRotate(0);
             timer.cancel();
 

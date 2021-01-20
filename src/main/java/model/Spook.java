@@ -15,8 +15,8 @@ public class Spook {
 
     /**
      * @param x is de x-coördinaat van het spook
-     * @param y is de y-coördinaat van het spook
-     * Deze methode geeft alle variabelen een begin/start waarde
+     * @param y is de y-coördinaat van het spook Deze methode geeft alle
+     * variabelen een begin/start waarde
      */
     public Spook(double x, double y) {
         this.x = x;
@@ -28,14 +28,16 @@ public class Spook {
     }
 
     /**
-     * @return geeft de x-coördinaat van het vak waarin het spook zich bevindt terug
+     * @return geeft de x-coördinaat van het vak waarin het spook zich bevindt
+     * terug
      */
     public int getVakX() {
         return (int) (x - 10) / 20;
     }
 
     /**
-     * @return geeft de x-coördinaat van het vak waarin het spook zich bevindt terug
+     * @return geeft de x-coördinaat van het vak waarin het spook zich bevindt
+     * terug
      */
     public int getVakY() {
         return (int) (y - 10) / 20;
@@ -63,8 +65,8 @@ public class Spook {
     }
 
     /**
-     * @return Deze methode laat het spook 1 vak verticaal verplaatsen met
-     * een bepaalde snelheid
+     * @return Deze methode laat het spook 1 vak verticaal verplaatsen met een
+     * bepaalde snelheid
      */
     public double verticaal() {
         y = y + vy;
@@ -72,8 +74,8 @@ public class Spook {
     }
 
     /**
-     * @return Deze methode laat het spook 1 vak horizontaal verplaatsen met
-     * een bepaalde snelheid
+     * @return Deze methode laat het spook 1 vak horizontaal verplaatsen met een
+     * bepaalde snelheid
      */
     public double horizontaal() {
         x = x + vx;
@@ -81,16 +83,16 @@ public class Spook {
     }
 
     /**
-     * @param vx is de snelheid in de x-richting van het spook
-     * Deze methode geeft de snelhied in de x-richting een nieuwe waarde 
+     * @param vx is de snelheid in de x-richting van het spook Deze methode
+     * geeft de snelhied in de x-richting een nieuwe waarde
      */
     public void setVx(double vx) {
         this.vx = vx;
     }
 
     /**
-     * @param vy is de snelheid in de y-richting van het spook
-     * Deze methode geeft de snelhied in de y-richting een nieuwe waarde
+     * @param vy is de snelheid in de y-richting van het spook Deze methode
+     * geeft de snelhied in de y-richting een nieuwe waarde
      */
     public void setVy(double vy) {
         this.vy = vy;

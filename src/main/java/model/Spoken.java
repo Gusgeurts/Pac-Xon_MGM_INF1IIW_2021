@@ -11,7 +11,7 @@ public final class Spoken {
     private ArrayList<Spook> spoken;
     private final int aantalSpoken;
     private final Vak vak;
-    private final Speelveld speelveld;
+    private final Vakken vakkenVeld;
 
     /**
      * @param aantalSpoken is het aantalspoken aanwezig in het speelveld
@@ -19,10 +19,10 @@ public final class Spoken {
      * @param speelveld is het aangemaakt speelveld Deze methode geeft alle
      * variabelen een begin/start waarde
      */
-    public Spoken(int aantalSpoken, Vak vak, Speelveld speelveld) {
+    public Spoken(int aantalSpoken, Vak vak, Vakken vakkenVeld) {
         this.aantalSpoken = StartMenuController.getAantalSpoken();
         this.vak = vak;
-        this.speelveld = speelveld;
+        this.vakkenVeld = vakkenVeld;
         maakSpoken();
     }
 
@@ -34,23 +34,23 @@ public final class Spoken {
         spoken = new ArrayList<>();
         for (int i = 0; i < aantalSpoken; i++) {
 
-            double xWaarde = (Math.random() * vak.getZijde() * speelveld.getKolommen());
-            double yWaarde = (Math.random() * vak.getZijde() * speelveld.getRijen());
+            double xWaarde = (Math.random() * vak.getZijde() * vakkenVeld.getKolommen());
+            double yWaarde = (Math.random() * vak.getZijde() * vakkenVeld.getRijen());
 
             if (xWaarde < vak.getZijde() * 2) {  //niet in gevuld vak spawnen aan de linkerkant van het speelveld    
                 xWaarde = vak.getZijde() * 2;
             }
 
-            if (xWaarde > vak.getZijde() * speelveld.getKolommen() - 2 * vak.getZijde()) { //niet in gevuld vak spawnen aan de rechterkant van het speelveld 
-                xWaarde = vak.getZijde() * speelveld.getKolommen() - 2 * vak.getZijde();
+            if (xWaarde > vak.getZijde() * vakkenVeld.getKolommen() - 2 * vak.getZijde()) { //niet in gevuld vak spawnen aan de rechterkant van het speelveld 
+                xWaarde = vak.getZijde() * vakkenVeld.getKolommen() - 2 * vak.getZijde();
             }
 
             if (yWaarde < vak.getZijde() * 2) {  //niet in gevuld vak spawnen aan de bovenkant van het speelveld
                 yWaarde = vak.getZijde() * 2;
             }
 
-            if (yWaarde > vak.getZijde() * speelveld.getRijen() - 2 * vak.getZijde()) {  //niet in gevuld vak spawnen aan de onderkant van het speelveld
-                yWaarde = vak.getZijde() * speelveld.getRijen() - 2 * vak.getZijde();
+            if (yWaarde > vak.getZijde() * vakkenVeld.getRijen() - 2 * vak.getZijde()) {  //niet in gevuld vak spawnen aan de onderkant van het speelveld
+                yWaarde = vak.getZijde() * vakkenVeld.getRijen() - 2 * vak.getZijde();
             }
             spoken.add(new Spook(xWaarde, yWaarde));
         }
