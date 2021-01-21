@@ -66,7 +66,7 @@ public class StartMenuController {
     public void veranderSchermSpeelVeld(ActionEvent k) {
         if (moeilijkheidsGraad1.isSelected()) {
             aantalSpoken = 1;
-
+                  
         } else if (moeilijkheidsGraad2.isSelected()) {
             aantalSpoken = 2;
 
