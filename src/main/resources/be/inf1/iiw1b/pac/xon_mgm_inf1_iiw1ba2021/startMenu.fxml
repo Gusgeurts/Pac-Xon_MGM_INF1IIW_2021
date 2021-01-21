@@ -20,7 +20,7 @@
                   <Font name="Comic Sans MS" size="70.0" />
                </font>
             </Label>
-            <RadioButton fx:id="moeilijkheidsGraad1" layoutX="153.0" layoutY="195.0" mnemonicParsing="false" selected="true">
+            <RadioButton fx:id="moeilijkheidsGraad1" layoutX="153.0" layoutY="195.0" mnemonicParsing="false">
                <toggleGroup>
                   <ToggleGroup fx:id="moeilijkheidsGraad" />
                </toggleGroup></RadioButton>
