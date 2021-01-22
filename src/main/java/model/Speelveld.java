@@ -63,23 +63,20 @@ public class Speelveld {
         }
     }
 
-    public int maakGevuldeLijn() {
+    public void maakGevuldeLijn() {
         Vak vakken[][] = vakkenVeld.getVakken();
-        int k = 110;
         if (vakken[mannetje.getVakY()][mannetje.getVakX()].getStatus().equals(StatusVak.GEVULD)
                 && mannetje.getX() != 0 && mannetje.getY() != 0) {
             resetGevaar();
             for (int i = 0; i < vakkenVeld.getRijen(); i++) {
                 for (int j = 0; j < vakkenVeld.getKolommen(); j++) {
                     if ((vakken[i][j].getStatus().equals(StatusVak.IN_DE_MAAK))) {
-                        k++;
                         vakken[i][j].setStatus(StatusVak.GEVULD);
 
                     }
                 }
             }
         }
-        return k;
     }
 
     public void maakInDeMaakLijn() {
@@ -184,8 +181,9 @@ public class Speelveld {
         gameOver();
         stilInGevuld();
         maakInDeMaakLijn();
-
-        //int j = maakGevuldeLijn();
+        maakGevuldeLijn();
+        
+        //int j
         //int vorigeJ = 110;
         //if (j > vorigeJ) {
         //    kleurHetVeld();
