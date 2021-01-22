@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -9,7 +10,10 @@
 <AnchorPane id="AnchorPane" prefHeight="650.0" prefWidth="1000.0" style="-fx-background-color: #2c387e;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="be.inf1.iiw1b.pac.xon_mgm_inf1_iiw1ba2021.SpeelveldController">
    <children>
       <AnchorPane fx:id="speelveld" layoutX="160.0" layoutY="95.0" prefHeight="460.0" prefWidth="680.0" />
-      <Button fx:id="resetButton" layoutX="39.0" layoutY="18.0" mnemonicParsing="false" style="-fx-background-color: #ffeb3b; -fx-background-radius: 90;" text="Reset" />
+      <Button fx:id="resetButton" layoutX="39.0" layoutY="18.0" mnemonicParsing="false" style="-fx-background-color: #ffeb3b; -fx-background-radius: 90;" text="Reset">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></Button>
       <Label fx:id="labelLevens" layoutX="309.0" layoutY="19.0" prefHeight="25.0" prefWidth="39.0" text="Label" textFill="#ffeb3b">
          <font>
             <Font size="14.0" />
@@ -18,7 +22,10 @@
          <font>
             <Font size="14.0" />
          </font></Label>
-      <Button fx:id="StartMenuKnop" layoutX="474.0" layoutY="613.0" mnemonicParsing="false" style="-fx-background-color: #ffeb3b; -fx-background-radius: 90;" text="StartMenu" />
+      <Button fx:id="StartMenuKnop" layoutX="474.0" layoutY="613.0" mnemonicParsing="false" style="-fx-background-color: #ffeb3b; -fx-background-radius: 90;" text="StartMenu">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></Button>
       <Text fill="WHITE" layoutX="215.0" layoutY="36.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Aantal Levens:" wrappingWidth="94.43359375">
          <font>
             <Font size="14.0" />
@@ -29,14 +36,26 @@
             <Font size="14.0" />
          </font>
       </Text>
-      <Button fx:id="startKnop" layoutX="740.0" layoutY="19.0" mnemonicParsing="false" style="-fx-background-color: #ffeb3b; -fx-background-radius: 90;" text="Start" />
-      <Button fx:id="saveKnop" layoutX="820.0" layoutY="19.0" mnemonicParsing="false" style="-fx-background-color: #ffeb3b; -fx-background-radius: 90;" text="Save" />
-      <Button fx:id="loadKnop" layoutX="903.0" layoutY="19.0" mnemonicParsing="false" style="-fx-background-color: #ffeb3b; -fx-background-radius: 90;" text="Load" />
+      <Button fx:id="startKnop" layoutX="740.0" layoutY="19.0" mnemonicParsing="false" style="-fx-background-color: #ffeb3b; -fx-background-radius: 90;" text="Start">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></Button>
+      <Button fx:id="saveKnop" layoutX="820.0" layoutY="19.0" mnemonicParsing="false" style="-fx-background-color: #ffeb3b; -fx-background-radius: 90;" text="Save">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></Button>
+      <Button fx:id="loadKnop" layoutX="903.0" layoutY="19.0" mnemonicParsing="false" style="-fx-background-color: #ffeb3b; -fx-background-radius: 90;" text="Load">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></Button>
       <Label layoutX="882.0" layoutY="629.0" prefHeight="15.0" prefWidth="127.0" text="Gus Geurts/MichielMeurice" textFill="WHITE">
          <font>
             <Font size="10.0" />
          </font>
       </Label>
-      <Button fx:id="stopKnop" layoutX="14.0" layoutY="615.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="82.0" style="-fx-background-color: #ffeb3b; -fx-background-radius: 90;" text="Stop Game" />
+      <Button fx:id="stopKnop" layoutX="14.0" layoutY="615.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="82.0" style="-fx-background-color: #ffeb3b; -fx-background-radius: 90;" text="Stop Game">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></Button>
    </children>
 </AnchorPane>

@@ -56,12 +56,12 @@ public class Vak {
     public boolean getGevaar() {
         return gevaar;
     }
-    
-    public boolean getCheck(){ 
+
+    public boolean getCheck() {
         return this.check;
     }
-    
-    public void setCheck(boolean check){
+
+    public void setCheck(boolean check) {
         this.check = check;
     }
 }

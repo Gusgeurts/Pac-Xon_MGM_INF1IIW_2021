@@ -14,12 +14,11 @@ public final class Spoken {
     private final Vakken vakkenVeld;
 
     /**
-     * @param aantalSpoken is het aantalspoken aanwezig in het speelveld
      * @param vak is een vak van het speelveld
      * @param speelveld is het aangemaakt speelveld Deze methode geeft alle
      * variabelen een begin/start waarde
      */
-    public Spoken(int aantalSpoken, Vak vak, Vakken vakkenVeld) {
+    public Spoken(Vak vak, Vakken vakkenVeld) {
         this.aantalSpoken = StartMenuController.getAantalSpoken();
         this.vak = vak;
         this.vakkenVeld = vakkenVeld;
@@ -33,9 +32,11 @@ public final class Spoken {
     public void maakSpoken() {
         spoken = new ArrayList<>();
         for (int i = 0; i < aantalSpoken; i++) {
+            double randx = Math.random();
+            double randy = Math.random();
 
-            double xWaarde = (Math.random() * vak.getZijde() * vakkenVeld.getKolommen());
-            double yWaarde = (Math.random() * vak.getZijde() * vakkenVeld.getRijen());
+            double xWaarde = (randx * vak.getZijde() * vakkenVeld.getKolommen());
+            double yWaarde = (randy * vak.getZijde() * vakkenVeld.getRijen());
 
             if (xWaarde < vak.getZijde() * 2) {  //niet in gevuld vak spawnen aan de linkerkant van het speelveld    
                 xWaarde = vak.getZijde() * 2;

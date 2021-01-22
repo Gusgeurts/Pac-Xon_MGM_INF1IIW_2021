@@ -14,6 +14,7 @@ public class Vakken {
     private final Vak vakken[][];
     private final int rijen;
     private final int kolommen;
+    private StatusVak status;
 
     public Vakken(int rijen, int kolommen) {
         this.rijen = rijen;

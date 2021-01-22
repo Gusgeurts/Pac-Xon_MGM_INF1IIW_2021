@@ -1,6 +1,14 @@
 package model;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.scene.control.Alert;
 
 /**
@@ -181,12 +189,10 @@ public class Speelveld {
 
         raakInDeMaak();
 
-       
-        
-        if (maakGevuldeLijn() ) {
-            
+        if (maakGevuldeLijn()) {
+
             kleurVeld();
-            
+
         }
 
     }
@@ -195,8 +201,8 @@ public class Speelveld {
         Vak[][] vakken = vakkenVeld.getVakken();
         ArrayList<Spook> s = spoken.getSpoken();
         for (int t = 0; t <= s.size() - 1; t++) {
-            int i = Math.round(spoken.getSpoken().get(t).getVakY());
-            int j = Math.round(spoken.getSpoken().get(t).getVakX());
+            int i = spoken.getSpoken().get(t).getVakY();
+            int j = spoken.getSpoken().get(t).getVakX();
             veldKleuren(i, j);
         }
 
@@ -220,7 +226,7 @@ public class Speelveld {
     public void veldKleuren(int x, int y) {
         Vak[][] vakken = vakkenVeld.getVakken();
         for (int i = Math.max(x - 1, 0); i <= Math.min(vakkenVeld.getRijen() - 1, x + 1); i++) {
-            for (int j = Math.max(0, y - 1); j <= Math.min(vakkenVeld.getKolommen()- 1, y + 1); j++) {
+            for (int j = Math.max(0, y - 1); j <= Math.min(vakkenVeld.getKolommen() - 1, y + 1); j++) {
                 if (vakken[i][j].getStatus() == StatusVak.LEEG && vakken[i][j].getCheck() == true) {
                     vakken[i][j].setCheck(false);
                     veldKleuren(i, j);

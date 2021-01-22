@@ -21,6 +21,7 @@ import model.Mannetje;
 import model.Speelveld;
 import model.Spoken;
 import model.Spook;
+import model.StatusVak;
 import model.Vak;
 import model.Vakken;
 import view.MannetjeView;
@@ -58,7 +59,7 @@ public class SpeelveldController {
 
     @FXML
     private Button startKnop;
-    
+
     @FXML
     private Button stopKnop;
 
@@ -73,7 +74,6 @@ public class SpeelveldController {
     private SpokenView spokenView;
     private boolean start = false;
     private Timer timer;
-    private int aantalSpoken = 3;
 
     /**
      * deze methode intisaliseert de scene
@@ -84,7 +84,7 @@ public class SpeelveldController {
         mannetje = new Mannetje(10, 10, vakkenVeld);
         spook = new Spook(0, 0);
         vak = new Vak();
-        spoken = new Spoken(aantalSpoken, vak, vakkenVeld);
+        spoken = new Spoken(vak, vakkenVeld);
         vakkenSpeelveld = new Speelveld(vakkenVeld, mannetje, spoken);
 
         mannetjeView = new MannetjeView(mannetje);
@@ -275,7 +275,7 @@ public class SpeelveldController {
         mediaPlayer.setAutoPlay(true);
 
     }
-    
+
     private void sluitGame(ActionEvent e) {
         System.exit(0);
     }

@@ -5,6 +5,7 @@ import java.net.URL;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -44,6 +45,8 @@ public class StartMenuController {
      */
     @FXML
     void initialize() {
+
+        System.out.println("init1");
         errorText.setVisible(false);
         startKnop.setOnAction(this::veranderSchermSpeelVeld);
         extraInfoKnop.setOnAction(this::veranderSchermExtraInfo);
@@ -82,8 +85,7 @@ public class StartMenuController {
             errorText.setVisible(true);
         }
         if (aantalSpoken > 0) {
-            //speelIntro();
-            startGeluid();
+            speelIntro();
             try {
                 Parent speelVeldParent;
                 speelVeldParent = FXMLLoader.load(getClass().getResource("speelveld.fxml"));
@@ -156,23 +158,11 @@ public class StartMenuController {
 
     public void errorGeluid() {
         ClassLoader classLoader = getClass().getClassLoader();
-        URL resource = classLoader.getResource("gus_fuck_you_krijg_kk.mp3");
+        URL resource = classLoader.getResource("Microsoft_Windows_XP_Error_-_Sound_Effect_HD.mp3");
         Media media = new Media(resource.toString());
         mediaPlayer = new MediaPlayer(media);
         mediaPlayer.setAutoPlay(true);
 
     }
 
-    public void startGeluid() {
-        ClassLoader classLoader = getClass().getClassLoader();
-        URL resource = classLoader.getResource("startGeluid.mp3");
-        Media media = new Media(resource.toString());
-        mediaPlayer = new MediaPlayer(media);
-        mediaPlayer.setAutoPlay(true);
-        for (int i = 0; i < 1000; i++) {
-            System.out.println("getRickRolledNiigggggaaaaaa");
-        }
-        System.out.println("siemengay");
-
-    }
 }

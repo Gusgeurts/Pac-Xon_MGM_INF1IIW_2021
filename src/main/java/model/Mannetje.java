@@ -91,7 +91,7 @@ public class Mannetje {
      * mannetje dood
      */
     public void isDood() {
-        speelDoodGeluid();
+        //speelDoodGeluid();
         if (levens != 0) {
             levens--;
             reset();
