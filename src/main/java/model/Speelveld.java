@@ -1,13 +1,6 @@
 package model;
 
-import static java.lang.Math.max;
-import static java.lang.Math.min;
-import static java.lang.Math.round;
-import java.net.URL;
-import java.util.ArrayList;
 import javafx.scene.control.Alert;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
 
 /**
  * @author Gus Geurts/Michiel Meurice
@@ -182,7 +175,8 @@ public class Speelveld {
         stilInGevuld();
         maakInDeMaakLijn();
         maakGevuldeLijn();
-        
+        raakInDeMaak();
+
         //int j
         //int vorigeJ = 110;
         //if (j > vorigeJ) {
