@@ -1,24 +1,33 @@
 package model;
 
+import static java.lang.Math.max;
+import static java.lang.Math.min;
+import static java.lang.Math.round;
+import java.net.URL;
+import java.util.ArrayList;
 import javafx.scene.control.Alert;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 
 /**
  * @author Gus Geurts/Michiel Meurice
  */
 public class Speelveld {
 
-    private Mannetje mannetje;
+    private final Mannetje mannetje;
     private final int teVullenVakken;
-    private Vakken vakkenVeld;
+    private final Vakken vakkenVeld;
+    private final Spoken spoken;
 
     /**
      * @param rijen is het aantal rijen van het speelveld
      * @param kolommen is het aantal kolommen van het speelveld Deze methode
      * geeft alle variabelen een begin/start waarde
      */
-    public Speelveld(Vakken vakkenVeld, Mannetje mannetje) {
+    public Speelveld(Vakken vakkenVeld, Mannetje mannetje, Spoken spoken) {
         this.mannetje = mannetje;
         this.vakkenVeld = vakkenVeld;
+        this.spoken = spoken;
         teVullenVakken = vakkenVeld.getRijen() * vakkenVeld.getKolommen() - (2 * vakkenVeld.getRijen() + 2 * (vakkenVeld.getKolommen() - 2));
 
     }
@@ -54,20 +63,23 @@ public class Speelveld {
         }
     }
 
-    public void maakGevuldeLijn() {
+    public int maakGevuldeLijn() {
         Vak vakken[][] = vakkenVeld.getVakken();
+        int k = 110;
         if (vakken[mannetje.getVakY()][mannetje.getVakX()].getStatus().equals(StatusVak.GEVULD)
                 && mannetje.getX() != 0 && mannetje.getY() != 0) {
             resetGevaar();
             for (int i = 0; i < vakkenVeld.getRijen(); i++) {
                 for (int j = 0; j < vakkenVeld.getKolommen(); j++) {
                     if ((vakken[i][j].getStatus().equals(StatusVak.IN_DE_MAAK))) {
+                        k++;
                         vakken[i][j].setStatus(StatusVak.GEVULD);
 
                     }
                 }
             }
         }
+        return k;
     }
 
     public void maakInDeMaakLijn() {
@@ -167,11 +179,77 @@ public class Speelveld {
     }
 
     public void updateSpeelveld() {
+
         gameGewonnen();
         gameOver();
         stilInGevuld();
         maakInDeMaakLijn();
-        maakGevuldeLijn();
-        raakInDeMaak();
+
+        //int j = maakGevuldeLijn();
+        //int vorigeJ = 110;
+        //if (j > vorigeJ) {
+        //    kleurHetVeld();
+        //    vorigeJ = j;
     }
+
+    //}
+    /*
+    public void kleurHetVeld() {
+        //Vak[][] vakken = vakkenVeld.getVakken();
+        //for (int i = 0; i < vakkenVeld.getRijen(); i++) {
+        //for (int j = 0; j < vakkenVeld.getKolommen(); j++) {
+        //               if (vakken[i][j].getStatus() == StatusVak.LEEG) {
+        if (spookChecker(mannetje.getVakX(), mannetje.getVakY())) {
+            kleurenVeld(mannetje.getVakX(), mannetje.getVakY());
+        }
+        //             }
+        //}
+        //}
+
+    }
+
+    public void kleurenVeld(int x, int y) {
+        Vak[][] vakken = vakkenVeld.getVakken();
+        for (int i = max(0, x - 1); i <= min(vakkenVeld.getRijen() - 1, x + 1); i++) {
+            for (int j = max(0, y - 1); j <= min(vakkenVeld.getKolommen() - 1, y + 1); j++) {
+                if (vakken[i][j].getStatus() == StatusVak.LEEG) {
+                    vakken[i][j].setStatus(StatusVak.GEVULD);
+                    kleurenVeld(i, j);
+                }
+            }
+        }
+    }
+
+    public boolean spookChecker(int x, int y) {
+        Vak[][] vakken = vakkenVeld.getVakken();
+        boolean geenSpook = true;
+        ArrayList<Spook> s = spoken.getSpoken();
+        for (int t = 0; t <= s.size() - 1; t++) {
+            for (int i = max(0, x - 1); i <= min(vakkenVeld.getRijen() - 1, x + 1); i++) {
+                if (i == round(spoken.getSpoken().get(t).getVakX())) {
+                    for (int j = max(0, y - 1); j <= min(vakkenVeld.getKolommen() - 1, y + 1); j++) {
+                        if (j == round(spoken.getSpoken().get(t).getVakY())) {
+                            geenSpook = false;
+                        }
+                    }
+                }
+            }
+            if (!geenSpook) {
+                return geenSpook;
+            }
+        }
+
+        if (geenSpook) {
+            for (int i = max(0, x - 1); i <= min(vakkenVeld.getRijen() - 1, x + 1); i++) {
+                for (int j = max(0, y - 1); j <= min(vakkenVeld.getRijen() - 1, y + 1); j++) {
+                    if (vakken[x][y].getStatus() == StatusVak.LEEG) {
+                        geenSpook = spookChecker(i, j);
+                    }
+                }
+            }
+
+        }
+        return geenSpook;
+    }
+     */
 }

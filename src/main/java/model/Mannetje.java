@@ -5,6 +5,10 @@
  */
 package model;
 
+import java.net.URL;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+
 /**
  * @author Gus Geurts/Michiel Meurice
  */
@@ -87,11 +91,13 @@ public class Mannetje {
      * mannetje dood
      */
     public void isDood() {
+        speelDoodGeluid();
         if (levens != 0) {
             levens--;
             reset();
             if (levens == 0) {
                 dood = true;
+
             }
         }
     }
@@ -280,4 +286,16 @@ public class Mannetje {
     public int getVy() {
         return vy;
     }
+
+    MediaPlayer mediaPlayer;
+
+    public void speelDoodGeluid() {
+        ClassLoader classLoader = getClass().getClassLoader();
+        URL resource = classLoader.getResource("8d82b5_Pacman_Dies_Sound_Effect - Copy.mp3");
+        Media media = new Media(resource.toString());
+        mediaPlayer = new MediaPlayer(media);
+        mediaPlayer.setAutoPlay(true);
+
+    }
+
 }

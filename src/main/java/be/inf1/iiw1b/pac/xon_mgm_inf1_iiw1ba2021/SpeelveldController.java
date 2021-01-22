@@ -79,10 +79,10 @@ public class SpeelveldController {
     void initialize() {
         vakkenVeld = new Vakken(23, 34);
         mannetje = new Mannetje(10, 10, vakkenVeld);
-        vakkenSpeelveld = new Speelveld(vakkenVeld, mannetje);
         spook = new Spook(0, 0);
         vak = new Vak();
         spoken = new Spoken(aantalSpoken, vak, vakkenVeld);
+        vakkenSpeelveld = new Speelveld(vakkenVeld, mannetje, spoken);
 
         mannetjeView = new MannetjeView(mannetje);
         spokenView = new SpokenView(spoken);
@@ -199,6 +199,7 @@ public class SpeelveldController {
      * voor de reset knop de methode reset het speelveld en update de view
      */
     private void reset(ActionEvent e) {
+        toetsGeluid();
         if (start) {
             mannetje.resetGame();
             vakkenSpeelveld.resetVeld();
@@ -217,6 +218,7 @@ public class SpeelveldController {
      * mannetje
      */
     private void start(ActionEvent e) {
+        toetsGeluid();
 
         if (!start) {
             timer = new Timer(true);
@@ -242,6 +244,7 @@ public class SpeelveldController {
      * gehaald van:...
      */
     private void veranderSchermStartMenu(ActionEvent e) {
+        toetsGeluid();
         try {
             Parent startMenuParent;
             startMenuParent = FXMLLoader.load(getClass().getResource("startMenu.fxml"));
@@ -257,10 +260,15 @@ public class SpeelveldController {
         }
 
     }
+    MediaPlayer mediaPlayer;
 
-    public void speelMuziek() {
-        Media media = new Media("https://www.soundjay.com/misc/censor-beep-01.mp3");
-        MediaPlayer mediaPlayer = new MediaPlayer(media);
+    public void toetsGeluid() {
+        ClassLoader classLoader = getClass().getClassLoader();
+        URL resource = classLoader.getResource("button-19.mp3");
+        Media media = new Media(resource.toString());
+        mediaPlayer = new MediaPlayer(media);
         mediaPlayer.setAutoPlay(true);
+
     }
+
 }

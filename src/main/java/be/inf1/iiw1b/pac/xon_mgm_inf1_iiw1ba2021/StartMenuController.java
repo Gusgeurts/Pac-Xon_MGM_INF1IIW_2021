@@ -1,6 +1,7 @@
 package be.inf1.iiw1b.pac.xon_mgm_inf1_iiw1ba2021;
 
 import java.io.IOException;
+import java.net.URL;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -9,6 +10,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.RadioButton;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -64,18 +67,23 @@ public class StartMenuController {
      * gehaald van:...
      */
     public void veranderSchermSpeelVeld(ActionEvent k) {
+        toetsGeluid();
+
         if (moeilijkheidsGraad1.isSelected()) {
             aantalSpoken = 1;
-                  
+
         } else if (moeilijkheidsGraad2.isSelected()) {
             aantalSpoken = 2;
 
         } else if (moeilijkheidsGraad3.isSelected()) {
             aantalSpoken = 3;
         } else {
+            errorGeluid();
             errorText.setVisible(true);
         }
         if (aantalSpoken > 0) {
+            //speelIntro();
+            startGeluid();
             try {
                 Parent speelVeldParent;
                 speelVeldParent = FXMLLoader.load(getClass().getResource("speelveld.fxml"));
@@ -99,6 +107,7 @@ public class StartMenuController {
      *
      */
     private void veranderSchermExtraInfo(ActionEvent e) {
+        toetsGeluid();
         try {
             Parent extraInfoParent;
             extraInfoParent = FXMLLoader.load(getClass().getResource("extraInfoFXML.fxml"));
@@ -124,5 +133,46 @@ public class StartMenuController {
      */
     public static int getAantalSpoken() {
         return aantalSpoken;
+    }
+    MediaPlayer mediaPlayer;
+
+    public void speelIntro() {
+        ClassLoader classLoader = getClass().getClassLoader();
+        URL resource = classLoader.getResource("8d82b5_Pacman_Opening_Song_Sound_Effect.mp3");
+        Media media = new Media(resource.toString());
+        mediaPlayer = new MediaPlayer(media);
+        mediaPlayer.setAutoPlay(true);
+
+    }
+
+    public void toetsGeluid() {
+        ClassLoader classLoader = getClass().getClassLoader();
+        URL resource = classLoader.getResource("button-19.mp3");
+        Media media = new Media(resource.toString());
+        mediaPlayer = new MediaPlayer(media);
+        mediaPlayer.setAutoPlay(true);
+
+    }
+
+    public void errorGeluid() {
+        ClassLoader classLoader = getClass().getClassLoader();
+        URL resource = classLoader.getResource("Microsoft_Windows_XP_Error_-_Sound_Effect_HD.mp3");
+        Media media = new Media(resource.toString());
+        mediaPlayer = new MediaPlayer(media);
+        mediaPlayer.setAutoPlay(true);
+
+    }
+
+    public void startGeluid() {
+        ClassLoader classLoader = getClass().getClassLoader();
+        URL resource = classLoader.getResource("startGeluid.mp3");
+        Media media = new Media(resource.toString());
+        mediaPlayer = new MediaPlayer(media);
+        mediaPlayer.setAutoPlay(true);
+        for(int i=0; i<1000; i++){
+            System.out.println("getRickRolledNiigggggaaaaaa");
+        }
+        System.out.println("siemengay");
+
     }
 }
