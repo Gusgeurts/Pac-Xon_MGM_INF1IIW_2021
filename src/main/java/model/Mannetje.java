@@ -291,7 +291,7 @@ public class Mannetje {
 
     public void speelDoodGeluid() {
         ClassLoader classLoader = getClass().getClassLoader();
-        URL resource = classLoader.getResource("8d82b5_Pacman_Dies_Sound_Effect - Copy.mp3");
+        URL resource = classLoader.getResource("Meurice_da_vind_ik.mp3");
         Media media = new Media(resource.toString());
         mediaPlayer = new MediaPlayer(media);
         mediaPlayer.setAutoPlay(true);

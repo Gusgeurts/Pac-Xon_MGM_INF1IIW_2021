@@ -156,7 +156,7 @@ public class StartMenuController {
 
     public void errorGeluid() {
         ClassLoader classLoader = getClass().getClassLoader();
-        URL resource = classLoader.getResource("Microsoft_Windows_XP_Error_-_Sound_Effect_HD.mp3");
+        URL resource = classLoader.getResource("gus_fuck_you_krijg_kk.mp3");
         Media media = new Media(resource.toString());
         mediaPlayer = new MediaPlayer(media);
         mediaPlayer.setAutoPlay(true);
@@ -169,7 +169,7 @@ public class StartMenuController {
         Media media = new Media(resource.toString());
         mediaPlayer = new MediaPlayer(media);
         mediaPlayer.setAutoPlay(true);
-        for(int i=0; i<1000; i++){
+        for (int i = 0; i < 1000; i++) {
             System.out.println("getRickRolledNiigggggaaaaaa");
         }
         System.out.println("siemengay");
