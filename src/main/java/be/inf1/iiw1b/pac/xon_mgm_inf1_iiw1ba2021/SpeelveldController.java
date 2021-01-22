@@ -14,6 +14,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 import model.Mannetje;
 import model.Speelveld;
@@ -112,16 +114,15 @@ public class SpeelveldController {
      * deze methode update het speelveld
      */
     public void update() {
-
         mannetjeView.update();
         spokenView.update();
 
         if (start) {
 
             speelveld.setOnKeyPressed(this::loopRond);
-            
+
             vakkenSpeelveld.updateSpeelveld();
-            
+
             vakkenSpeelveldView.mannetjeGeraaktDoorSpook();
             vakkenSpeelveldView.spookRaaktGevuld();
         }
@@ -249,6 +250,7 @@ public class SpeelveldController {
             startMenuScherm.hide();
             startMenuScherm.setScene(startMenuScene);
             startMenuScherm.show();
+
             timer.cancel();
         } catch (IOException ex) {
         } catch (NullPointerException exe) {
@@ -256,4 +258,9 @@ public class SpeelveldController {
 
     }
 
+    public void speelMuziek() {
+        Media media = new Media("https://www.soundjay.com/misc/censor-beep-01.mp3");
+        MediaPlayer mediaPlayer = new MediaPlayer(media);
+        mediaPlayer.setAutoPlay(true);
+    }
 }
