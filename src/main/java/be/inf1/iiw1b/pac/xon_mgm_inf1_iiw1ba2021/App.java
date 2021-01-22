@@ -7,6 +7,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import javafx.stage.StageStyle;
 
 /**
  * JavaFX App
@@ -19,8 +20,8 @@ public class App extends Application {
     public void start(Stage stage) throws IOException {
         scene = new Scene(loadFXML("StartMenu"), 1000, 650);
         stage.setScene(scene);
-        stage.show();
-        stage.setTitle("PacXon 2021");
+        stage.initStyle(StageStyle.UNDECORATED);   //https://www.youtube.com/watch?v=gJAJdJK6YvA
+        stage.show();            
     }
 
     static void setRoot(String fxml) throws IOException {

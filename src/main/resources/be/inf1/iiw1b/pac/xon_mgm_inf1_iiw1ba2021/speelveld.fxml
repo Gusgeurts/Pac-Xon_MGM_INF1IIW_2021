@@ -37,5 +37,6 @@
             <Font size="10.0" />
          </font>
       </Label>
+      <Button fx:id="stopKnop" layoutX="14.0" layoutY="615.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="82.0" style="-fx-background-color: #ffeb3b; -fx-background-radius: 90;" text="Stop Game" />
    </children>
 </AnchorPane>

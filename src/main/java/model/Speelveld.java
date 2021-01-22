@@ -1,5 +1,6 @@
 package model;
 
+import java.util.ArrayList;
 import javafx.scene.control.Alert;
 
 /**
@@ -56,7 +57,8 @@ public class Speelveld {
         }
     }
 
-    public void maakGevuldeLijn() {
+    public boolean maakGevuldeLijn() {
+        boolean f = false;
         Vak vakken[][] = vakkenVeld.getVakken();
         if (vakken[mannetje.getVakY()][mannetje.getVakX()].getStatus().equals(StatusVak.GEVULD)
                 && mannetje.getX() != 0 && mannetje.getY() != 0) {
@@ -66,10 +68,12 @@ public class Speelveld {
                     if ((vakken[i][j].getStatus().equals(StatusVak.IN_DE_MAAK))) {
                         vakken[i][j].setStatus(StatusVak.GEVULD);
 
+                        f = true;
                     }
                 }
             }
         }
+        return f;
     }
 
     public void maakInDeMaakLijn() {
@@ -174,74 +178,55 @@ public class Speelveld {
         gameOver();
         stilInGevuld();
         maakInDeMaakLijn();
-        maakGevuldeLijn();
+
         raakInDeMaak();
 
-        //int j
-        //int vorigeJ = 110;
-        //if (j > vorigeJ) {
-        //    kleurHetVeld();
-        //    vorigeJ = j;
-    }
-
-    //}
-    /*
-    public void kleurHetVeld() {
-        //Vak[][] vakken = vakkenVeld.getVakken();
-        //for (int i = 0; i < vakkenVeld.getRijen(); i++) {
-        //for (int j = 0; j < vakkenVeld.getKolommen(); j++) {
-        //               if (vakken[i][j].getStatus() == StatusVak.LEEG) {
-        if (spookChecker(mannetje.getVakX(), mannetje.getVakY())) {
-            kleurenVeld(mannetje.getVakX(), mannetje.getVakY());
+       
+        
+        if (maakGevuldeLijn() ) {
+            
+            kleurVeld();
+            
         }
-        //             }
-        //}
-        //}
 
     }
 
-    public void kleurenVeld(int x, int y) {
+    public void kleurVeld() {
         Vak[][] vakken = vakkenVeld.getVakken();
-        for (int i = max(0, x - 1); i <= min(vakkenVeld.getRijen() - 1, x + 1); i++) {
-            for (int j = max(0, y - 1); j <= min(vakkenVeld.getKolommen() - 1, y + 1); j++) {
-                if (vakken[i][j].getStatus() == StatusVak.LEEG) {
-                    vakken[i][j].setStatus(StatusVak.GEVULD);
-                    kleurenVeld(i, j);
-                }
-            }
-        }
-    }
-
-    public boolean spookChecker(int x, int y) {
-        Vak[][] vakken = vakkenVeld.getVakken();
-        boolean geenSpook = true;
         ArrayList<Spook> s = spoken.getSpoken();
         for (int t = 0; t <= s.size() - 1; t++) {
-            for (int i = max(0, x - 1); i <= min(vakkenVeld.getRijen() - 1, x + 1); i++) {
-                if (i == round(spoken.getSpoken().get(t).getVakX())) {
-                    for (int j = max(0, y - 1); j <= min(vakkenVeld.getKolommen() - 1, y + 1); j++) {
-                        if (j == round(spoken.getSpoken().get(t).getVakY())) {
-                            geenSpook = false;
-                        }
-                    }
+            int i = Math.round(spoken.getSpoken().get(t).getVakY());
+            int j = Math.round(spoken.getSpoken().get(t).getVakX());
+            veldKleuren(i, j);
+        }
+
+        for (int i = 0; i < vakkenVeld.getRijen(); i++) {
+            for (int j = 0; j < vakkenVeld.getKolommen(); j++) {
+                if (vakken[i][j].getCheck() == true) {
+                    vakken[i][j].setStatus(StatusVak.GEVULD);
+
                 }
+
             }
-            if (!geenSpook) {
-                return geenSpook;
+        }
+        for (int i = 0; i < vakkenVeld.getRijen(); i++) {
+            for (int j = 0; j < vakkenVeld.getKolommen(); j++) {
+                vakken[i][j].setCheck(true);
             }
         }
 
-        if (geenSpook) {
-            for (int i = max(0, x - 1); i <= min(vakkenVeld.getRijen() - 1, x + 1); i++) {
-                for (int j = max(0, y - 1); j <= min(vakkenVeld.getRijen() - 1, y + 1); j++) {
-                    if (vakken[x][y].getStatus() == StatusVak.LEEG) {
-                        geenSpook = spookChecker(i, j);
-                    }
-                }
-            }
-
-        }
-        return geenSpook;
     }
-     */
+
+    public void veldKleuren(int x, int y) {
+        Vak[][] vakken = vakkenVeld.getVakken();
+        for (int i = Math.max(x - 1, 0); i <= Math.min(vakkenVeld.getRijen() - 1, x + 1); i++) {
+            for (int j = Math.max(0, y - 1); j <= Math.min(vakkenVeld.getKolommen()- 1, y + 1); j++) {
+                if (vakken[i][j].getStatus() == StatusVak.LEEG && vakken[i][j].getCheck() == true) {
+                    vakken[i][j].setCheck(false);
+                    veldKleuren(i, j);
+                }
+
+            }
+        }
+    }
 }

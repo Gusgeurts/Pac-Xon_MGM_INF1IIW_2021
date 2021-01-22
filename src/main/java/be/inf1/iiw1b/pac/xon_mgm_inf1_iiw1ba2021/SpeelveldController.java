@@ -58,6 +58,9 @@ public class SpeelveldController {
 
     @FXML
     private Button startKnop;
+    
+    @FXML
+    private Button stopKnop;
 
     private Mannetje mannetje;
     private MannetjeView mannetjeView;
@@ -95,10 +98,12 @@ public class SpeelveldController {
         resetButton.setOnAction(this::reset);
         startKnop.setOnAction(this::start);
         StartMenuKnop.setOnAction(this::veranderSchermStartMenu);
+        stopKnop.setOnAction(this::sluitGame);
 
         mannetjeView.setFocusTraversable(true);
         resetButton.setFocusTraversable(false);
         StartMenuKnop.setFocusTraversable(false);
+        stopKnop.setFocusTraversable(false);
 
         mannetjeView.setFocusTraversable(true);
         resetButton.setFocusTraversable(false);
@@ -269,6 +274,10 @@ public class SpeelveldController {
         mediaPlayer = new MediaPlayer(media);
         mediaPlayer.setAutoPlay(true);
 
+    }
+    
+    private void sluitGame(ActionEvent e) {
+        System.exit(0);
     }
 
 }

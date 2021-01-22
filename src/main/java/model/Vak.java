@@ -8,6 +8,7 @@ public class Vak {
     private final int zijde;
     private StatusVak status;
     private boolean gevaar;
+    private boolean check;
 
     /**
      * Deze methode geeft alle variabelen een begin/start waarde
@@ -16,6 +17,7 @@ public class Vak {
         zijde = 20;
         status = StatusVak.LEEG;
         gevaar = false;
+        check = true;
     }
 
     /**
@@ -53,5 +55,13 @@ public class Vak {
      */
     public boolean getGevaar() {
         return gevaar;
+    }
+    
+    public boolean getCheck(){ 
+        return this.check;
+    }
+    
+    public void setCheck(boolean check){
+        this.check = check;
     }
 }
