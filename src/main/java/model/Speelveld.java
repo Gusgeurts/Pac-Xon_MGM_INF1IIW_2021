@@ -167,18 +167,18 @@ public class Speelveld {
     }
 
     public void winNotificatie() {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Pac-Xon");
         alert.setContentText("Je hebt gewonnen!!!\nje vulde " + getProcentGevuld() + " % met nog " + mannetje.getLevens() + " levens over");
         alert.show();
     }
 
     public void doodNotificatie() {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("PacXon");
-        alert.setContentText("du bist dood \nje vulde " + getProcentGevuld() + "%");
-        alert.show();
-    }
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("PacXon");
+            alert.setContentText("du bist dood \nje vulde " + getProcentGevuld() + "%");
+            alert.show();
+        }
 
     public void updateSpeelveld() {
 

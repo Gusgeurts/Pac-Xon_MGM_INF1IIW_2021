@@ -21,7 +21,6 @@ import model.Mannetje;
 import model.Speelveld;
 import model.Spoken;
 import model.Spook;
-import model.StatusVak;
 import model.Vak;
 import model.Vakken;
 import view.MannetjeView;
@@ -128,7 +127,6 @@ public class SpeelveldController {
 
             vakkenSpeelveld.updateSpeelveld();
 
-            vakkenSpeelveldView.mannetjeGeraaktDoorSpook();
             vakkenSpeelveldView.spookRaaktGevuld();
         }
         vakkenSpeelveldView.update();
@@ -233,7 +231,7 @@ public class SpeelveldController {
             }
 
             BeweegMannetje taskMannetje = new BeweegMannetje(mannetje, this);
-            timer.scheduleAtFixedRate(taskMannetje, 0, 50);
+            timer.scheduleAtFixedRate(taskMannetje, 0, 200);
 
             start = true;
 
