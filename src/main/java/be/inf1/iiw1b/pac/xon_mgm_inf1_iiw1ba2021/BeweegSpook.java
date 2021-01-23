@@ -19,8 +19,8 @@ public class BeweegSpook extends TimerTask {
 
     /**
      * @param spook is het model van het spook
-     * @param controller is de controller van het speelveld Deze methode geeft
-     * alle variabelen een begin/start waarde
+     * @param controller is de controller van het speelveld 
+     * Deze methode geeft alle variabelen een begin/start waarde
      */
     public BeweegSpook(Spook spook, SpeelveldController controller) {
         this.spook = spook;

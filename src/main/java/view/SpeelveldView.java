@@ -21,7 +21,7 @@ import model.Vakken;
 
 /**
  *
- * @author Gus Geurts
+ * @author Gus Geurts/Michiel Meurice
  */
 public final class SpeelveldView extends Region {
 
@@ -33,6 +33,16 @@ public final class SpeelveldView extends Region {
     private final Vakken vakkenVeld;
     private final Speelveld vakkenSpeelveld;
 
+    /**
+     * @param vakkenSpeelveld is het model van het speelveld
+     * @param mannetje is het model van het mannetje 
+     * @param spook is het model van het spook
+     * @param spoken is het model van de spoken
+     * @param spokenView is de view van spoken
+     * @param mannetjeView is de view van het mannetje
+     * @param vakkenVeld  is de model van de vakken
+     * Deze methode geeft alle variabelen een begin/start waarde
+     */
     public SpeelveldView(Speelveld vakkenSpeelveld, Mannetje mannetje, Spook spook, Spoken spoken, SpokenView spokenView, MannetjeView mannetjeView, Vakken vakkenVeld) {
 
         this.vakkenVeld = vakkenVeld;
@@ -46,6 +56,9 @@ public final class SpeelveldView extends Region {
         update();
     }
 
+    /**
+     * deze methode update het speelveldview
+     */
     public void update() {
 
         getChildren().clear();
@@ -54,6 +67,9 @@ public final class SpeelveldView extends Region {
 
     }
 
+    /**
+     * deze methode maakt een speelveld aan
+     */
     public void maakSpeelveld() {
         int n = 0;
         int m = 0;
@@ -61,16 +77,16 @@ public final class SpeelveldView extends Region {
         for (int i = 0; i < vakkenVeld.getRijen(); i++) {
             for (int j = 0; j < vakkenVeld.getKolommen(); j++) {
                 VakView vv = new VakView(vakken[i][j]);
-                if (i == 0) {
+                if (i == 0) {                                   //bovenkant border
                     vakken[i][j].setStatus(StatusVak.GEVULD);
                 }
-                if (i == vakkenVeld.getRijen() - 1) {
+                if (i == vakkenVeld.getRijen() - 1) {           //onderkant border
                     vakken[i][j].setStatus(StatusVak.GEVULD);
                 }
-                if (j == 0) {
+                if (j == 0) {                                   //linkerkant border
                     vakken[i][j].setStatus(StatusVak.GEVULD);
                 }
-                if (j == vakkenVeld.getKolommen() - 1) {
+                if (j == vakkenVeld.getKolommen() - 1) {        //rechterkant border
                     vakken[i][j].setStatus(StatusVak.GEVULD);
                 }
                 vv.setTranslateX(20 * n);
@@ -96,6 +112,9 @@ public final class SpeelveldView extends Region {
         }
     }
 
+    /**
+     * deze methode zorgt voor de botsingen van het spook met gevulde vakken
+     */
     public void spookRaaktGevuld() {
         ObservableList<Node> vakken = getChildren();
         ObservableList<Node> spoken = spokenView.getChildrenUnmodifiable();
@@ -114,7 +133,7 @@ public final class SpeelveldView extends Region {
                         && s.localToParent(Point2D.ZERO).getX() <= boundVak.getMinX() + boundVak.getWidth()) {
                     if (v.getId().equals("idGevuld")) {
                         sp.get(i).setVy(-0.5);
-                    } else if (v.getId().equals("idInDeMaak")) {
+                    } else if (v.getId().equals("idInDeMaak")) {  //zorgt ervoor dat het mannetje dood gaat wanneer hij wordt geraakt in zijn pad
                         mannetje.isDood();
                         vakkenSpeelveld.geraaktInPad();
                     }

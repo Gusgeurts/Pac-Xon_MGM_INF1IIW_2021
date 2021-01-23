@@ -10,7 +10,7 @@
 <AnchorPane id="AnchorPane" prefHeight="650.0" prefWidth="1000.0" style="-fx-background-color: #2c387e;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="be.inf1.iiw1b.pac.xon_mgm_inf1_iiw1ba2021.SpeelveldController">
    <children>
       <AnchorPane fx:id="speelveld" layoutX="160.0" layoutY="95.0" prefHeight="460.0" prefWidth="680.0" />
-      <Button fx:id="resetButton" layoutX="39.0" layoutY="18.0" mnemonicParsing="false" style="-fx-background-color: #ffeb3b; -fx-background-radius: 90;" text="Reset">
+      <Button fx:id="resetButton" layoutX="892.0" layoutY="19.0" mnemonicParsing="false" style="-fx-background-color: #ffeb3b; -fx-background-radius: 90;" text="Reset">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor></Button>
@@ -36,15 +36,7 @@
             <Font size="14.0" />
          </font>
       </Text>
-      <Button fx:id="startKnop" layoutX="740.0" layoutY="19.0" mnemonicParsing="false" style="-fx-background-color: #ffeb3b; -fx-background-radius: 90;" text="Start">
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor></Button>
-      <Button fx:id="saveKnop" layoutX="820.0" layoutY="19.0" mnemonicParsing="false" style="-fx-background-color: #ffeb3b; -fx-background-radius: 90;" text="Save">
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor></Button>
-      <Button fx:id="loadKnop" layoutX="903.0" layoutY="19.0" mnemonicParsing="false" style="-fx-background-color: #ffeb3b; -fx-background-radius: 90;" text="Load">
+      <Button fx:id="startKnop" layoutX="820.0" layoutY="19.0" mnemonicParsing="false" style="-fx-background-color: #ffeb3b; -fx-background-radius: 90;" text="Start">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor></Button>

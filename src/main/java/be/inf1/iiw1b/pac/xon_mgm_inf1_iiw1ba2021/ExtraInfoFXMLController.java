@@ -36,14 +36,13 @@ public class ExtraInfoFXMLController {
     }
 
     /**
-     * @param e is de actie/het event van de knop deze methode is de methode
-     * voor de StartMenu knop deze methode zal de stage veranderen naar een
-     * andere scene....
-     *
-     * gehaald van:https://youtube/com/watch?.......
+     * @param e is de actie/het event van de knop
+     * deze methode is de methode voor de StartMenu knop, deze methode zal de stage veranderen naar een
+     * andere scene namelijk naar het startmenu scherm
+     * gehaald van:https://www.youtube.com/watch?v=XCgcQTQCfJQ&t=3s
      */
     private void veranderSchermStartMenu(ActionEvent e) {
-        toetsGeluid();
+        knopGeluid();
         try {
             Parent startMenuParent;
             startMenuParent = FXMLLoader.load(getClass().getResource("startMenu.fxml"));
@@ -58,7 +57,11 @@ public class ExtraInfoFXMLController {
     }
     MediaPlayer mediaPlayer;
 
-    public void toetsGeluid() {
+    /**
+     * deze methode maakt een geluid elke keer wanneer je op een knop klikt
+     * gehaald uit de cursus
+     */
+    public void knopGeluid() {
         ClassLoader classLoader = getClass().getClassLoader();
         URL resource = classLoader.getResource("button-19.mp3");
         Media media = new Media(resource.toString());

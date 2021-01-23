@@ -13,19 +13,26 @@ import model.Spook;
 
 /**
  *
- * @author Gus Geurts
+ * @author Gus Geurts/Michiel Meurice
  */
 public final class SpookView extends Region {
 
     private final Spook spook;
     private Circle bal;
 
+    /**
+     * @param spook is het model van het spook
+     * Deze methode geeft alle variabelen een begin/start waarde
+     */
     public SpookView(Spook spook) {
         this.spook = spook;
         createSpook();
 
     }
 
+    /**
+     * deze methode maakt een spook aan met de bijhoorende GIF
+     */
     public void createSpook() {
 
         bal = new Circle(spook.getStraal());
@@ -35,10 +42,16 @@ public final class SpookView extends Region {
         getChildren().add(bal);
     }
 
+    /**
+     * @return deze methode geeft de vorm van het spook terug
+     */
     public Circle getVormSpook() {
         return bal;
     }
 
+    /**
+     * deze methode ...........
+     */
     public void setOgen() {
         if (spook.getVx() > 0) {
             bal.setScaleX(-1);

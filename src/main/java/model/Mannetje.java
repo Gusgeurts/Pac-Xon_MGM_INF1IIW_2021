@@ -27,8 +27,8 @@ public class Mannetje {
      *
      * @param x is de x-coördinaat van het mannetje
      * @param y is de y-coördinaat van het mannetje
-     * @param vakkenSpeelveld is het aangemaakt speelveld Deze methode geeft
-     * alle variabelen een begin/start waarde
+     * @param vakkenVeld is het aangemaakt speelveld 
+     * Deze methode geeft alle variabelen een begin/start waarde
      */
     public Mannetje(int x, int y, Vakken vakkenVeld) {
         this.x = x;
@@ -258,16 +258,16 @@ public class Mannetje {
     }
 
     /**
-     * @param vx is de snelheid in de x-richting van het mannetje Deze methode
-     * geeft de snelhied in de x-richting een nieuwe waarde
+     * @param vx is de snelheid in de x-richting van het mannetje 
+     * Deze methode geeft de snelhied in de x-richting een nieuwe waarde
      */
     public void setVx(int vx) {
         this.vx = vx;
     }
 
     /**
-     * @param vy is de snelhied in de y-richting van het mannetje Deze methode
-     * geeft de snelhied in de y-richting een nieuwe waarde
+     * @param vy is de snelhied in de y-richting van het mannetje 
+     * Deze methode geeft de snelhied in de y-richting een nieuwe waarde
      */
     public void setVy(int vy) {
         this.vy = vy;
@@ -288,10 +288,13 @@ public class Mannetje {
     }
 
     MediaPlayer mediaPlayer;
-
+    /**
+     * maakt een geluid wanneer de speler dood gaat
+     * gehaald uit de cursus
+     */
     public void speelDoodGeluid() {
         ClassLoader classLoader = getClass().getClassLoader();
-        URL resource = classLoader.getResource("Meurice_da_vind_ik.mp3");
+        URL resource = classLoader.getResource("8d82b5_Pacman_Dies_Sound_Effect-Copy.mp3");
         Media media = new Media(resource.toString());
         mediaPlayer = new MediaPlayer(media);
         mediaPlayer.setAutoPlay(true);

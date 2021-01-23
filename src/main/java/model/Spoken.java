@@ -26,8 +26,7 @@ public final class Spoken {
     }
 
     /**
-     * Maakt een opgeven aantalspoken aan op een random positie binnen het
-     * speelveld op een leeg vak
+     * Maakt een opgeven aantalspoken aan op een random positie binnen het speelveld op een leeg vak
      */
     public void maakSpoken() {
         spoken = new ArrayList<>();
@@ -38,19 +37,19 @@ public final class Spoken {
             double xWaarde = (randx * vak.getZijde() * vakkenVeld.getKolommen());
             double yWaarde = (randy * vak.getZijde() * vakkenVeld.getRijen());
 
-            if (xWaarde < vak.getZijde() * 2) {  //niet in gevuld vak spawnen aan de linkerkant van het speelveld    
+            if (xWaarde < vak.getZijde() * 2) {                             //niet in gevuld vak spawnen aan de linkerkant van het speelveld    
                 xWaarde = vak.getZijde() * 2;
             }
 
-            if (xWaarde > vak.getZijde() * vakkenVeld.getKolommen() - 2 * vak.getZijde()) { //niet in gevuld vak spawnen aan de rechterkant van het speelveld 
+            if (xWaarde > vak.getZijde() * vakkenVeld.getKolommen() - 2 * vak.getZijde()) {             //niet in gevuld vak spawnen aan de rechterkant van het speelveld 
                 xWaarde = vak.getZijde() * vakkenVeld.getKolommen() - 2 * vak.getZijde();
             }
 
-            if (yWaarde < vak.getZijde() * 2) {  //niet in gevuld vak spawnen aan de bovenkant van het speelveld
+            if (yWaarde < vak.getZijde() * 2) {                              //niet in gevuld vak spawnen aan de bovenkant van het speelveld
                 yWaarde = vak.getZijde() * 2;
             }
 
-            if (yWaarde > vak.getZijde() * vakkenVeld.getRijen() - 2 * vak.getZijde()) {  //niet in gevuld vak spawnen aan de onderkant van het speelveld
+            if (yWaarde > vak.getZijde() * vakkenVeld.getRijen() - 2 * vak.getZijde()) {                //niet in gevuld vak spawnen aan de onderkant van het speelveld
                 yWaarde = vak.getZijde() * vakkenVeld.getRijen() - 2 * vak.getZijde();
             }
             spoken.add(new Spook(xWaarde, yWaarde));

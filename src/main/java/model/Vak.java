@@ -17,7 +17,7 @@ public class Vak {
         zijde = 20;
         status = StatusVak.LEEG;
         gevaar = false;
-        check = true;
+        check = false;
     }
 
     /**
@@ -35,16 +35,16 @@ public class Vak {
     }
 
     /**
-     * @param status is de status van het vak deze methode verandert de status
-     * van het vak
+     * @param status is de status van het vak 
+     * deze methode verandert de status van het vak
      */
     public void setStatus(StatusVak status) {
         this.status = status;
     }
 
     /**
-     * @param gevaar is of er gevaar heerst in een vak deze methode geeft gevaar
-     * een nieuwe status
+     * @param gevaar is of er gevaar heerst in een vak 
+     * deze methode geeft boolean gevaar een nieuwe status
      */
     public void setGevaar(boolean gevaar) {
         this.gevaar = gevaar;
@@ -57,10 +57,17 @@ public class Vak {
         return gevaar;
     }
 
+    /**
+     * @return deze methode geeft terug of het vak gecheckt is of niet
+     */
     public boolean getCheck() {
         return this.check;
     }
 
+    /**
+     * @param check is de parameter die bijhoud of een vak gecheckt is of niet
+     * deze methode geeft boolean check een nieuwe status
+     */
     public void setCheck(boolean check) {
         this.check = check;
     }

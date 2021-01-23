@@ -7,7 +7,7 @@ package model;
 
 /**
  *
- * @author Gus Geurts
+ * @author Gus Geurts/Michiel Meurice
  */
 public class Vakken {
 
@@ -16,6 +16,11 @@ public class Vakken {
     private final int kolommen;
     private StatusVak status;
 
+    /**
+     * @param rijen is het aantal rijen van het speelveld
+     * @param kolommen is het aantal kolommen van het speelveld
+     * Deze methode geeft alle variabelen een begin/start waarde
+     */
     public Vakken(int rijen, int kolommen) {
         this.rijen = rijen;
         this.kolommen = kolommen;

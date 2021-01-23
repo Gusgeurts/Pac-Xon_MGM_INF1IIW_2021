@@ -42,12 +42,6 @@ public class SpeelveldController {
     private Button resetButton;
 
     @FXML
-    private Button saveKnop;
-
-    @FXML
-    private Button loadKnop;
-
-    @FXML
     private Label labelLevens;
 
     @FXML
@@ -79,8 +73,8 @@ public class SpeelveldController {
      */
     @FXML
     void initialize() {
-        vakkenVeld = new Vakken(23, 34);
-        mannetje = new Mannetje(10, 10, vakkenVeld);
+        vakkenVeld = new Vakken(23, 34);        //dit maakt een raster van 23 vakken horizontaal(rijen) en 34 vakken verticaal(kolommen) aan 
+        mannetje = new Mannetje(10, 10, vakkenVeld);    //dit spawnt het mannetje in de linkerbovenhoek
         spook = new Spook(0, 0);
         vak = new Vak();
         spoken = new Spoken(vak, vakkenVeld);
@@ -94,28 +88,24 @@ public class SpeelveldController {
 
         update();
 
-        resetButton.setOnAction(this::reset);
-        startKnop.setOnAction(this::start);
-        StartMenuKnop.setOnAction(this::veranderSchermStartMenu);
-        stopKnop.setOnAction(this::sluitGame);
+        resetButton.setOnAction(this::reset);     //wanneer de reset knop wordt gebruikt wordt verwezen naar de reset() methode
+        startKnop.setOnAction(this::start);         //wanneer de start knop wordt gebruikt wordt verwezen naar de start() methode
+        StartMenuKnop.setOnAction(this::veranderSchermStartMenu);           //wanneer de startmenu knop wordt gebruikt wordt verwezen naar de veranderschermstartmenu() methode
+        stopKnop.setOnAction(this::sluitGame);          //wanneer de stop knop wordt gebruikt wordt verwezen naar de sluitgame() methode
 
-        mannetjeView.setFocusTraversable(true);
-        resetButton.setFocusTraversable(false);
+        mannetjeView.setFocusTraversable(true); 
+        
+        resetButton.setFocusTraversable(false);         //zorgt dat de knoppen niet geselecteerd/blauw omringd worden bij een keyevent
         StartMenuKnop.setFocusTraversable(false);
         stopKnop.setFocusTraversable(false);
-
-        mannetjeView.setFocusTraversable(true);
         resetButton.setFocusTraversable(false);
         startKnop.setFocusTraversable(false);
-        saveKnop.setFocusTraversable(false);
-        loadKnop.setFocusTraversable(false);
-
-        System.out.println("init");
-
+           
     }
 
     /**
-     * deze methode update het speelveld
+     * deze methode update het speelveld, update de view van mannetje en spoken alsook de labels voor levens/procent
+     * wanneer de start knop wordt gebruikt zal het speelveld actief worden en geupdate worden
      */
     public void update() {
         mannetjeView.update();
@@ -137,8 +127,8 @@ public class SpeelveldController {
     }
 
     /**
-     * @param t is de actie/het event van de knop deze methode zorgt ervoor dat
-     * wanneer de pijltjes worden gebruikt het mannetje beweegt
+     * @param t is de actie/het event van de knop 
+     * deze methode zorgt ervoor dat wanneer de pijltjes worden gebruikt het mannetje beweegt
      */
     private void loopRond(KeyEvent t) {
         if (start) {
@@ -146,7 +136,7 @@ public class SpeelveldController {
                 case RIGHT:
                     mannetje.rechts();
                     mannetje.setMaxXBorder();
-                    if (vakkenSpeelveld.ispositieMannetjeGevuld()) {
+                    if (vakkenSpeelveld.isVakMannetjeGevuld()) {
                         mannetje.setVx(0);
                         mannetje.setVy(0);
                     } else {
@@ -158,7 +148,7 @@ public class SpeelveldController {
                 case LEFT:
                     mannetje.links();
                     mannetje.setMinXBorder();
-                    if (vakkenSpeelveld.ispositieMannetjeGevuld()) {
+                    if (vakkenSpeelveld.isVakMannetjeGevuld()) {
                         mannetje.setVx(0);
                         mannetje.setVy(0);
                     } else {
@@ -170,7 +160,7 @@ public class SpeelveldController {
                 case UP:
                     mannetje.boven();
                     mannetje.setMinYBorder();
-                    if (vakkenSpeelveld.ispositieMannetjeGevuld()) {
+                    if (vakkenSpeelveld.isVakMannetjeGevuld()) {
                         mannetje.setVx(0);
                         mannetje.setVy(0);
                     } else {
@@ -183,7 +173,7 @@ public class SpeelveldController {
                 case DOWN:
                     mannetje.onder();
                     mannetje.setMaxYBorder();
-                    if (vakkenSpeelveld.ispositieMannetjeGevuld()) {
+                    if (vakkenSpeelveld.isVakMannetjeGevuld()) {
                         mannetje.setVx(0);
                         mannetje.setVy(0);
                     } else {
@@ -198,11 +188,11 @@ public class SpeelveldController {
     }
 
     /**
-     * @param e is de actie/het event van de knop deze methode is de methode
-     * voor de reset knop de methode reset het speelveld en update de view
+     * @param e is de actie/het event van de knop 
+     * deze methode is de methode voor de reset knop, de methode reset het speelveld en update de view
      */
     private void reset(ActionEvent e) {
-        toetsGeluid();
+        knopGeluid();
         if (start) {
             mannetje.resetGame();
             vakkenSpeelveld.resetVeld();
@@ -216,12 +206,12 @@ public class SpeelveldController {
     }
 
     /**
-     * @param e is de actie/het event van de knop deze methode is de methode
-     * voor de start knop de methode start het bewegen van de spoken en het
+     * @param e is de actie/het event van de knop
+     * deze methode is de methode voor de start knop, de methode start het bewegen van de spoken en het
      * mannetje
      */
     private void start(ActionEvent e) {
-        toetsGeluid();
+        knopGeluid();
 
         if (!start) {
             timer = new Timer(true);
@@ -240,14 +230,13 @@ public class SpeelveldController {
     }
 
     /**
-     * @param e is de actie/het event van de knop deze methode is de methode
-     * voor de StartMenu knop deze methode zal de stage veranderen naar een
-     * andere scene....
-     *
-     * gehaald van:...
+     * @param e is de actie/het event van de knop
+     * deze methode is de methode voor de StartMenu knop, deze methode zal de stage veranderen naar een
+     * andere scene namelijk het startmenu scherm
+     * gehaald van:https://www.youtube.com/watch?v=XCgcQTQCfJQ&t=3s
      */
     private void veranderSchermStartMenu(ActionEvent e) {
-        toetsGeluid();
+        knopGeluid();
         try {
             Parent startMenuParent;
             startMenuParent = FXMLLoader.load(getClass().getResource("startMenu.fxml"));
@@ -265,7 +254,10 @@ public class SpeelveldController {
     }
     MediaPlayer mediaPlayer;
 
-    public void toetsGeluid() {
+    /**
+     * deze methode maakt een geluid elke keer wanneer je op een knop klikt
+     */
+    public void knopGeluid() {
         ClassLoader classLoader = getClass().getClassLoader();
         URL resource = classLoader.getResource("button-19.mp3");
         Media media = new Media(resource.toString());
@@ -274,6 +266,10 @@ public class SpeelveldController {
 
     }
 
+    /**
+     * @param e is de actie/het event van de knop
+     * deze methode is de methode voor de stopknop, en sluit de game af 
+     */
     private void sluitGame(ActionEvent e) {
         System.exit(0);
     }

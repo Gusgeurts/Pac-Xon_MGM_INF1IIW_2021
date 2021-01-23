@@ -13,7 +13,7 @@ import model.Vak;
 
 /**
  *
- * @author Gus Geurts
+ * @author Gus Geurts/Michiel Meurice
  */
 public final class VakView extends Region {
 
@@ -21,11 +21,18 @@ public final class VakView extends Region {
     private Rectangle v;
     private StatusVak status;
 
+    /**
+     * @param vak is het model van het vak
+     * Deze methode geeft alle variabelen een begin/start waarde
+     */
     public VakView(Vak vak) {
         this.vak = vak;
         update();
     }
 
+    /**
+     * de methode update het VakView
+     */
     public void update() {
         v = new Rectangle(vak.getZijde(), vak.getZijde());
 
@@ -45,10 +52,16 @@ public final class VakView extends Region {
         getChildren().add(v);
     }
 
+    /**
+     * @return deze methode geeft de vorm van het vak terug 
+     */
     public Rectangle getVormVak() {
         return v;
     }
 
+    /**
+     * @return geeft de status van het vak terug
+     */
     public StatusVak getStatus() {
         return status;
     }

@@ -45,13 +45,12 @@ public class StartMenuController {
     @FXML
     void initialize() {
 
-        System.out.println("init1");
         errorText.setVisible(false);
         startKnop.setOnAction(this::veranderSchermSpeelVeld);
         extraInfoKnop.setOnAction(this::veranderSchermExtraInfo);
         stopKnop.setOnAction(this::sluitGame);
 
-        startKnop.setFocusTraversable(false);
+        startKnop.setFocusTraversable(false);           //zorgt dat de knoppen niet geselecteerd/blauw omringd worden bij een keyevent
         stopKnop.setFocusTraversable(false);
         extraInfoKnop.setFocusTraversable(false);
         moeilijkheidsGraad1.setFocusTraversable(false);
@@ -60,7 +59,7 @@ public class StartMenuController {
     }
 
     /**
-     * @param k is de actie/het event van de knop deze methode is de methode
+     * @param e is de actie/het event van de knop deze methode is de methode
      * voor de start game knop deze methode zal eerst kijken welke moeilijkheids
      * graad is geselecteerd en als er een moeilijkheidsgraad is geselecteerd
      * zal de stage veranderen naar een andere scene namelijk het speelveld met
@@ -68,8 +67,8 @@ public class StartMenuController {
      *
      * gehaald van:...
      */
-    public void veranderSchermSpeelVeld(ActionEvent k) {
-        toetsGeluid();
+    public void veranderSchermSpeelVeld(ActionEvent e) {
+        knopGeluid();
 
         if (moeilijkheidsGraad1.isSelected()) {
             aantalSpoken = 1;
@@ -89,7 +88,7 @@ public class StartMenuController {
                 Parent speelVeldParent;
                 speelVeldParent = FXMLLoader.load(getClass().getResource("speelveld.fxml"));
                 Scene speelVeldScene = new Scene(speelVeldParent);
-                Stage gameScherm = (Stage) ((Node) k.getSource()).getScene().getWindow();
+                Stage gameScherm = (Stage) ((Node) e.getSource()).getScene().getWindow();
                 gameScherm.hide();
                 gameScherm.setScene(speelVeldScene);
                 gameScherm.show();
@@ -108,7 +107,7 @@ public class StartMenuController {
      *
      */
     private void veranderSchermExtraInfo(ActionEvent e) {
-        toetsGeluid();
+        knopGeluid();
         try {
             Parent extraInfoParent;
             extraInfoParent = FXMLLoader.load(getClass().getResource("extraInfoFXML.fxml"));
@@ -137,16 +136,22 @@ public class StartMenuController {
     }
     MediaPlayer mediaPlayer;
 
+    /**
+     * deze methode speelt de intro van de game af
+     * gehaald uit de cursus
+     */
     public void speelIntro() {
         ClassLoader classLoader = getClass().getClassLoader();
         URL resource = classLoader.getResource("8d82b5_Pacman_Opening_Song_Sound_Effect.mp3");
         Media media = new Media(resource.toString());
         mediaPlayer = new MediaPlayer(media);
         mediaPlayer.setAutoPlay(true);
-
     }
 
-    public void toetsGeluid() {
+    /**
+     * deze methode maakt een geluid bij het gebruiken van een knop
+     */
+    public void knopGeluid() {
         ClassLoader classLoader = getClass().getClassLoader();
         URL resource = classLoader.getResource("button-19.mp3");
         Media media = new Media(resource.toString());

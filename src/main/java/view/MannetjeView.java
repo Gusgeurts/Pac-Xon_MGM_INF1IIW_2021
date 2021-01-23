@@ -14,7 +14,7 @@ import model.Mannetje;
 
 /**
  *
- * @author Gus Geurts
+ * @author Gus Geurts/Michiel Meurice
  */
 public final class MannetjeView extends Region {
 
@@ -22,12 +22,19 @@ public final class MannetjeView extends Region {
     private AnchorPane paneel;
     private Circle cirkel;
 
+    /**
+     * @param mannetje is het model van het mannetje 
+     * Deze methode geeft alle variabelen een begin/start waarde
+     */
     public MannetjeView(Mannetje mannetje) {
         this.mannetje = mannetje;
         createMannetje();
         update();
     }
 
+    /**
+     * deze methode update het mannetjeview
+     */
     public void update() {
         getChildren().clear();
 
@@ -37,6 +44,9 @@ public final class MannetjeView extends Region {
         getChildren().addAll(paneel);
     }
 
+    /**
+     * deze methode maakt het mannetje aan met bijhorende GIF
+     */
     public void createMannetje() {
         paneel = new AnchorPane();
 
@@ -48,6 +58,9 @@ public final class MannetjeView extends Region {
 
     }
 
+    /**
+     * @return geeft de vorm van het mannetje terug 
+     */
     public Circle getVormMannetje() {
         return cirkel;
     }

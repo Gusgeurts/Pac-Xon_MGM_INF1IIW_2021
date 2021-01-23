@@ -14,7 +14,7 @@ import be.inf1.iiw1b.pac.xon_mgm_inf1_iiw1ba2021.StartMenuController;
 
 /**
  *
- * @author Gus Geurts
+ * @author Gus Geurts/Michiel Meurice
  */
 public final class SpokenView extends Region {
 
@@ -22,6 +22,10 @@ public final class SpokenView extends Region {
 
     private final ArrayList<SpookView> spokenView;
 
+    /**
+     * @param spoken is het model van spoken
+     * Deze methode geeft alle variabelen een begin/start waarde
+     */
     public SpokenView(Spoken spoken) {
         this.spoken = spoken;
         spokenView = new ArrayList<>();
@@ -29,6 +33,9 @@ public final class SpokenView extends Region {
         update();
     }
 
+    /**
+     * deze methode maakt een opgegeven aantal spoken aan 
+     */
     public void maakSpoken() {
         ArrayList<Spook> s = spoken.getSpoken();
         for (int i = 0; i < StartMenuController.getAantalSpoken(); i++) {
@@ -40,6 +47,9 @@ public final class SpokenView extends Region {
         }
     }
 
+    /**
+     * deze methode update het spokenView
+     */
     public void update() {
         ArrayList<Spook> s = spoken.getSpoken();
         for (int i = 0; i <= s.size() - 1; i++) {
