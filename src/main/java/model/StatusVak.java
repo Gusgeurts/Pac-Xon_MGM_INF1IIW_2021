@@ -4,7 +4,7 @@ package model;
  * @author Gus Geurts/Michiel Meurice
  */
 /**
- * Deze methode maakt alle statussen van het vak
+ * Deze classen maakt alle statussen van het vak aan
  */
 public enum StatusVak {
     GEVULD, IN_DE_MAAK, LEEG

@@ -45,10 +45,10 @@ public class StartMenuController {
     @FXML
     void initialize() {
 
-        errorText.setVisible(false);
-        startKnop.setOnAction(this::veranderSchermSpeelVeld);
-        extraInfoKnop.setOnAction(this::veranderSchermExtraInfo);
-        stopKnop.setOnAction(this::sluitGame);
+        errorText.setVisible(false);                //zorgt ervoor dat de errortext niet zichtbaar is bij opstarten
+        startKnop.setOnAction(this::veranderSchermSpeelVeld);         //wanneer de start knop wordt gebruikt wordt verwezen naar de veranderschermspeelveld() methode
+        extraInfoKnop.setOnAction(this::veranderSchermExtraInfo);       //wanneer de extrainfo knop wordt gebruikt wordt verwezen naar de veranderschermextrainfo() methode
+        stopKnop.setOnAction(this::sluitGame);                            //wanneer de stop knop wordt gebruikt wordt verwezen naar de sluitgame() methode
 
         startKnop.setFocusTraversable(false);           //zorgt dat de knoppen niet geselecteerd/blauw omringd worden bij een keyevent
         stopKnop.setFocusTraversable(false);
@@ -59,13 +59,14 @@ public class StartMenuController {
     }
 
     /**
-     * @param e is de actie/het event van de knop deze methode is de methode
-     * voor de start game knop deze methode zal eerst kijken welke moeilijkheids
-     * graad is geselecteerd en als er een moeilijkheidsgraad is geselecteerd
-     * zal de stage veranderen naar een andere scene namelijk het speelveld met
-     * het aantalspoken afhankelijk van de geselecteerde moeilijkheidsgraad
+     * @param e is de actie/het event van de knop 
+     * deze methode is de methode voor de start game knop deze methode zal eerst 
+     * kijken welke moeilijkheids graad is geselecteerd en als er een 
+     * moeilijkheidsgraad is geselecteerd zal de stage veranderen naar een 
+     * andere scene namelijk het speelveld met het aantalspoken afhankelijk van 
+     * de geselecteerde moeilijkheidsgraad
      *
-     * gehaald van:...
+     * gehaald van:https://www.youtube.com/watch?v=XCgcQTQCfJQ&t=3s
      */
     public void veranderSchermSpeelVeld(ActionEvent e) {
         knopGeluid();
@@ -74,16 +75,17 @@ public class StartMenuController {
             aantalSpoken = 1;
 
         } else if (moeilijkheidsGraad2.isSelected()) {
-            aantalSpoken = 2;
+            aantalSpoken = 3;
 
         } else if (moeilijkheidsGraad3.isSelected()) {
-            aantalSpoken = 3;
-        } else {
+            aantalSpoken = 6;
+            
+        } else {                    //als er geen moeilijkheidsgraad is geselecteerd wordt de error test zichtbaar en speelt er een errorgeluid af
             errorGeluid();
             errorText.setVisible(true);
         }
         if (aantalSpoken > 0) {
-            speelIntro();
+            speelIntro();                    //zorgt ervoor dat de game intro start bij opstarten van speelveld 
             try {
                 Parent speelVeldParent;
                 speelVeldParent = FXMLLoader.load(getClass().getResource("speelveld.fxml"));
@@ -95,15 +97,15 @@ public class StartMenuController {
             } catch (IOException ex) {
             }
         }
-        aantalSpoken = 0;
+        aantalSpoken = 0;           //zorgt ervoor dat moeilijkheidsgraad opnieuw moet worden geselecteerd
     }
 
     /**
-     * @param e is de actie/het event van de knop deze methode is de methode
-     * voor de extra info knop deze methode zal de stage veranderen naar een
-     * andere scene namelijk de extrainfo
+     * @param e is de actie/het event van de knop 
+     * deze methode is de methode voor de extra info knop deze methode zal de 
+     * stage veranderen naar een andere scene namelijk de extrainfo
      *
-     * gehaald van:...
+     * gehaald van:https://www.youtube.com/watch?v=XCgcQTQCfJQ&t=3s
      *
      */
     private void veranderSchermExtraInfo(ActionEvent e) {
@@ -121,8 +123,8 @@ public class StartMenuController {
     }
 
     /**
-     * @param e is de actie/het event van de knop deze methode is de methoden
-     * voor de stop game knop deze methode zal de game afsluiten
+     * @param e is de actie/het event van de knop 
+     * deze methode is de methode voor de stop game knop deze methode zal de game afsluiten
      */
     private void sluitGame(ActionEvent e) {
         System.exit(0);
@@ -134,11 +136,11 @@ public class StartMenuController {
     public static int getAantalSpoken() {
         return aantalSpoken;
     }
-    MediaPlayer mediaPlayer;
+    
+    MediaPlayer mediaPlayer;            //voorkomt verwijderen van methode knopgeluid (garbage collector)
 
     /**
-     * deze methode speelt de intro van de game af
-     * gehaald uit de cursus
+     * deze methode speelt de intro van de game af gehaald uit de cursus
      */
     public void speelIntro() {
         ClassLoader classLoader = getClass().getClassLoader();
@@ -150,6 +152,7 @@ public class StartMenuController {
 
     /**
      * deze methode maakt een geluid bij het gebruiken van een knop
+     * gehaald uit de cursus
      */
     public void knopGeluid() {
         ClassLoader classLoader = getClass().getClassLoader();
@@ -160,6 +163,11 @@ public class StartMenuController {
 
     }
 
+    /**
+     * deze methode maakt een geluid wanneer de moeilijkheidsgraad niet is 
+     * geselecteerd namelijk windows error 
+     * gehaald uit de cursus
+     */
     public void errorGeluid() {
         ClassLoader classLoader = getClass().getClassLoader();
         URL resource = classLoader.getResource("Microsoft_Windows_XP_Error_-_Sound_Effect_HD.mp3");

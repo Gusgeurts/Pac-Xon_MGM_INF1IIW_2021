@@ -70,28 +70,12 @@ public class Mannetje {
     }
 
     /**
-     * @param x is de x-coördinaat van het mannetje deze methode geeft
-     * x-coördinaat van het mannetje een nieuwe waarde
-     */
-    public void setX(int x) {
-        this.x = x;
-    }
-
-    /**
-     * @param y is de y-coördinaat van het mannetje deze methode geeft
-     * y-coördinaat van het mannetje een nieuwe waarde
-     */
-    public void setY(int y) {
-        this.y = y;
-    }
-
-    /**
      * deze methode veranderd het aantal levens van het mannetje als hij dood
      * gaat en als hij geen levens meer overheeft wordt dood true/is het
      * mannetje dood
      */
     public void isDood() {
-        //speelDoodGeluid();
+        speelDoodGeluid();
         if (levens != 0) {
             levens--;
             reset();
@@ -100,6 +84,16 @@ public class Mannetje {
 
             }
         }
+    }
+    
+    /**
+     * Deze methode reset de positie van het mannetje terug naar rechtsboven/
+     * beginpositie
+     */
+    public void reset() {
+        x = 10;
+        y = 10;
+
     }
 
     /**
@@ -146,40 +140,30 @@ public class Mannetje {
         return x;
     }
 
-    /**
-     * Deze methode reset de positie van het mannetje terug naar rechtsboven/
-     * beginpositie
-     */
-    public void reset() {
-        x = 10;
-        y = 10;
-
-    }
+    
 
     /**
-     *
-     * @return Deze methode zorgt ervoor dat het mannetje niet buiten de border
-     * zal gaan aan de linkerkant van het speelveld in de x-richting
-     */
-    public int setMaxXBorder() {
-        if (x > (20 * vakkenVeld.getKolommen()) - straal) {
-            x = (20 * vakkenVeld.getKolommen()) - straal;
-            return (int) x;
-        }
-        return (int) x;
-    }
-
-    /**
-     *
      * @return Deze methode zorgt ervoor dat het mannetje niet buiten de border
      * zal gaan aan de rechterkant van het speelveld in de x-richting
      */
-    public int setMinXBorder() {
+    public double setMaxXBorder() {
+        if (x > (20 * vakkenVeld.getKolommen()) - straal) {
+            x = (20 * vakkenVeld.getKolommen()) - straal;
+            return  x;
+        }
+        return x;
+    }
+
+    /**
+     * @return Deze methode zorgt ervoor dat het mannetje niet buiten de border
+     * zal gaan aan de linkerkant van het speelveld in de x-richting
+     */
+    public double setMinXBorder() {
         if (x < 10) {
             x = 10;
-            return (int) x;
+            return  x;
         }
-        return (int) x;
+        return x;
     }
 
     /**
@@ -187,25 +171,24 @@ public class Mannetje {
      * @return Deze methode zorgt ervoor dat het mannetje niet buiten de border
      * zal gaan aan de onderkant van het speelveld in de y-richting
      */
-    public int setMaxYBorder() {
+    public double setMaxYBorder() {
         if (y > (20 * vakkenVeld.getRijen()) - straal) {
             y = (20 * vakkenVeld.getRijen()) - straal;
-            return (int) y;
+            return y;
         }
-        return (int) y;
+        return y;
     }
 
     /**
-     *
      * @return Deze methode zorgt ervoor dat het mannetje niet buiten de border
      * zal gaan aan de bovenkant van het speelveld in de y-richting
      */
-    public int setMinYBorder() {
+    public double setMinYBorder() {
         if (y < 10) {
             y = 10;
-            return (int) y;
+            return y;
         }
-        return (int) y;
+        return y;
     }
 
     /**
@@ -287,14 +270,14 @@ public class Mannetje {
         return vy;
     }
 
-    MediaPlayer mediaPlayer;
+    MediaPlayer mediaPlayer;          //voorkomt verwijderen van methode knopgeluid (garbage collector)
     /**
      * maakt een geluid wanneer de speler dood gaat
      * gehaald uit de cursus
      */
     public void speelDoodGeluid() {
         ClassLoader classLoader = getClass().getClassLoader();
-        URL resource = classLoader.getResource("8d82b5_Pacman_Dies_Sound_Effect-Copy.mp3");
+        URL resource = classLoader.getResource("8d82b5_Pacman_Dies_Sound_Effect - Copy.mp3");
         Media media = new Media(resource.toString());
         mediaPlayer = new MediaPlayer(media);
         mediaPlayer.setAutoPlay(true);

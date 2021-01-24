@@ -23,11 +23,11 @@ public class BeweegMannetje extends TimerTask {
     }
 
     /**
-     * deze methode...............
+     * deze methode definieert wat er regelmatig moet gebeuren
      */
     @Override
     public void run() {
-        mannetje.Tick();
+        mannetje.Tick();        // definieert wat het mannejte regelmatig moet doen
         Platform.runLater(controller::update);
     }
 

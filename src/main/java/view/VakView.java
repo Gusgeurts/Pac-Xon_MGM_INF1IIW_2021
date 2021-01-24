@@ -51,19 +51,4 @@ public final class VakView extends Region {
         }
         getChildren().add(v);
     }
-
-    /**
-     * @return deze methode geeft de vorm van het vak terug 
-     */
-    public Rectangle getVormVak() {
-        return v;
-    }
-
-    /**
-     * @return geeft de status van het vak terug
-     */
-    public StatusVak getStatus() {
-        return status;
-    }
-
 }

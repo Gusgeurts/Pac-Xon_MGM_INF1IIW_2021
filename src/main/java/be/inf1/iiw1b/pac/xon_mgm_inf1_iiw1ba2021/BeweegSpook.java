@@ -28,11 +28,11 @@ public class BeweegSpook extends TimerTask {
     }
 
     /**
-     * deze methode...............
+     * deze methode definieert wat er regelmatig moet gebeuren
      */
     @Override
     public void run() {
-        spook.Tick();
+        spook.Tick();            // definieert wat het spook/spoken regelmatig moet doen
         Platform.runLater(controller::update);
 
     }

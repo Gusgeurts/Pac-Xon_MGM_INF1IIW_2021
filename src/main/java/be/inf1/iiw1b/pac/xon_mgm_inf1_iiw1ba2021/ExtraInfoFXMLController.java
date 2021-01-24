@@ -36,10 +36,10 @@ public class ExtraInfoFXMLController {
     }
 
     /**
-     * @param e is de actie/het event van de knop
-     * deze methode is de methode voor de StartMenu knop, deze methode zal de stage veranderen naar een
-     * andere scene namelijk naar het startmenu scherm
-     * gehaald van:https://www.youtube.com/watch?v=XCgcQTQCfJQ&t=3s
+     * @param e is de actie/het event van de knop deze methode is de methode
+     * voor de StartMenu knop, deze methode zal de stage veranderen naar een
+     * andere scene namelijk naar het startmenu scherm gehaald
+     * van:https://www.youtube.com/watch?v=XCgcQTQCfJQ&t=3s
      */
     private void veranderSchermStartMenu(ActionEvent e) {
         knopGeluid();
@@ -55,7 +55,7 @@ public class ExtraInfoFXMLController {
         }
 
     }
-    MediaPlayer mediaPlayer;
+    MediaPlayer mediaPlayer;        //voorkomt verwijderen van methode knopgeluid (garbage collector)
 
     /**
      * deze methode maakt een geluid elke keer wanneer je op een knop klikt

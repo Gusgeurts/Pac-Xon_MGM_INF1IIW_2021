@@ -1,14 +1,6 @@
 package model;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.scene.control.Alert;
 
 /**
@@ -17,22 +9,19 @@ import javafx.scene.control.Alert;
 public class Speelveld {
 
     private final Mannetje mannetje;
-    private final int teVullenVakken;
     private final Vakken vakkenVeld;
     private final Spoken spoken;
 
     /**
-     * @param vakkenVeld is het aangemaakte speelveld
+     * @param vakkenVeld zijn de aangemaakte vakken van het speelveld
      * @param mannetje is het model van het mannetje
      * @param spoken is het model van de spoken
      * Deze methode geeft alle variabelen een begin/start waarde
      */
     public Speelveld(Vakken vakkenVeld, Mannetje mannetje, Spoken spoken) {
-        this.mannetje = mannetje;
         this.vakkenVeld = vakkenVeld;
+        this.mannetje = mannetje;
         this.spoken = spoken;
-        teVullenVakken = vakkenVeld.getRijen() * vakkenVeld.getKolommen() - (2 * vakkenVeld.getRijen() + 2 * (vakkenVeld.getKolommen() - 2));
-
     }
     
     /**
@@ -40,17 +29,15 @@ public class Speelveld {
      * ook wordt er gekeken als er een gevulde lijn is gemaakt om vervolgens een veld/vak te kleuren
      */
     public void updateSpeelveld() {
-
         gameGewonnen();
         gameOver();
         stilInGevuld();
         maakInDeMaakLijn();
         raakInDeMaak();
 
-        if (maakGevuldeLijn()) {
+        if (checkGevuldeLijn()) {
             vullenVakkenVeld();
         }
-
     }
     
     /**
@@ -58,7 +45,7 @@ public class Speelveld {
      */
     public void resetVeld() {
         Vak vakken[][] = vakkenVeld.getVakken();
-        for (int i = 1; i < vakkenVeld.getRijen() - 1; i++) {   //methode start met i=1 en stopt bij getRijen() -1 omdat de border niet op status leeg mag gezet worden
+        for (int i = 1; i < vakkenVeld.getRijen() - 1; i++) {                //methode start met i=1 en stopt bij getRijen() -1 omdat de border niet op status leeg mag gezet worden
             for (int j = 1; j < vakkenVeld.getKolommen() - 1; j++) {
                 vakken[i][j].setStatus(StatusVak.LEEG);
             }
@@ -83,23 +70,23 @@ public class Speelveld {
      * @return deze method vult alle vakken met status in_de_maak wanneer het mannetje terug op een gevuld vak komt
      * de boolean f wordt gebruikt in de update methode met een if loop om te controleren wanneer er een gevulde lijn is gemaakt zodat de vul-functie kan worden gestart
      */
-    public boolean maakGevuldeLijn() {
-        boolean f = false;
+    public boolean checkGevuldeLijn() {
+        boolean k = false;
         Vak vakken[][] = vakkenVeld.getVakken();
         if (vakken[mannetje.getVakY()][mannetje.getVakX()].getStatus().equals(StatusVak.GEVULD)
-                && mannetje.getX() != 0 && mannetje.getY() != 0) {
+                && mannetje.getX() != 0 && mannetje.getY() != 0) {                      
             resetGevaar();
             for (int i = 0; i < vakkenVeld.getRijen(); i++) {
                 for (int j = 0; j < vakkenVeld.getKolommen(); j++) {
                     if ((vakken[i][j].getStatus().equals(StatusVak.IN_DE_MAAK))) {
                         vakken[i][j].setStatus(StatusVak.GEVULD);
 
-                        f = true;
+                        k = true;
                     }
                 }
             }
         }
-        return f;
+        return k;
     }
 
     /**
@@ -117,7 +104,7 @@ public class Speelveld {
      */
     public void raakInDeMaak() {
         Vak vakken[][] = vakkenVeld.getVakken();
-        if (mannetje.getVakX() + 1 < vakkenVeld.getKolommen()       //als het niet een border is
+        if (mannetje.getVakX() + 1 < vakkenVeld.getKolommen()       //als het niet een border is en je dus in het veld staat
                 && mannetje.getVakX() - 1 >= 0
                 && mannetje.getVakY() + 1 < vakkenVeld.getRijen()
                 && mannetje.getVakY() - 1 >= 0) {
@@ -134,7 +121,7 @@ public class Speelveld {
                 vakken[mannetje.getVakY() - 1][mannetje.getVakX()].setGevaar(true);
             }
         }
-        if (vakken[mannetje.getVakY()][mannetje.getVakX()].getGevaar()) {       //wanneer het vak van het mannetje een gevaar vormt/gevaar true is wordt het mannetje gedood en wordt het pad terug leeg met de geraaktInPad() functie 
+        if (vakken[mannetje.getVakY()][mannetje.getVakX()].getGevaar()) {       //wanneer het vak van het mannetje een gevaar vormt/gevaar true is wordt het mannetje gedood en wordt het pad terug leeg met de geraaktInPad() methode 
             mannetje.isDood();
             geraaktInPad();
         }
@@ -158,6 +145,7 @@ public class Speelveld {
      */
     public int getProcentGevuld() {
         Vak vakken[][] = vakkenVeld.getVakken();
+        int teVullenVakken = vakkenVeld.getRijen() * vakkenVeld.getKolommen() - (2 * vakkenVeld.getRijen() + 2 * (vakkenVeld.getKolommen() - 2));       //gebruikt voor het berekenen van het percentage gevulde vakken
         double n = 0;                                               
         for (int i = 1; i < vakkenVeld.getRijen() - 1; i++) {               //door het starten bij i = 1 en het -1 doen van het getRijen() wordt de border niet meegenomen
             for (int j = 1; j < vakkenVeld.getKolommen() - 1; j++) {
@@ -166,7 +154,7 @@ public class Speelveld {
                 }
             }
         }
-        return (int) ((n / teVullenVakken) * 100);   //berekend het percentage gevulde vakken aan de hand van     
+        return (int) ((n / teVullenVakken) * 100);   //berekend het percentage gevulde vakken aan de hand van de te vullen vakken    
     }
 
     /**
@@ -223,7 +211,7 @@ public class Speelveld {
      * deze methode laat een notificatie zien wanneer je hebt gewonnen
      */
     public void winNotificatie() {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Pac-Xon");
         alert.setContentText("Je hebt gewonnen!!!\nje vulde " + getProcentGevuld() + " % met nog " + mannetje.getLevens() + " levens over");
         alert.show();
@@ -244,7 +232,7 @@ public class Speelveld {
             spookCheck(i, j);                                    //methode spookcheck oproepen met x en y coördinaat van een spook 
         }
 
-        for (int i = 0; i < vakkenVeld.getRijen(); i++) {           //zet alle vakken die true zijn en dus gevuld mogen worden op status gevuld
+        for (int i = 0; i < vakkenVeld.getRijen(); i++) {           //zet alle vakken die false zijn en dus gevuld mogen worden op status gevuld
             for (int j = 0; j < vakkenVeld.getKolommen(); j++) {
                 if (vakken[i][j].getCheck() == false) {
                     vakken[i][j].setStatus(StatusVak.GEVULD);
@@ -253,7 +241,7 @@ public class Speelveld {
             }
         }
         
-        for (int i = 0; i < vakkenVeld.getRijen(); i++) {           //zet alles terug op true voor volgende keer spookcheck
+        for (int i = 0; i < vakkenVeld.getRijen(); i++) {           //zet alles terug op false voor volgende keer spookcheck
             for (int j = 0; j < vakkenVeld.getKolommen(); j++) {
                 vakken[i][j].setCheck(false);
             }
@@ -270,9 +258,9 @@ public class Speelveld {
         Vak[][] vakken = vakkenVeld.getVakken();
         for (int i = x - 1; i <= x + 1; i++) {
             for (int j =  y - 1; j <= y + 1; j++) {
-                if (vakken[i][j].getStatus() == StatusVak.LEEG && vakken[i][j].getCheck() == false) {   //als het vak leeg is en er nog geen check op is uitgevoerd
+                if (vakken[i][j].getStatus() == StatusVak.LEEG && vakken[i][j].getCheck() == false) {    //als het vak leeg is en er nog geen check op is uitgevoerd
                     vakken[i][j].setCheck(true);
-                    spookCheck(i, j);       //neemt het vak dat net is gecheckt als het vak waaruit nieuw check plaats vindt
+                    spookCheck(i, j);                 //neemt het vak dat net is gecheckt als het vak waaruit de nieuw check uit wordt gevoerd
                 }
 
             }

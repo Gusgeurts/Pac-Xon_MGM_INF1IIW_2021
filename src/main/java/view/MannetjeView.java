@@ -54,7 +54,7 @@ public final class MannetjeView extends Region {
         Image img = new Image("https://1.bp.blogspot.com/-XXAXYwSHQb0/WSQ66A2JiuI/AAAAAAAAAi0/TOWOBq9p1-wcUETDp2tzE_OeqhhoseWuwCLcB/s1600/pacman-eating.gif");
         cirkel.setFill(new ImagePattern(img));
 
-        paneel.getChildren().addAll(cirkel);
+        paneel.getChildren().add(cirkel);
 
     }
 

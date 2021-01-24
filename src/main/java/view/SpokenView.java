@@ -19,7 +19,6 @@ import be.inf1.iiw1b.pac.xon_mgm_inf1_iiw1ba2021.StartMenuController;
 public final class SpokenView extends Region {
 
     private final Spoken spoken;
-
     private final ArrayList<SpookView> spokenView;
 
     /**
@@ -40,8 +39,6 @@ public final class SpokenView extends Region {
         ArrayList<Spook> s = spoken.getSpoken();
         for (int i = 0; i < StartMenuController.getAantalSpoken(); i++) {
             SpookView sv = new SpookView(s.get(i));
-            sv.setTranslateX(s.get(i).getX());
-            sv.setTranslateY(s.get(i).getY());
             getChildren().add(sv);
             spokenView.add(sv);
         }

@@ -43,14 +43,8 @@ public final class SpookView extends Region {
     }
 
     /**
-     * @return deze methode geeft de vorm van het spook terug
-     */
-    public Circle getVormSpook() {
-        return bal;
-    }
-
-    /**
-     * deze methode ...........
+     * deze methode kijkt naar de richting van de snelheid en spiegelt de node van het spook om de y-as 
+     * waardoor de richting van de ogen verandert
      */
     public void setOgen() {
         if (spook.getVx() > 0) {
