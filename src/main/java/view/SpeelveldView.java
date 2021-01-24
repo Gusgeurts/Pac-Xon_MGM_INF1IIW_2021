@@ -54,8 +54,7 @@ public final class SpeelveldView extends Region {
         this.spokenView = spokenView;
         this.mannetjeView = mannetjeView;
         this.vakkenSpeelveld = vakkenSpeelveld;
-        this.vak = vak;
-
+        
         update();
     }
 
