@@ -5,6 +5,8 @@ import javafx.scene.control.Alert;
 
 /**
  * @author Gus Geurts/Michiel Meurice
+ * Gus Geurts  70 %
+ * Michiel Meurice 30 %
  */
 public class Speelveld {
 

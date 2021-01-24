@@ -29,7 +29,6 @@ public final class SpeelveldView extends Region {
     private final Spook spook;
     private final Spoken spoken;
     private final SpokenView spokenView;
-    private final MannetjeView mannetjeView;
     private final Vakken vakkenVeld;
     private final Speelveld vakkenSpeelveld;
     private final Vak vak;
@@ -45,14 +44,13 @@ public final class SpeelveldView extends Region {
      * @param vakkenVeld  is de model van de vakken
      * Deze methode geeft alle variabelen een begin/start waarde
      */
-    public SpeelveldView(Vak vak,Vakken vakkenVeld,Speelveld vakkenSpeelveld, Mannetje mannetje, Spook spook, Spoken spoken, SpokenView spokenView, MannetjeView mannetjeView ) {
+    public SpeelveldView(Vak vak,Vakken vakkenVeld,Speelveld vakkenSpeelveld, Mannetje mannetje, Spook spook, Spoken spoken, SpokenView spokenView) {
         this.vak = vak;
         this.vakkenVeld = vakkenVeld;
         this.mannetje = mannetje;
         this.spook = spook;
         this.spoken = spoken;
         this.spokenView = spokenView;
-        this.mannetjeView = mannetjeView;
         this.vakkenSpeelveld = vakkenSpeelveld;
         
         update();

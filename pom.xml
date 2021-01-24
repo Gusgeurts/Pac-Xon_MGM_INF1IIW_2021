@@ -91,4 +91,5 @@
             </plugin>
         </plugins>
     </build>
+    <name>GeurtsGusMeuriceMichiel</name>
 </project>

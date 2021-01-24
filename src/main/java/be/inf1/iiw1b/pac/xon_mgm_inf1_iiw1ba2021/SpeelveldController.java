@@ -82,7 +82,7 @@ public class SpeelveldController {
 
         mannetjeView = new MannetjeView(mannetje);
         spokenView = new SpokenView(spoken);
-        vakkenSpeelveldView = new SpeelveldView(vak, vakkenVeld, vakkenSpeelveld, mannetje, spook, spoken, spokenView, mannetjeView);
+        vakkenSpeelveldView = new SpeelveldView(vak, vakkenVeld, vakkenSpeelveld, mannetje, spook, spoken, spokenView);
 
         speelveld.getChildren().addAll(vakkenSpeelveldView, mannetjeView, spokenView);
 
