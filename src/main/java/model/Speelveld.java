@@ -193,7 +193,7 @@ public class Speelveld {
      */
     public void doodNotificatie() {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("PacXon");
+            alert.setTitle("Pac-Xon                     Game-over!");
             alert.setContentText("Je bent dood gegaan!!! \nJe vulde " + getProcentGevuld() + "% van de vakken");
             alert.show();
         }
@@ -214,7 +214,7 @@ public class Speelveld {
      */
     public void winNotificatie() {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Pac-Xon");
+        alert.setTitle("Pac-Xon                         Gewonnen!");
         alert.setContentText("Je hebt gewonnen!!!\nje vulde " + getProcentGevuld() + " % met nog " + mannetje.getLevens() + " levens over");
         alert.show();
     }

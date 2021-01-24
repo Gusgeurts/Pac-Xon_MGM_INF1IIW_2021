@@ -75,10 +75,10 @@ public class StartMenuController {
             aantalSpoken = 1;
 
         } else if (moeilijkheidsGraad2.isSelected()) {
-            aantalSpoken = 3;
+            aantalSpoken = 2;
 
         } else if (moeilijkheidsGraad3.isSelected()) {
-            aantalSpoken = 6;
+            aantalSpoken = 3;
             
         } else {                    //als er geen moeilijkheidsgraad is geselecteerd wordt de error test zichtbaar en speelt er een errorgeluid af
             errorGeluid();

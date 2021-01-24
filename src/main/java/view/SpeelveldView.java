@@ -114,7 +114,8 @@ public final class SpeelveldView extends Region {
 
     /**
      * deze methode zorgt voor de botsingen van het spook met gevulde vakken
-     * informatiebron:https://docs.oracle.com/javase/8/javafx/api/javafx/scene/Node.html
+     * informatiebron: https://docs.oracle.com/javase/8/javafx/api/javafx/scene/Node.html
+     * https://docs.oracle.com/javase/8/javafx/api/javafx/geometry/Point2D.html
      */
     public void spookRaaktGevuld() {
         ObservableList<Node> vakken = getChildren();                            //views spoken
