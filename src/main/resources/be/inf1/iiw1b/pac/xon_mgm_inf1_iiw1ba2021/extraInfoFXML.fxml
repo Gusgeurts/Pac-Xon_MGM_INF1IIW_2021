@@ -16,7 +16,7 @@
                   <Font size="45.0" />
                </font>
             </Text>
-            <Text fill="WHITE" layoutX="75.0" layoutY="191.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Je begint linksboven in het vak met je mannetje en hebt 5 levens. Het vak is gevuld met spoken (vijanden). Het doel is om de lege ruimte te vullen en de spoken te vangen door een muur te bouwen. Het spel is klaar als je 80% van de ruimte hebt gevuld. Als de geest jou of je pad raakt ga je dood." wrappingWidth="419.13671875">
+            <Text fill="WHITE" layoutX="75.0" layoutY="191.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Je begint linksboven in het vak met je mannetje en hebt 5 levens. Het vak is gevuld met spoken (vijanden). Het doel is om de lege ruimte te vullen en de spoken te vangen door een muur te bouwen. Je kan het spel winnen als je 80% van het speelveld hebt gevuld. Als het spook jou, of je pad, raakt ga je dood." wrappingWidth="419.13671875">
                <font>
                   <Font size="20.0" />
                </font>
