@@ -32,6 +32,7 @@ public final class SpeelveldView extends Region {
     private final MannetjeView mannetjeView;
     private final Vakken vakkenVeld;
     private final Speelveld vakkenSpeelveld;
+    private final Vak vak;
 
     /**
      * @param vakkenSpeelveld is het model van het speelveld
@@ -43,7 +44,7 @@ public final class SpeelveldView extends Region {
      * @param vakkenVeld  is de model van de vakken
      * Deze methode geeft alle variabelen een begin/start waarde
      */
-    public SpeelveldView(Speelveld vakkenSpeelveld, Mannetje mannetje, Spook spook, Spoken spoken, SpokenView spokenView, MannetjeView mannetjeView, Vakken vakkenVeld) {
+    public SpeelveldView(Speelveld vakkenSpeelveld, Mannetje mannetje, Spook spook, Spoken spoken, SpokenView spokenView, MannetjeView mannetjeView, Vakken vakkenVeld, Vak vak) {
 
         this.vakkenVeld = vakkenVeld;
         this.mannetje = mannetje;
@@ -52,6 +53,7 @@ public final class SpeelveldView extends Region {
         this.spokenView = spokenView;
         this.mannetjeView = mannetjeView;
         this.vakkenSpeelveld = vakkenSpeelveld;
+        this.vak = vak;
 
         update();
     }
@@ -89,8 +91,8 @@ public final class SpeelveldView extends Region {
                 if (j == vakkenVeld.getKolommen() - 1) {        //rechterkant border
                     vakken[i][j].setStatus(StatusVak.GEVULD);
                 }
-                vv.setTranslateX(20 * n);
-                vv.setTranslateY(20 * m);
+                vv.setTranslateX(vak.getZijde() * n);
+                vv.setTranslateY(vak.getZijde() * m);
                 n++;
                 if (n == vakkenVeld.getKolommen()) {
                     n = 0;
